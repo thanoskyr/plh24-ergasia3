@@ -31,6 +31,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "MusicProductionCompany.findByAddress", query = "SELECT m FROM MusicProductionCompany m WHERE m.address = :address"),
     @NamedQuery(name = "MusicProductionCompany.findByTelephone", query = "SELECT m FROM MusicProductionCompany m WHERE m.telephone = :telephone")})
 public class MusicProductionCompany implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "TELEPHONE")
+    private int telephone;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -38,8 +41,6 @@ public class MusicProductionCompany implements Serializable {
     private String name;
     @Column(name = "ADDRESS")
     private String address;
-    @Column(name = "TELEPHONE")
-    private Integer telephone;
     @OneToMany(mappedBy = "musicProductionCompanyname")
     private List<Album> albumList;
 
@@ -66,13 +67,6 @@ public class MusicProductionCompany implements Serializable {
         this.address = address;
     }
 
-    public Integer getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(Integer telephone) {
-        this.telephone = telephone;
-    }
 
     @XmlTransient
     public List<Album> getAlbumList() {
@@ -106,6 +100,14 @@ public class MusicProductionCompany implements Serializable {
     @Override
     public String toString() {
         return "pojos.MusicProductionCompany[ name=" + name + " ]";
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
     }
     
 }
