@@ -9,6 +9,7 @@ package artists;
  *
  * @author thanos
  */
+//under construction
 public class ListOfArtists extends javax.swing.JFrame {
 
     /**
