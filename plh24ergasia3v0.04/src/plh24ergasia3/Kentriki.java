@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
-import artists.ListOfArtists;
 /**
  *
  * @author thanos
@@ -30,10 +29,10 @@ public class Kentriki extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
+        Artists = new javax.swing.JMenuItem();
+        Groups = new javax.swing.JMenuItem();
+        AlbumGroup = new javax.swing.JMenuItem();
+        AlbumAstist = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         helpMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -51,31 +50,36 @@ public class Kentriki extends javax.swing.JFrame {
         fileMenu.setText("Διαχείριση Αρχείων");
         fileMenu.setToolTipText("");
 
-        openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Καλλιτέχνες");
-        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        Artists.setMnemonic('o');
+        Artists.setText("Καλλιτέχνες");
+        Artists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openMenuItemActionPerformed(evt);
+                ArtistsActionPerformed(evt);
             }
         });
-        fileMenu.add(openMenuItem);
+        fileMenu.add(Artists);
 
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Συγκροτήματα");
-        fileMenu.add(saveMenuItem);
-
-        saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Αλμπουμ Συγκροοτημάτων");
-        fileMenu.add(saveAsMenuItem);
-
-        exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Αλμπουμ Καλλιτεχνών");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        Groups.setMnemonic('s');
+        Groups.setText("Συγκροτήματα");
+        Groups.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
+                GroupsActionPerformed(evt);
             }
         });
-        fileMenu.add(exitMenuItem);
+        fileMenu.add(Groups);
+
+        AlbumGroup.setMnemonic('a');
+        AlbumGroup.setText("Αλμπουμ Συγκροοτημάτων");
+        fileMenu.add(AlbumGroup);
+
+        AlbumAstist.setMnemonic('x');
+        AlbumAstist.setText("Αλμπουμ Καλλιτεχνών");
+        AlbumAstist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlbumAstistActionPerformed(evt);
+            }
+        });
+        fileMenu.add(AlbumAstist);
 
         menuBar.add(fileMenu);
 
@@ -114,19 +118,24 @@ public class Kentriki extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+    private void AlbumAstistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlbumAstistActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
+    }//GEN-LAST:event_AlbumAstistActionPerformed
 
-    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+    private void ArtistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArtistsActionPerformed
         // TODO add your handling code here:
-        new ListOfArtists().setVisible(true);
-    }//GEN-LAST:event_openMenuItemActionPerformed
+        new ListOfArtistForm().setVisible(true);
+    }//GEN-LAST:event_ArtistsActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void GroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GroupsActionPerformed
+        // TODO add your handling code here:
+        new ListOfGroupForm().setVisible(true);
+    }//GEN-LAST:event_GroupsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,16 +173,16 @@ public class Kentriki extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AlbumAstist;
+    private javax.swing.JMenuItem AlbumGroup;
+    private javax.swing.JMenuItem Artists;
+    private javax.swing.JMenuItem Groups;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu editMenu;
-    private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }
