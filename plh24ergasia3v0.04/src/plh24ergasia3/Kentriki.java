@@ -130,7 +130,7 @@ public class Kentriki extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AlbumAstistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlbumAstistActionPerformed
-        System.exit(0);
+        new AlbumArrayArtist().setVisible(true);
     }//GEN-LAST:event_AlbumAstistActionPerformed
 
     private void ArtistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArtistsActionPerformed
@@ -145,7 +145,7 @@ public class Kentriki extends javax.swing.JFrame {
 
     private void GroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GroupsActionPerformed
         // TODO add your handling code here:
-//        new ListOfGroupForm().setVisible(true);
+        new ListOfBands().setVisible(true);
     }//GEN-LAST:event_GroupsActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
