@@ -71,6 +71,11 @@ public class Kentriki extends javax.swing.JFrame {
 
         AlbumGroup.setMnemonic('a');
         AlbumGroup.setText("Αλμπουμ Συγκροοτημάτων");
+        AlbumGroup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlbumGroupActionPerformed(evt);
+            }
+        });
         fileMenu.add(AlbumGroup);
 
         AlbumAstist.setMnemonic('x');
@@ -147,6 +152,11 @@ public class Kentriki extends javax.swing.JFrame {
         // TODO add your handling code here:
         new About().setVisible(true);
     }//GEN-LAST:event_aboutMenuItemActionPerformed
+
+    private void AlbumGroupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlbumGroupActionPerformed
+        // TODO add your handling code here:
+        new AlbumArrayBand().setVisible(true);
+    }//GEN-LAST:event_AlbumGroupActionPerformed
 
     /**
      * @param args the command line arguments
