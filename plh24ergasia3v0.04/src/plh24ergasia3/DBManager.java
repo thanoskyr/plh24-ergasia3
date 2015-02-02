@@ -160,6 +160,33 @@ public class DBManager {
 
 
 
+// Καθαρίζει όλους τους πίνακες της ΒΔ
+   
+    private void clearDB(){         
+    em.getTransaction().begin();
+        try { 
+                         
+            Query query1=em.createQuery("DELETE FROM Album");
+            query1.executeUpdate();
+            Query query2=em.createQuery("DELETE FROM Artist");
+            query2.executeUpdate(); 
+            Query query3=em.createQuery("DELETE FROM MusicGenre");
+            query3.executeUpdate();
+            Query query4=em.createQuery("DELETE FROM MusicGroup");
+            query4.executeUpdate();
+            Query query5=em.createQuery("DELETE FROM MusicProductionCompany");
+            query5.executeUpdate();
+            Query query6=em.createQuery("DELETE FROM Playlist");
+            query6.executeUpdate();  
+            Query query7=em.createQuery("DELETE FROM Song");
+            query7.executeUpdate();
+            em.getTransaction().commit();
+            
+        } catch (Exception e) {
+           
+            em.getTransaction().rollback();
+        }  
+    }
 
 
 
