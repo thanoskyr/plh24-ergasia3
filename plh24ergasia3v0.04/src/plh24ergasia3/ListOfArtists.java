@@ -43,11 +43,11 @@ public class ListOfArtists extends javax.swing.JFrame {
         artistList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery1.getResultList();
         jScrollPane1 = new javax.swing.JScrollPane();
         ArtistsTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        delete = new javax.swing.JButton();
+        addArtist = new javax.swing.JButton();
+        epistrofh = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteArtist = new javax.swing.JButton();
+        editArtist = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,36 +85,37 @@ public class ListOfArtists extends javax.swing.JFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(ArtistsTable);
-        ArtistsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ArtistsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        jButton1.setText("Εισαγωγή");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addArtist.setText("Προσθήκη");
+        addArtist.setToolTipText("");
+        addArtist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addArtistActionPerformed(evt);
             }
         });
 
-        delete.setText("Επιστροφη στην αρχική");
-        delete.addActionListener(new java.awt.event.ActionListener() {
+        epistrofh.setText("Επιστροφη στην αρχική");
+        epistrofh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
+                epistrofhActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         jLabel1.setText("Αρχείο Καλλιτεχνών");
 
-        jButton3.setText("Διαγραφή");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        deleteArtist.setText("Διαγραφή");
+        deleteArtist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                deleteArtistActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Επεξεργασία");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        editArtist.setText("Επεξεργασία");
+        editArtist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                editArtistActionPerformed(evt);
             }
         });
 
@@ -130,13 +131,13 @@ public class ListOfArtists extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(addArtist)
                         .addGap(121, 121, 121)
-                        .addComponent(jButton2)
+                        .addComponent(editArtist)
+                        .addGap(136, 136, 136)
+                        .addComponent(deleteArtist)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGap(200, 200, 200)
-                        .addComponent(delete))
+                        .addComponent(epistrofh))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -148,10 +149,10 @@ public class ListOfArtists extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(delete)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(addArtist)
+                    .addComponent(epistrofh)
+                    .addComponent(deleteArtist)
+                    .addComponent(editArtist))
                 .addContainerGap())
         );
 
@@ -160,18 +161,18 @@ public class ListOfArtists extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArtistActionPerformed
         // ανοίγει τη φόρμα διαχείρησης Καλλιτέχνη
         new NewOrModifyArtist().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addArtistActionPerformed
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+    private void epistrofhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epistrofhActionPerformed
         this.setVisible(false); //κλεινει αυτη η φορμα
         // εμφάνιση αρχικής
         new Kentriki().setVisible(true);
-    }//GEN-LAST:event_deleteActionPerformed
+    }//GEN-LAST:event_epistrofhActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void deleteArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteArtistActionPerformed
         // TODO add your handling code here:
         selectedRow = ArtistsTable.getSelectedRow();
         artist=artistList1.get(ArtistsTable.convertColumnIndexToModel(selectedRow));
@@ -182,15 +183,17 @@ public class ListOfArtists extends javax.swing.JFrame {
             if (DBManager.deleteArtist(artist)) {
                 artistList1.remove(artist); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(false);
+                this.setVisible(true); //ανανέωση
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_deleteArtistActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void editArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editArtistActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_editArtistActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +232,7 @@ public class ListOfArtists extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ArtistsTable;
+    private javax.swing.JButton addArtist;
     private java.util.List<pojos.Album> albumList;
     private java.util.List<pojos.Album> albumList1;
     private javax.persistence.Query albumQuery;
@@ -237,10 +241,9 @@ public class ListOfArtists extends javax.swing.JFrame {
     private java.util.List<pojos.Artist> artistList1;
     private javax.persistence.Query artistQuery;
     private javax.persistence.Query artistQuery1;
-    private javax.swing.JButton delete;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton deleteArtist;
+    private javax.swing.JButton editArtist;
+    private javax.swing.JButton epistrofh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
