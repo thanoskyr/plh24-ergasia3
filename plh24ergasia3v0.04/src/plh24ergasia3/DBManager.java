@@ -25,7 +25,7 @@ public class DBManager {
     /* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
     try {
     /* Δημιουργία EntityManagerFactory για το Persistence Unit της ΒΔ μας */
-        emf = Persistence.createEntityManagerFactory("plh24ergasia3PU"); 
+        emf = Persistence.createEntityManagerFactory("radioDBv2PU"); 
     /* Δημιουργία EntityManager */
         em = emf.createEntityManager(); 
     } catch(Exception e) {
