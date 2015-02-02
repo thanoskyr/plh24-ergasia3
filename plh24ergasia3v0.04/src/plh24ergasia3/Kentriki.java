@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+
 /**
  *
  * @author thanos
@@ -124,7 +125,7 @@ public class Kentriki extends javax.swing.JFrame {
 
     private void ArtistsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArtistsActionPerformed
         // TODO add your handling code here:
-        new ListOfArtistForm().setVisible(true);
+        new ListOfArtists().setVisible(true);
     }//GEN-LAST:event_ArtistsActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -134,7 +135,7 @@ public class Kentriki extends javax.swing.JFrame {
 
     private void GroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GroupsActionPerformed
         // TODO add your handling code here:
-        new ListOfGroupForm().setVisible(true);
+//        new ListOfGroupForm().setVisible(true);
     }//GEN-LAST:event_GroupsActionPerformed
 
     /**

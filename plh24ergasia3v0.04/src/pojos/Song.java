@@ -41,11 +41,13 @@ public class Song implements Serializable {
     @Basic(optional = false)
     @Column(name = "TITLE")
     private String title;
+    @Basic(optional = false)
     @Column(name = "DURATION")
     @Temporal(TemporalType.TIME)
     private Date duration;
+    @Basic(optional = false)
     @Column(name = "TRACKNR")
-    private Integer tracknr;
+    private int tracknr;
     @ManyToMany(mappedBy = "songList")
     private List<Playlist> playlistList;
     @JoinColumn(name = "ALBUMTITLE", referencedColumnName = "TITLE")
@@ -57,6 +59,12 @@ public class Song implements Serializable {
 
     public Song(String title) {
         this.title = title;
+    }
+
+    public Song(String title, Date duration, int tracknr) {
+        this.title = title;
+        this.duration = duration;
+        this.tracknr = tracknr;
     }
 
     public String getTitle() {
@@ -75,11 +83,11 @@ public class Song implements Serializable {
         this.duration = duration;
     }
 
-    public Integer getTracknr() {
+    public int getTracknr() {
         return tracknr;
     }
 
-    public void setTracknr(Integer tracknr) {
+    public void setTracknr(int tracknr) {
         this.tracknr = tracknr;
     }
 

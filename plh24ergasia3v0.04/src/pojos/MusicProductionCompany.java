@@ -36,10 +36,12 @@ public class MusicProductionCompany implements Serializable {
     @Basic(optional = false)
     @Column(name = "NAME")
     private String name;
+    @Basic(optional = false)
     @Column(name = "ADDRESS")
     private String address;
+    @Basic(optional = false)
     @Column(name = "TELEPHONE")
-    private Integer telephone;
+    private int telephone;
     @OneToMany(mappedBy = "musicProductionCompanyname")
     private List<Album> albumList;
 
@@ -48,6 +50,12 @@ public class MusicProductionCompany implements Serializable {
 
     public MusicProductionCompany(String name) {
         this.name = name;
+    }
+
+    public MusicProductionCompany(String name, String address, int telephone) {
+        this.name = name;
+        this.address = address;
+        this.telephone = telephone;
     }
 
     public String getName() {
@@ -66,11 +74,11 @@ public class MusicProductionCompany implements Serializable {
         this.address = address;
     }
 
-    public Integer getTelephone() {
+    public int getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(int telephone) {
         this.telephone = telephone;
     }
 

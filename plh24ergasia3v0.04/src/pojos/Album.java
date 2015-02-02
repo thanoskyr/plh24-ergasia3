@@ -49,13 +49,16 @@ public class Album implements Serializable {
     @Basic(optional = false)
     @Column(name = "TITLE")
     private String title;
+    @Basic(optional = false)
     @Column(name = "RELEASE_DATE")
     @Temporal(TemporalType.DATE)
     private Date releaseDate;
+    @Basic(optional = false)
     @Column(name = "TYPE")
     private String type;
+    @Basic(optional = false)
     @Column(name = "DISK_NUMBER")
-    private Integer diskNumber;
+    private int diskNumber;
     @ManyToMany(mappedBy = "albumList")
     private List<MusicGroup> musicGroupList;
     @JoinTable(name = "ALBUM_ARTIST", joinColumns = {
@@ -74,6 +77,13 @@ public class Album implements Serializable {
 
     public Album(String title) {
         this.title = title;
+    }
+
+    public Album(String title, Date releaseDate, String type, int diskNumber) {
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.type = type;
+        this.diskNumber = diskNumber;
     }
 
     public String getTitle() {
@@ -106,12 +116,12 @@ public class Album implements Serializable {
         changeSupport.firePropertyChange("type", oldType, type);
     }
 
-    public Integer getDiskNumber() {
+    public int getDiskNumber() {
         return diskNumber;
     }
 
-    public void setDiskNumber(Integer diskNumber) {
-        Integer oldDiskNumber = this.diskNumber;
+    public void setDiskNumber(int diskNumber) {
+        int oldDiskNumber = this.diskNumber;
         this.diskNumber = diskNumber;
         changeSupport.firePropertyChange("diskNumber", oldDiskNumber, diskNumber);
     }

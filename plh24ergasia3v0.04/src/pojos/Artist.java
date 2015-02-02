@@ -38,22 +38,26 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artist.findByFirstName", query = "SELECT a FROM Artist a WHERE a.firstName = :firstName"),
     @NamedQuery(name = "Artist.findByLastName", query = "SELECT a FROM Artist a WHERE a.lastName = :lastName"),
     @NamedQuery(name = "Artist.findByArtisticName", query = "SELECT a FROM Artist a WHERE a.artisticName = :artisticName"),
+    @NamedQuery(name = "Artist.findBySex", query = "SELECT a FROM Artist a WHERE a.sex = :sex"),
     @NamedQuery(name = "Artist.findByBirthDate", query = "SELECT a FROM Artist a WHERE a.birthDate = :birthDate"),
     @NamedQuery(name = "Artist.findByBirthPlace", query = "SELECT a FROM Artist a WHERE a.birthPlace = :birthPlace")})
 public class Artist implements Serializable {
-    @Column(name = "SEX")
-    private String sex;
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
     @Column(name = "FIRST_NAME")
     private String firstName;
+    @Basic(optional = false)
     @Column(name = "LAST_NAME")
     private String lastName;
     @Id
     @Basic(optional = false)
     @Column(name = "ARTISTIC_NAME")
     private String artisticName;
+    @Basic(optional = false)
+    @Column(name = "SEX")
+    private String sex;
     @Column(name = "BIRTH_DATE")
     @Temporal(TemporalType.DATE)
     private Date birthDate;
@@ -64,7 +68,7 @@ public class Artist implements Serializable {
     @ManyToMany(mappedBy = "artistList")
     private List<Album> albumList;
     @JoinColumn(name = "MUSIC_GENRENAME", referencedColumnName = "NAME")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private MusicGenre musicGenrename;
 
     public Artist() {
@@ -72,6 +76,13 @@ public class Artist implements Serializable {
 
     public Artist(String artisticName) {
         this.artisticName = artisticName;
+    }
+
+    public Artist(String artisticName, String firstName, String lastName, String sex) {
+        this.artisticName = artisticName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sex = sex;
     }
 
     public String getFirstName() {
@@ -102,6 +113,16 @@ public class Artist implements Serializable {
         String oldArtisticName = this.artisticName;
         this.artisticName = artisticName;
         changeSupport.firePropertyChange("artisticName", oldArtisticName, artisticName);
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        String oldSex = this.sex;
+        this.sex = sex;
+        changeSupport.firePropertyChange("sex", oldSex, sex);
     }
 
     public Date getBirthDate() {
@@ -183,16 +204,6 @@ public class Artist implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        String oldSex = this.sex;
-        this.sex = sex;
-        changeSupport.firePropertyChange("sex", oldSex, sex);
     }
     
 }

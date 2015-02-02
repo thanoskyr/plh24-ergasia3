@@ -8,6 +8,7 @@ package pojos;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -34,7 +35,7 @@ public class MusicGenre implements Serializable {
     @Basic(optional = false)
     @Column(name = "NAME")
     private String name;
-    @OneToMany(mappedBy = "musicGenrename")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "musicGenrename")
     private List<Artist> artistList;
 
     public MusicGenre() {
