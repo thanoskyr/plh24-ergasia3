@@ -223,9 +223,9 @@
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
-              <Subbinding sourcePath="${musicGenrename}">
+              <Subbinding sourcePath="${musicGenrename.name}">
                 <BindingParameter name="NAME" value="&#x395;&#x3af;&#x3b4;&#x3bf;&#x3c2; &#x39c;&#x3bf;&#x3c5;&#x3c3;&#x3b9;&#x3ba;&#x3ae;&#x3c2;"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="pojos.MusicGenre.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
             </BindingProperty>

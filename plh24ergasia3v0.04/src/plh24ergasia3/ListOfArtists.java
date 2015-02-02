@@ -72,9 +72,9 @@ public class ListOfArtists extends javax.swing.JFrame {
         columnBinding.setColumnName("ΤόποςΓέννησης");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicGenrename}"));
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicGenrename.name}"));
         columnBinding.setColumnName("Είδος Μουσικής");
-        columnBinding.setColumnClass(pojos.MusicGenre.class);
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
