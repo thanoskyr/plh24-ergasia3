@@ -60,7 +60,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         jLabel7.setText("Είδος Μουσικής:");
 
         jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jLabel8.setText("Εισάγετε στοιχεία νέου καλλιτέχνη:");
+        jLabel8.setText("Διαχείριση καλλιτέχνη");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,9 +93,8 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     .addComponent(jTextField1)
                     .addComponent(jTextField2)
                     .addComponent(jTextField3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                    .addComponent(jTextField5)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                     .addComponent(jTextField6)
                     .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                 .addContainerGap(110, Short.MAX_VALUE))
