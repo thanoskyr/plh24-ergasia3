@@ -169,17 +169,13 @@ public class DBManager {
             Query query1=em.createQuery("DELETE FROM Album");
             query1.executeUpdate();
             Query query2=em.createQuery("DELETE FROM Artist");
-            query2.executeUpdate(); 
-            Query query3=em.createQuery("DELETE FROM MusicGenre");
+            query2.executeUpdate();
+            Query query3=em.createQuery("DELETE FROM MusicGroup");
             query3.executeUpdate();
-            Query query4=em.createQuery("DELETE FROM MusicGroup");
-            query4.executeUpdate();
-            Query query5=em.createQuery("DELETE FROM MusicProductionCompany");
+            Query query4=em.createQuery("DELETE FROM Playlist");
+            query4.executeUpdate();  
+            Query query5=em.createQuery("DELETE FROM Song");
             query5.executeUpdate();
-            Query query6=em.createQuery("DELETE FROM Playlist");
-            query6.executeUpdate();  
-            Query query7=em.createQuery("DELETE FROM Song");
-            query7.executeUpdate();
             em.getTransaction().commit();
             
         } catch (Exception e) {
