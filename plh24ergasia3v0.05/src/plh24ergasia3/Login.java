@@ -101,7 +101,10 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTextField2.getText().equals("plh24")&& jTextField3.getText().equals("2015") )
+        {
+            this.setVisible(false);
             new Kentriki().setVisible(true);
+        }
         else {               
                 JOptionPane.showMessageDialog(this, "Δώσατε λάθος στοιχεία!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 /* Μηδενισμός τιμών που είχαν εισαχθεί */
