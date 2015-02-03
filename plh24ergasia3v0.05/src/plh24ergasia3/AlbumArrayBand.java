@@ -101,6 +101,11 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         jButton3.setText("Επεξεργασία");
 
         jButton4.setText("Έξοδος");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("ΠΙΝΑΚΑΣ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΩΝ");
@@ -157,6 +162,12 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         a1.setVisible(true);
         albumList.add(a);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
