@@ -37,17 +37,17 @@
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="firstName" max="32767" attributes="0"/>
-                      <Component id="lastName" max="32767" attributes="0"/>
-                      <Component id="artisticName" max="32767" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="birthDate" alignment="0" max="32767" attributes="0"/>
+                      <Component id="firstName" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lastName" alignment="0" max="32767" attributes="0"/>
+                      <Component id="artisticName" alignment="0" max="32767" attributes="0"/>
                       <Component id="sex" alignment="0" max="32767" attributes="0"/>
                       <Component id="birthPlace" alignment="0" max="32767" attributes="0"/>
-                      <Component id="musicGenre" min="-2" pref="208" max="-2" attributes="0"/>
+                      <Component id="musicGenre" alignment="0" pref="208" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="birthDate" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="169" max="32767" attributes="0"/>
+              <EmptySpace pref="163" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>

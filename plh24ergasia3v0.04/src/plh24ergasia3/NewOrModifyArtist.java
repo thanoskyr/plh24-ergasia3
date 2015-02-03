@@ -6,7 +6,8 @@
 package plh24ergasia3;
 
 import javax.swing.JOptionPane;
-import pojos.Artist;
+import pojos.*;
+import plh24ergasia3.DBManager;
 /**
  *
  * @author thanos
@@ -121,15 +122,15 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(firstName)
-                        .addComponent(lastName)
-                        .addComponent(artisticName)
-                        .addComponent(sex)
-                        .addComponent(birthPlace)
-                        .addComponent(musicGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(birthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(169, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(birthDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(firstName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lastName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(artisticName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(sex, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(birthPlace, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(musicGenre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
+                .addContainerGap(163, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(cancel)
@@ -198,7 +199,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         else{//ολα τα πεδια ειναι συμπληρωμένα
-            if (modify==true) {
+            if (modify==true) {//τροποποίηση
                 confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (confirm==0){
                     artist.setFirstName(firstName.getText());
@@ -209,8 +210,44 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     artist.setBirthPlace(birthPlace.getText());
                     artist.getMusicGenrename();
                 }
-                 
+                
+                if (DBManager.modifyArtist(artist)){
+                        ListOfArtists.artistList1.set(ListOfArtists.ArtistsTable.getSelectedRow(), artist);
+                        JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                } 
+                else {
+                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
+            else{//νέα εγγραφή
+                confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (confirm==0){
+                    artist=new Artist();
+                    artist.setFirstName(firstName.getText());
+                    artist.setLastName(lastName.getText());
+                    artist.setArtisticName(artisticName.getText());
+                    artist.setSex(sex.getText());
+                    artist.setBirthDate(birthDate.getDate());//να το ξαναδω
+                    artist.setBirthPlace(birthPlace.getText());
+                    artist.getMusicGenrename();
+                if(DBManager.addArtist(artist)){
+                    ListOfArtists.artistList1.add(artist);
+                    JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη " + artist.getLastName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                    firstName.setText("");//καθαρισμα
+                    lastName.setText("");
+                    artisticName.setText("");
+                    sex.setText("");
+                    birthDate.setDate(null);
+                    birthPlace.setText("");
+                    musicGenre.setName("");
+                }
+                }
+            }
+            
+            
+            
+            
         }
     }//GEN-LAST:event_saveArtistActionPerformed
 
