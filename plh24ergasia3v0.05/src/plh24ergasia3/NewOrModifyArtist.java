@@ -198,9 +198,9 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     .addComponent(birthPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cancel)
-                        .addComponent(saveArtist))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(saveArtist, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(cancel))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -270,7 +270,8 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                         sex.setText("");
                         birthDate.setDate(null);
                         birthPlace.setText("");
-                        
+                    
+                   
                     }
                 }
             }
