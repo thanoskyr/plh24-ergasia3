@@ -49,7 +49,7 @@ public class ListOfArtists extends javax.swing.JFrame {
         deleteArtist = new javax.swing.JButton();
         editArtist = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         ArtistsTable.setColumnSelectionAllowed(true);
 
