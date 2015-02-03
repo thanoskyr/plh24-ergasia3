@@ -12,6 +12,7 @@ import plh24ergasia3.DBManager;
  *
  * @author thanos
  */
+//under construction
 public class NewOrModifyArtist extends javax.swing.JFrame {
 
     Artist artist;
@@ -231,17 +232,17 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     artist.setBirthDate(birthDate.getDate());//να το ξαναδω
                     artist.setBirthPlace(birthPlace.getText());
                     artist.getMusicGenrename();
-                if(DBManager.addArtist(artist)){
-                    ListOfArtists.artistList1.add(artist);
-                    JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη " + artist.getLastName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                    firstName.setText("");//καθαρισμα
-                    lastName.setText("");
-                    artisticName.setText("");
-                    sex.setText("");
-                    birthDate.setDate(null);
-                    birthPlace.setText("");
-                    musicGenre.setName("");
-                }
+                    if(DBManager.addArtist(artist)){
+                        ListOfArtists.artistList1.add(artist);
+                        JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη " + artist.getLastName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                        firstName.setText("");//καθαρισμα
+                        lastName.setText("");
+                        artisticName.setText("");
+                        sex.setText("");
+                        birthDate.setDate(null);
+                        birthPlace.setText("");
+                        musicGenre.setName("");
+                    }
                 }
             }
             
