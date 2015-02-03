@@ -5,19 +5,27 @@
  */
 package plh24ergasia3;
 
+import java.awt.event.WindowListener;
+import static plh24ergasia3.DBManager.openConnection;
+import pojos.Album;
+
+
 /**
  *
  * @author Rithri
  */
 public class AlbumArrayBand extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form AlbumArrayBand
      */
     public AlbumArrayBand() {
+        openConnection();
         initComponents();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,6 +90,11 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton1.setText("Εισαγωγή");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Διαγραφή");
 
@@ -136,6 +149,15 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Album a=new Album(); //Δημιουργία νέου άλμπουμ
+        DBManager.addAlbum(a); //persist
+        ModifyBandAlbum a1=new ModifyBandAlbum (a); //Δημιουργία νέας φόρμας
+        a1.setVisible(true);
+        albumList.add(a);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,4 +206,6 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+   
 }
