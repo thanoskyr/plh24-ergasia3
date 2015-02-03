@@ -6,7 +6,6 @@
 package plh24ergasia3;
 import javax.swing.JOptionPane;
 import pojos.Artist;
-import plh24ergasia3.DBManager;
 /**
  *
  * @author thanos
@@ -85,7 +84,7 @@ public class ListOfArtists extends javax.swing.JFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(ArtistsTable);
-        ArtistsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        ArtistsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         addArtist.setText("Προσθήκη");
         addArtist.setToolTipText("");
@@ -231,14 +230,14 @@ public class ListOfArtists extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ArtistsTable;
+    public static javax.swing.JTable ArtistsTable;
     private javax.swing.JButton addArtist;
     private java.util.List<pojos.Album> albumList;
     private java.util.List<pojos.Album> albumList1;
     private javax.persistence.Query albumQuery;
     private javax.persistence.Query albumQuery1;
     private java.util.List<pojos.Artist> artistList;
-    private java.util.List<pojos.Artist> artistList1;
+    public static java.util.List<pojos.Artist> artistList1;
     private javax.persistence.Query artistQuery;
     private javax.persistence.Query artistQuery1;
     private javax.swing.JButton deleteArtist;

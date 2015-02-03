@@ -77,6 +77,7 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Artist&gt;"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
@@ -154,7 +155,7 @@
         <Component class="javax.swing.JTable" name="ArtistsTable">
           <Properties>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="2">
+              <TableColumnModel selectionModel="1">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -236,6 +237,9 @@
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
