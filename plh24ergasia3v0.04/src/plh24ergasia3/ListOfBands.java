@@ -39,10 +39,9 @@ public class ListOfBands extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         BandsTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        epistrofh = new javax.swing.JButton();
-        delete = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteBand = new javax.swing.JButton();
+        addBand = new javax.swing.JButton();
+        editBand = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,25 +68,28 @@ public class ListOfBands extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         jLabel1.setText("Πίνακας Συγκροτημάτων");
 
-        epistrofh.setText("Επιστροφη στην αρχική");
-        epistrofh.addActionListener(new java.awt.event.ActionListener() {
+        deleteBand.setText("Διαγραφή");
+        deleteBand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                epistrofhActionPerformed(evt);
+                deleteBandActionPerformed(evt);
             }
         });
 
-        delete.setText("Διαγραφή");
-        delete.addActionListener(new java.awt.event.ActionListener() {
+        addBand.setText("Προσθήκη");
+        addBand.setToolTipText("");
+        addBand.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
+                addBandActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Προσθήκη");
-        jButton1.setToolTipText("");
-
-        jButton2.setText("Επεξεργασία");
-        jButton2.setToolTipText("");
+        editBand.setText("Επεξεργασία");
+        editBand.setToolTipText("");
+        editBand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBandActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,16 +101,14 @@ public class ListOfBands extends javax.swing.JFrame {
                         .addGap(171, 171, 171)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(38, 38, 38)
-                                .addComponent(jButton2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(addBand)
+                                .addGap(133, 133, 133)
+                                .addComponent(editBand)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(delete)
-                                .addGap(32, 32, 32)
-                                .addComponent(epistrofh))
+                                .addComponent(deleteBand))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
@@ -118,14 +118,13 @@ public class ListOfBands extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(delete)
-                    .addComponent(epistrofh)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(79, 79, 79))
+                    .addComponent(deleteBand)
+                    .addComponent(addBand)
+                    .addComponent(editBand))
+                .addGap(29, 29, 29))
         );
 
         bindingGroup.bind();
@@ -133,13 +132,7 @@ public class ListOfBands extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void epistrofhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epistrofhActionPerformed
-        this.setVisible(false); //κλεινει αυτη η φορμα
-        // εμφάνιση αρχικής
-        new Kentriki().setVisible(true);
-    }//GEN-LAST:event_epistrofhActionPerformed
-
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+    private void deleteBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBandActionPerformed
         // TODO add your handling code here:
         selectedRow = BandsTable1.getSelectedRow();
         band=musicGroupList.get(BandsTable1.convertColumnIndexToModel(selectedRow));
@@ -154,7 +147,20 @@ public class ListOfBands extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής συγκροτήματος!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_deleteActionPerformed
+    }//GEN-LAST:event_deleteBandActionPerformed
+
+    private void addBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBandActionPerformed
+        // TODO add your handling code here:
+        new NewOrModifyBand().setVisible(true);
+    }//GEN-LAST:event_addBandActionPerformed
+
+    private void editBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBandActionPerformed
+        
+        //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου συγκροήματος
+        selectedRow = BandsTable1.getSelectedRow();
+        band = musicGroupList.get(BandsTable1.convertRowIndexToModel(selectedRow));
+        new NewOrModifyBand(band).setVisible(true);
+    }//GEN-LAST:event_editBandActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,10 +199,9 @@ public class ListOfBands extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BandsTable1;
-    private javax.swing.JButton delete;
-    private javax.swing.JButton epistrofh;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton addBand;
+    private javax.swing.JButton deleteBand;
+    private javax.swing.JButton editBand;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private java.util.List<pojos.MusicGroup> musicGroupList;
