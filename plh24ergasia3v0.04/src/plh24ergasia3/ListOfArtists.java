@@ -43,7 +43,6 @@ public class ListOfArtists extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         ArtistsTable = new javax.swing.JTable();
         addArtist = new javax.swing.JButton();
-        epistrofh = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         deleteArtist = new javax.swing.JButton();
         editArtist = new javax.swing.JButton();
@@ -94,13 +93,6 @@ public class ListOfArtists extends javax.swing.JFrame {
             }
         });
 
-        epistrofh.setText("Επιστροφη στην αρχική");
-        epistrofh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                epistrofhActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         jLabel1.setText("Αρχείο Καλλιτεχνών");
 
@@ -128,17 +120,17 @@ public class ListOfArtists extends javax.swing.JFrame {
                 .addGap(339, 339, 339))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addArtist)
-                        .addGap(121, 121, 121)
-                        .addComponent(editArtist)
-                        .addGap(136, 136, 136)
-                        .addComponent(deleteArtist)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(epistrofh))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(editArtist)
+                        .addGap(368, 368, 368)
+                        .addComponent(deleteArtist)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +141,6 @@ public class ListOfArtists extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addArtist)
-                    .addComponent(epistrofh)
                     .addComponent(deleteArtist)
                     .addComponent(editArtist))
                 .addContainerGap())
@@ -164,12 +155,6 @@ public class ListOfArtists extends javax.swing.JFrame {
         // ανοίγει τη φόρμα διαχείρησης Καλλιτέχνη
         new NewOrModifyArtist().setVisible(true);
     }//GEN-LAST:event_addArtistActionPerformed
-
-    private void epistrofhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_epistrofhActionPerformed
-        this.setVisible(false); //κλεινει αυτη η φορμα
-        // εμφάνιση αρχικής
-        new Kentriki().setVisible(true);
-    }//GEN-LAST:event_epistrofhActionPerformed
 
     private void deleteArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteArtistActionPerformed
         // TODO add your handling code here:
@@ -191,7 +176,11 @@ public class ListOfArtists extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteArtistActionPerformed
 
     private void editArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editArtistActionPerformed
-        // TODO add your handling code here:
+        //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου καλλιτεχνη
+        selectedRow = ArtistsTable.getSelectedRow();
+        artist = artistList1.get(ArtistsTable.convertRowIndexToModel(selectedRow));
+        new NewOrModifyArtist(artist).setVisible(true);
+        
     }//GEN-LAST:event_editArtistActionPerformed
 
     /**
@@ -242,7 +231,6 @@ public class ListOfArtists extends javax.swing.JFrame {
     private javax.persistence.Query artistQuery1;
     private javax.swing.JButton deleteArtist;
     private javax.swing.JButton editArtist;
-    private javax.swing.JButton epistrofh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
