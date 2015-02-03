@@ -17,7 +17,8 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
 
     Artist artist;
     boolean modify;
-    int confirm;
+    int confirm,selectedRow;
+    MusicGenre eidos;
     /**
      * Creates new form NewOrModifyArtist
      */
@@ -37,7 +38,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         sex.setText(artist.getSex());
         birthDate.setDate(artist.getBirthDate());
         birthPlace.setText(artist.getBirthPlace());
-        musicGenre.setText(artist.getMusicGenrename().getName());
+        //ισως λειπει
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,26 +48,32 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
+        radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
+        musicGenreQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGenre m");
+        musicGenreList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicGenreQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         firstName = new javax.swing.JTextField();
         lastName = new javax.swing.JTextField();
         artisticName = new javax.swing.JTextField();
         sex = new javax.swing.JTextField();
         birthPlace = new javax.swing.JTextField();
-        musicGenre = new javax.swing.JTextField();
         saveArtist = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         birthDate = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        genreTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(600, 512));
+        setResizable(false);
 
         jLabel1.setText("Όνομα:");
 
@@ -79,8 +86,6 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         jLabel5.setText("Ημερομηνία Γέννησης");
 
         jLabel6.setText("Τόπος Γέννησης:");
-
-        jLabel7.setText("Είδος Μουσικής:");
 
         jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         jLabel8.setText("Διαχείριση καλλιτέχνη");
@@ -105,46 +110,67 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         });
 
         cancel.setText("Ακύρωση");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+
+        genreTable.setColumnSelectionAllowed(true);
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGenreList, genreTable);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
+        columnBinding.setColumnName("Είδος Μουσικής");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane1.setViewportView(genreTable);
+        genreTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(birthDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(firstName, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lastName, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(artisticName, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(sex, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(birthPlace, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(musicGenre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)))
-                .addContainerGap(163, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(cancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(saveArtist)
-                .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(16, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(48, 48, 48))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(cancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addContainerGap(209, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(birthDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(firstName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lastName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(artisticName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sex, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(birthPlace, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveArtist)
+                        .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -170,16 +196,16 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(birthPlace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(musicGenre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancel)
-                    .addComponent(saveArtist))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cancel)
+                        .addComponent(saveArtist))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -195,8 +221,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
     private void saveArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveArtistActionPerformed
         // TODO add your handling code here:
         if(firstName.getText().isEmpty()|| lastName.getText().isEmpty()||artisticName.getText().isEmpty()
-                || sex.getText().isEmpty()|| birthPlace.getText().isEmpty()
-                || musicGenre.getText().isEmpty()){
+                || sex.getText().isEmpty()|| birthPlace.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         else{//ολα τα πεδια ειναι συμπληρωμένα
@@ -207,9 +232,11 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     artist.setLastName(lastName.getText());
                     artist.setArtisticName(artisticName.getText());
                     artist.setSex(sex.getText());
-                    artist.setBirthDate(birthDate.getDate());//να το ξαναδω
+                    artist.setBirthDate(birthDate.getDate());
                     artist.setBirthPlace(birthPlace.getText());
-                    artist.getMusicGenrename();
+                    selectedRow=genreTable.getSelectedRow();
+                    eidos=musicGenreList.get(genreTable.convertRowIndexToModel(selectedRow));
+                    artist.setMusicGenrename(eidos);
                 }
                 
                 if (DBManager.modifyArtist(artist)){
@@ -223,7 +250,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
             }
             else{//νέα εγγραφή
                 confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (confirm==0){
+                if (confirm==0){//πρόβλημα
                     artist=new Artist();
                     artist.setFirstName(firstName.getText());
                     artist.setLastName(lastName.getText());
@@ -231,7 +258,9 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     artist.setSex(sex.getText());
                     artist.setBirthDate(birthDate.getDate());//να το ξαναδω
                     artist.setBirthPlace(birthPlace.getText());
-                    artist.getMusicGenrename();
+                    selectedRow=genreTable.getSelectedRow();
+                    eidos=musicGenreList.get(genreTable.convertRowIndexToModel(selectedRow));
+                    artist.setMusicGenrename(eidos);
                     if(DBManager.addArtist(artist)){
                         ListOfArtists.artistList1.add(artist);
                         JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη " + artist.getLastName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
@@ -241,7 +270,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                         sex.setText("");
                         birthDate.setDate(null);
                         birthPlace.setText("");
-                        musicGenre.setName("");
+                        
                     }
                 }
             }
@@ -251,6 +280,11 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_saveArtistActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,17 +327,21 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
     private javax.swing.JTextField birthPlace;
     private javax.swing.JButton cancel;
     private javax.swing.JTextField firstName;
+    private javax.swing.JTable genreTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastName;
-    private javax.swing.JTextField musicGenre;
+    private java.util.List<pojos.MusicGenre> musicGenreList;
+    private javax.persistence.Query musicGenreQuery;
+    private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private javax.swing.JButton saveArtist;
     private javax.swing.JTextField sex;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
