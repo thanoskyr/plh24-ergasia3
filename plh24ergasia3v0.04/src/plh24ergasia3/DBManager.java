@@ -158,7 +158,22 @@ public class DBManager {
         }
     }
 
-
+    //μέθοδος εισαγωγής άλμπουμ
+    public static boolean addAlbum(Album album){
+        try {
+            em.getTransaction().begin();
+            em.persist(album);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;
+        }
+//* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+        
+    }
+    
 
 // Καθαρίζει όλους τους πίνακες της ΒΔ
    
