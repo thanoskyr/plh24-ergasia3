@@ -46,6 +46,7 @@ public class ListOfArtists extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         deleteArtist = new javax.swing.JButton();
         editArtist = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -110,6 +111,13 @@ public class ListOfArtists extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Ανανέωση");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,9 +134,11 @@ public class ListOfArtists extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addArtist)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(155, 155, 155)
                         .addComponent(editArtist)
-                        .addGap(368, 368, 368)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(199, 199, 199)
                         .addComponent(deleteArtist)))
                 .addContainerGap())
         );
@@ -137,12 +147,13 @@ public class ListOfArtists extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(4, 4, 4)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addArtist)
                     .addComponent(deleteArtist)
-                    .addComponent(editArtist))
+                    .addComponent(editArtist)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -182,6 +193,12 @@ public class ListOfArtists extends javax.swing.JFrame {
         new NewOrModifyArtist(artist).setVisible(true);
         
     }//GEN-LAST:event_editArtistActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // ανανέωση λίστας
+        this.setVisible(false);
+        new ListOfArtists().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,9 +248,11 @@ public class ListOfArtists extends javax.swing.JFrame {
     private javax.persistence.Query artistQuery1;
     private javax.swing.JButton deleteArtist;
     private javax.swing.JButton editArtist;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+    
 }
