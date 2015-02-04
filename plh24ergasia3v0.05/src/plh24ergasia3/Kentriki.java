@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+import static plh24ergasia3.DBManager.closeConnection;
 
 /**
  *
@@ -153,6 +154,7 @@ public class Kentriki extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        closeConnection();
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 

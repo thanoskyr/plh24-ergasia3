@@ -263,7 +263,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     artist.setMusicGenrename(eidos);
                     if(DBManager.addArtist(artist)){
                         ListOfArtists.artistList1.add(artist);
-                        JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη " + artist.getLastName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη ", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                     
                     dispose();//κλεισιμο παραθυρου
                     new ListOfArtists().setVisible(true);//και ανοιγμα ανανεωμενης λιστας
