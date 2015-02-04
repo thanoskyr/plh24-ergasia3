@@ -184,8 +184,8 @@ public class ListOfArtists extends javax.swing.JFrame {
             if (DBManager.deleteArtist(artist)) {
                 artistList1.remove(artist); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                this.setVisible(false);
-                this.setVisible(true); //ανανέωση
+                dispose();
+                new ListOfArtists().setVisible(true); //ανανέωση
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
