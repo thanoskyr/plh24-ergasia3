@@ -6,9 +6,9 @@
 package plh24ergasia3;
 
 import javax.swing.JOptionPane;
+import static plh24ergasia3.DBManager.openConnection;
 import pojos.Album;
-import static pojos.Album_.artistList;
-import static pojos.Artist_.albumList;
+
 
 /**
  *
@@ -20,9 +20,12 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
      * Creates new form AlbumArrayArtist
      */
     public AlbumArrayArtist() {
+        openConnection();
         initComponents();
     }
 
+  
+        
     int selectedRow;
     Album album;
     /**
