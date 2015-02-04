@@ -264,13 +264,9 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     if(DBManager.addArtist(artist)){
                         ListOfArtists.artistList1.add(artist);
                         JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη " + artist.getLastName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                        firstName.setText("");//καθαρισμα
-                        lastName.setText("");
-                        artisticName.setText("");
-                        sex.setText("");
-                        birthDate.setDate(null);
-                        birthPlace.setText("");
-                    new ListOfArtists().setVisible(true);
+                    
+                    dispose();//κλεισιμο παραθυρου
+                    new ListOfArtists().setVisible(true);//και ανοιγμα ανανεωμενης λιστας
                    
                     }
                 }
