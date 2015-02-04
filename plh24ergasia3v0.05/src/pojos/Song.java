@@ -6,7 +6,6 @@
 package pojos;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,8 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -33,8 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Song.findAll", query = "SELECT s FROM Song s"),
     @NamedQuery(name = "Song.findByTitle", query = "SELECT s FROM Song s WHERE s.title = :title"),
-    @NamedQuery(name = "Song.findByDuration", query = "SELECT s FROM Song s WHERE s.duration = :duration"),
-    @NamedQuery(name = "Song.findByTracknr", query = "SELECT s FROM Song s WHERE s.tracknr = :tracknr")})
+    @NamedQuery(name = "Song.findByTracknr", query = "SELECT s FROM Song s WHERE s.tracknr = :tracknr"),
+    @NamedQuery(name = "Song.findByDuration", query = "SELECT s FROM Song s WHERE s.duration = :duration")})
 public class Song implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,12 +39,10 @@ public class Song implements Serializable {
     @Column(name = "TITLE")
     private String title;
     @Basic(optional = false)
-    @Column(name = "DURATION")
-    @Temporal(TemporalType.TIME)
-    private Date duration;
-    @Basic(optional = false)
     @Column(name = "TRACKNR")
     private int tracknr;
+    @Column(name = "DURATION")
+    private Integer duration;
     @ManyToMany(mappedBy = "songList")
     private List<Playlist> playlistList;
     @JoinColumn(name = "ALBUMTITLE", referencedColumnName = "TITLE")
@@ -61,9 +56,8 @@ public class Song implements Serializable {
         this.title = title;
     }
 
-    public Song(String title, Date duration, int tracknr) {
+    public Song(String title, int tracknr) {
         this.title = title;
-        this.duration = duration;
         this.tracknr = tracknr;
     }
 
@@ -75,20 +69,20 @@ public class Song implements Serializable {
         this.title = title;
     }
 
-    public Date getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Date duration) {
-        this.duration = duration;
-    }
-
     public int getTracknr() {
         return tracknr;
     }
 
     public void setTracknr(int tracknr) {
         this.tracknr = tracknr;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     }
 
     @XmlTransient
