@@ -120,6 +120,7 @@ public class ListOfArtists extends javax.swing.JFrame {
         });
 
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exit.setToolTipText("Έξοδος");
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitActionPerformed(evt);
