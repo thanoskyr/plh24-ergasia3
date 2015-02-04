@@ -5,8 +5,12 @@
  */
 package plh24ergasia3;
 
+
 import javax.swing.JOptionPane;
+import static plh24ergasia3.DBManager.openConnection;
 import pojos.Album;
+import pojos.Song;
+
 
 
 
@@ -18,6 +22,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     
     private pojos.Album album;//δημιουργια field
     
+    private int duration=0;
+    private int tracknr=0;
+    private String title;
     /**
      * Creates new form ModifyBandAlbum
      */
@@ -27,6 +34,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
    
     public ModifyBandAlbum(Album album) {
         this.album=album;
+        openConnection();
         initComponents();
        
                 
@@ -47,6 +55,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         songQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
         songList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : songQuery.getResultList();
         album1 = album;
+        query1 = java.beans.Beans.isDesignTime() ? null : ((javax.persistence.EntityManager)null).createQuery("SELECT s FROM Song s");
+        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query1.getResultList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -96,11 +106,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${duration}"));
         columnBinding.setColumnName("Διάρκεια");
         columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tracknr}"));
         columnBinding.setColumnName("Αριθμός Σειράς");
         columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
@@ -255,6 +263,12 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        //Δημιουργία νέου τραγουδιού
+        Song s1=new Song(title,duration,tracknr);
+        DBManager.addSong(s1);
+        s1.setAlbumtitle(album1);
+        list1.add(s1);
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -364,6 +378,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private java.util.List<pojos.Song> list1;
+    private javax.persistence.Query query1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private java.util.List<pojos.Song> songList;
     private javax.persistence.Query songQuery;

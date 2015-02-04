@@ -30,6 +30,21 @@
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="album"/>
       </AuxValues>
     </Component>
+    <Component class="javax.persistence.Query" name="query1">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT s FROM Song s"/>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="list1">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="query1"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Song&gt;"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -244,12 +259,10 @@
               <Subbinding sourcePath="${duration}">
                 <BindingParameter name="NAME" value="&#x394;&#x3b9;&#x3ac;&#x3c1;&#x3ba;&#x3b5;&#x3b9;&#x3b1;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${tracknr}">
                 <BindingParameter name="NAME" value="&#x391;&#x3c1;&#x3b9;&#x3b8;&#x3bc;&#x3cc;&#x3c2; &#x3a3;&#x3b5;&#x3b9;&#x3c1;&#x3ac;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
