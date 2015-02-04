@@ -59,7 +59,6 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         firstName = new javax.swing.JTextField();
         lastName = new javax.swing.JTextField();
         artisticName = new javax.swing.JTextField();
@@ -72,6 +71,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         genreTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("ΔΙΑΧΕΙΡΙΣΗ ΚΑΛΛΙΤΕΧΝΗ");
         setPreferredSize(new java.awt.Dimension(600, 512));
         setResizable(false);
 
@@ -86,9 +86,6 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         jLabel5.setText("Ημερομηνία Γέννησης");
 
         jLabel6.setText("Τόπος Γέννησης:");
-
-        jLabel8.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jLabel8.setText("Διαχείριση καλλιτέχνη");
 
         lastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,29 +145,22 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(cancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addContainerGap(209, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(birthDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                            .addComponent(firstName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lastName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(artisticName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sex, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(birthPlace, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(saveArtist)
-                        .addGap(29, 29, 29))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(birthDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                    .addComponent(firstName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lastName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(artisticName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sex, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(birthPlace, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addComponent(saveArtist)
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -331,7 +321,6 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastName;
     private java.util.List<pojos.MusicGenre> musicGenreList;
