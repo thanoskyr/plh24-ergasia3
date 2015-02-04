@@ -174,6 +174,24 @@ public class DBManager {
         
     }
     
+    public static boolean deleteAlbum(Album album){
+        //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+        try {
+            em.getTransaction().begin();
+    /* Merging the contents of the detached entity with
+    the persistence context and returns a reference to a managed entity */
+            Album ar = em.merge(album);
+            em.remove(ar);            
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return false;
+        }
+    
+    }
+    
 
 // Καθαρίζει όλους τους πίνακες της ΒΔ
    
