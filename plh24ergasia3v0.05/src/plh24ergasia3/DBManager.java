@@ -174,6 +174,22 @@ public class DBManager {
         
     }
     
+    // Εισαγωγή τραγουδιού
+    
+    public static boolean addSong(Song song){
+        try {
+            em.getTransaction().begin();
+            em.persist(song);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;
+        }
+    
+    }
+    
     public static boolean deleteAlbum(Album album){
         //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
         try {
