@@ -270,7 +270,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                         sex.setText("");
                         birthDate.setDate(null);
                         birthPlace.setText("");
-                    
+                    new ListOfArtists().setVisible(true);
                    
                     }
                 }

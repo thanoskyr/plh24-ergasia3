@@ -42,7 +42,6 @@ public class ListOfBands extends javax.swing.JFrame {
         deleteBand = new javax.swing.JButton();
         addBand = new javax.swing.JButton();
         editBand = new javax.swing.JButton();
-        refresh = new javax.swing.JButton();
         exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -93,13 +92,6 @@ public class ListOfBands extends javax.swing.JFrame {
             }
         });
 
-        refresh.setText("Ανανέωση");
-        refresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshActionPerformed(evt);
-            }
-        });
-
         exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
         exit.setToolTipText("Έξοδος");
         exit.addActionListener(new java.awt.event.ActionListener() {
@@ -123,11 +115,9 @@ public class ListOfBands extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(addBand)
-                                .addGap(37, 37, 37)
+                                .addGap(126, 126, 126)
                                 .addComponent(editBand)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(refresh)
-                                .addGap(77, 77, 77)
                                 .addComponent(deleteBand))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
@@ -150,8 +140,7 @@ public class ListOfBands extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteBand)
                     .addComponent(addBand)
-                    .addComponent(editBand)
-                    .addComponent(refresh))
+                    .addComponent(editBand))
                 .addGap(29, 29, 29))
         );
 
@@ -179,7 +168,8 @@ public class ListOfBands extends javax.swing.JFrame {
 
     private void addBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBandActionPerformed
         // TODO add your handling code here:
-        new NewOrModifyBand().setVisible(true);
+        dispose();//κλεινει το παραθυρο
+        new NewOrModifyBand().setVisible(true);//ανοιγει φορμα προσθηκης
     }//GEN-LAST:event_addBandActionPerformed
 
     private void editBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBandActionPerformed
@@ -189,12 +179,6 @@ public class ListOfBands extends javax.swing.JFrame {
         band = musicGroupList.get(BandsTable1.convertRowIndexToModel(selectedRow));
         new NewOrModifyBand(band).setVisible(true);
     }//GEN-LAST:event_editBandActionPerformed
-
-    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new ListOfBands().setVisible(true);
-    }//GEN-LAST:event_refreshActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         dispose();
@@ -249,7 +233,6 @@ public class ListOfBands extends javax.swing.JFrame {
     public static java.util.List<pojos.MusicGroup> musicGroupList;
     private javax.persistence.Query musicGroupQuery;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
-    private javax.swing.JButton refresh;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

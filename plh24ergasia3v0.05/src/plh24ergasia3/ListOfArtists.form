@@ -112,11 +112,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="addArtist" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="302" max="-2" attributes="0"/>
                       <Component id="editArtist" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="199" max="-2" attributes="0"/>
                       <Component id="deleteArtist" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -150,7 +148,6 @@
                   <Component id="addArtist" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="deleteArtist" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="editArtist" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -287,14 +284,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editArtistActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x391;&#x3bd;&#x3b1;&#x3bd;&#x3ad;&#x3c9;&#x3c3;&#x3b7;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="exit">
