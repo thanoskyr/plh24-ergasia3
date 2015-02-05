@@ -35,7 +35,7 @@ public class ListOfBands extends javax.swing.JFrame {
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         musicGroupQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
-        musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicGroupQuery.getResultList();
+        musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicGroupQuery.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
         BandsTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -157,7 +157,7 @@ public class ListOfBands extends javax.swing.JFrame {
 
     private void addBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBandActionPerformed
         // TODO add your handling code here:
-        dispose();//κλεινει το παραθυρο
+        
         new NewOrModifyBand().setVisible(true);//ανοιγει φορμα προσθηκης
     }//GEN-LAST:event_addBandActionPerformed
 

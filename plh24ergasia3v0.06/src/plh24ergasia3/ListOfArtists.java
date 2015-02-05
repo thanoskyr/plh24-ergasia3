@@ -32,14 +32,8 @@ public class ListOfArtists extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
-        artistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery.getResultList();
-        albumQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a");
-        albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : albumQuery.getResultList();
-        albumQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a");
-        albumList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : albumQuery1.getResultList();
         artistQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery1.getResultList();
+        artistList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery1.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
         ArtistsTable = new javax.swing.JTable();
         addArtist = new javax.swing.JButton();
@@ -168,7 +162,7 @@ public class ListOfArtists extends javax.swing.JFrame {
 
     private void addArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArtistActionPerformed
         // ανοίγει τη φόρμα διαχείρησης Καλλιτέχνη
-        dispose();
+        //dispose();
         new NewOrModifyArtist().setVisible(true);
     }//GEN-LAST:event_addArtistActionPerformed
 
@@ -183,8 +177,7 @@ public class ListOfArtists extends javax.swing.JFrame {
             if (DBManager.deleteArtist(artist)) {
                 artistList1.remove(artist); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                new ListOfArtists().setVisible(true); //ανανέωση
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -241,13 +234,7 @@ public class ListOfArtists extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable ArtistsTable;
     private javax.swing.JButton addArtist;
-    private java.util.List<pojos.Album> albumList;
-    private java.util.List<pojos.Album> albumList1;
-    private javax.persistence.Query albumQuery;
-    private javax.persistence.Query albumQuery1;
-    private java.util.List<pojos.Artist> artistList;
     public static java.util.List<pojos.Artist> artistList1;
-    private javax.persistence.Query artistQuery;
     private javax.persistence.Query artistQuery1;
     private javax.swing.JButton deleteArtist;
     private javax.swing.JButton editArtist;

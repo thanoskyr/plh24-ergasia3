@@ -256,7 +256,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Επιτυχής καταχώριση καλλιτέχνη ", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                     
                     dispose();//κλεισιμο παραθυρου
-                    new ListOfArtists().setVisible(true);//και ανοιγμα ανανεωμενης λιστας
+                    //new ListOfArtists().setVisible(true);//και ανοιγμα ανανεωμενης λιστας
                    
                     }
                 }
