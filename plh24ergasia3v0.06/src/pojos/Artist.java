@@ -5,6 +5,8 @@
  */
 package pojos;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +22,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -39,6 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artist.findByBirthDate", query = "SELECT a FROM Artist a WHERE a.birthDate = :birthDate"),
     @NamedQuery(name = "Artist.findByBirthPlace", query = "SELECT a FROM Artist a WHERE a.birthPlace = :birthPlace")})
 public class Artist implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "FIRST_NAME")
@@ -83,7 +88,9 @@ public class Artist implements Serializable {
     }
 
     public void setFirstName(String firstName) {
+        String oldFirstName = this.firstName;
         this.firstName = firstName;
+        changeSupport.firePropertyChange("firstName", oldFirstName, firstName);
     }
 
     public String getLastName() {
@@ -91,7 +98,9 @@ public class Artist implements Serializable {
     }
 
     public void setLastName(String lastName) {
+        String oldLastName = this.lastName;
         this.lastName = lastName;
+        changeSupport.firePropertyChange("lastName", oldLastName, lastName);
     }
 
     public String getArtisticName() {
@@ -99,7 +108,9 @@ public class Artist implements Serializable {
     }
 
     public void setArtisticName(String artisticName) {
+        String oldArtisticName = this.artisticName;
         this.artisticName = artisticName;
+        changeSupport.firePropertyChange("artisticName", oldArtisticName, artisticName);
     }
 
     public String getSex() {
@@ -107,7 +118,9 @@ public class Artist implements Serializable {
     }
 
     public void setSex(String sex) {
+        String oldSex = this.sex;
         this.sex = sex;
+        changeSupport.firePropertyChange("sex", oldSex, sex);
     }
 
     public Date getBirthDate() {
@@ -115,7 +128,9 @@ public class Artist implements Serializable {
     }
 
     public void setBirthDate(Date birthDate) {
+        Date oldBirthDate = this.birthDate;
         this.birthDate = birthDate;
+        changeSupport.firePropertyChange("birthDate", oldBirthDate, birthDate);
     }
 
     public String getBirthPlace() {
@@ -123,7 +138,9 @@ public class Artist implements Serializable {
     }
 
     public void setBirthPlace(String birthPlace) {
+        String oldBirthPlace = this.birthPlace;
         this.birthPlace = birthPlace;
+        changeSupport.firePropertyChange("birthPlace", oldBirthPlace, birthPlace);
     }
 
     @XmlTransient
@@ -149,7 +166,9 @@ public class Artist implements Serializable {
     }
 
     public void setMusicGenrename(MusicGenre musicGenrename) {
+        MusicGenre oldMusicGenrename = this.musicGenrename;
         this.musicGenrename = musicGenrename;
+        changeSupport.firePropertyChange("musicGenrename", oldMusicGenrename, musicGenrename);
     }
 
     @Override
@@ -175,6 +194,14 @@ public class Artist implements Serializable {
     @Override
     public String toString() {
         return "pojos.Artist[ artisticName=" + artisticName + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
