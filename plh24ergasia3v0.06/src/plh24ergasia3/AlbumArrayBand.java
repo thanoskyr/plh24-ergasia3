@@ -152,7 +152,11 @@ public class AlbumArrayBand extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-       new ModifyBandAlbum().setVisible(true);
+        Album b=new Album(); //Δημιουργία νέου άλμπουμ
+        DBManager.addAlbum(b); //persist
+        ModifyBandAlbum b1=new ModifyBandAlbum (b); //Δημιουργία νέας φόρμας
+        b1.setVisible(true);
+        albumList.add(b);       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
