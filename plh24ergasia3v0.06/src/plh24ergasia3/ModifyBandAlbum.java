@@ -9,6 +9,7 @@ package plh24ergasia3;
 import javax.swing.JOptionPane;
 import static plh24ergasia3.DBManager.openConnection;
 import pojos.Album;
+import pojos.Playlist;
 import pojos.Song;
 
 
@@ -57,8 +58,10 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         album1 = album;
         query1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
         list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query1.getResultList();
-        query2 = java.beans.Beans.isDesignTime() ? null : ((javax.persistence.EntityManager)null).createQuery("delete a from Song a ");
-        list2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : ((javax.persistence.Query)null).getResultList();
+        query2 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
+        list2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query2.getResultList();
+        DropDownMenu = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
+        DropDownMenuList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : DropDownMenu.getResultList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -186,7 +189,14 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, DropDownMenuList, jComboBox1);
+        bindingGroup.addBinding(jComboBoxBinding);
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -502,7 +512,15 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
      selectedRow = songArray.getSelectedRow();
-        
+     
+      if (selectedRow == -1) { 
+            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί τραγούδι.", "Σφάλμα",
+                                          JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+      
+      
+     
         int choice = JOptionPane.showConfirmDialog(null,"Είστε σίγουρος για την διαγραφή;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {  
@@ -511,6 +529,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                  //διαγραφη τραγουδιου
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
+                for (Playlist play : s1.getPlaylistList()){
+                    play.getSongList().remove(s1);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -525,6 +546,11 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -562,6 +588,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.persistence.Query DropDownMenu;
+    private java.util.List DropDownMenuList;
     private pojos.Album album1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -595,7 +623,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private java.util.List<pojos.Song> list1;
-    private java.util.List list2;
+    private java.util.List<pojos.Song> list2;
     private javax.persistence.Query query1;
     private javax.persistence.Query query2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
