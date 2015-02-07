@@ -6,6 +6,7 @@
 package plh24ergasia3;
 import pojos.*;
 import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
  * @author thanos
@@ -14,7 +15,6 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     MusicGroup band;
     boolean modify;
     int confirm;
-    
     int selectedAvailableArtistRow, selectedSelectedArtistRow;
     boolean changes = false;
     Artist artist;
@@ -22,7 +22,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     /**
      * Creates new form NewOrModifyBand
      */
-    public NewOrModifyBand() {
+    public NewOrModifyBand() {//νεα εγγραφή
         initComponents();
         modify=false;
         selectedArtistList.clear();// καθαριζει τις εγραφες
@@ -254,7 +254,15 @@ public class NewOrModifyBand extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         //πρεπει να υπάρχει if ωστε το size της selectedList>1
-        
+        if (DBManager.addOrModifyBand(band, selectedArtistList))
+        {
+            JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση/τροποποίηση Συγκροτήματος" + band.getName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                        
+            changes = false;
+        }
+        else{
+ 
+            JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_SaveActionPerformed
 
     private void deleteSelectedArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectedArtistActionPerformed
