@@ -40,11 +40,11 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         artistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery.getResultList();
+        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
         query1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Album s");
         list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query1.getResultList();
         albumQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a");
-        albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : albumQuery.getResultList();
+        albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(albumQuery.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -54,31 +54,39 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("ΠΙΝΑΚΑΣ ΑΛΜΠΟΥΜ ΚΑΛΛΙΤΕΧΝΩΝ");
 
         jTable1.setColumnSelectionAllowed(true);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, albumList, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artistList}"));
-        columnBinding.setColumnName("Artist List");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
+        columnBinding.setColumnName("Τίτλος");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artistList}"));
+        columnBinding.setColumnName("Καλλιτέχνης");
         columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicProductionCompanyname}"));
-        columnBinding.setColumnName("Music Production Companyname");
+        columnBinding.setColumnName("Εταιρεία παραγωγής");
         columnBinding.setColumnClass(pojos.MusicProductionCompany.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${songList}"));
-        columnBinding.setColumnName("Song List");
+        columnBinding.setColumnName("Λίστα τραγουδιών");
         columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${diskNumber}"));
-        columnBinding.setColumnName("Disk Number");
+        columnBinding.setColumnName("Αριθμός Άλμπουμ");
         columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
-        columnBinding.setColumnName("Type");
+        columnBinding.setColumnName("Τύπος Άλμπουμ");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${releaseDate}"));
-        columnBinding.setColumnName("Release Date");
+        columnBinding.setColumnName("Ημερομηνία κυκλοφορίας");
         columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
-        columnBinding.setColumnName("Title");
-        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
@@ -165,11 +173,9 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Album a=new Album(); //Δημιουργία νέου άλμπουμ
-        DBManager.addAlbum(a); //persist
-        ModifyBandAlbum a1=new ModifyBandAlbum (a); //Δημιουργία νέας φόρμας
+        ModifyBandAlbum a1=new ModifyBandAlbum (); //Δημιουργία νέας φόρμας
         a1.setVisible(true);
-        albumList.add(a);
+        
    
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -186,7 +192,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         selectedRow=jTable1.getSelectedRow();
         album=list1.get(jTable1.convertColumnIndexToModel(selectedRow));
         
-        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getArtistList() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album. getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {    
             if (DBManager.deleteAlbum(album)) {

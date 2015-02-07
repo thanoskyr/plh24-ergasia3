@@ -50,31 +50,39 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("ΠΙΝΑΚΑΣ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΩΝ");
 
         jTable1.setColumnSelectionAllowed(true);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, albumList, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicGroupList}"));
-        columnBinding.setColumnName("Music Group List");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
+        columnBinding.setColumnName("Τίτλος");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicGroupList}"));
+        columnBinding.setColumnName("Συγκρότημα");
         columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicProductionCompanyname}"));
-        columnBinding.setColumnName("Music Production Companyname");
+        columnBinding.setColumnName("Εταιρία Παραγωγής");
         columnBinding.setColumnClass(pojos.MusicProductionCompany.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${songList}"));
-        columnBinding.setColumnName("Song List");
+        columnBinding.setColumnName("Λίστα Τραγουδιών");
         columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${diskNumber}"));
-        columnBinding.setColumnName("Disk Number");
+        columnBinding.setColumnName("Αριθμός Άλμπουμ");
         columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
-        columnBinding.setColumnName("Type");
+        columnBinding.setColumnName("Τύπος");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${releaseDate}"));
-        columnBinding.setColumnName("Release Date");
+        columnBinding.setColumnName("Ημερομηνία Κυκλοφορίας");
         columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
-        columnBinding.setColumnName("Title");
-        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
@@ -152,11 +160,9 @@ public class AlbumArrayBand extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Album b=new Album(); //Δημιουργία νέου άλμπουμ
-        DBManager.addAlbum(b); //persist
-        ModifyBandAlbum b1=new ModifyBandAlbum (b); //Δημιουργία νέας φόρμας
+        ModifyBandAlbum b1=new ModifyBandAlbum (); //Δημιουργία νέας φόρμας
         b1.setVisible(true);
-        albumList.add(b);       
+          
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
