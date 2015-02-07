@@ -222,7 +222,7 @@ public class DBManager {
         }
     }
     
-    public static boolean addBand(MusicGroup band, List<Artist> selectedArtistList){
+    public static boolean addOrModifyBand(MusicGroup band, List<Artist> selectedArtistList){
         try{
             em.getTransaction().begin();
             //διαγραφή καλλιτεχών που δεν υπάρχουν
