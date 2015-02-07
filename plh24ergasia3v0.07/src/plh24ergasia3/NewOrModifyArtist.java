@@ -213,6 +213,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         if(firstName.getText().isEmpty()|| lastName.getText().isEmpty()||artisticName.getText().isEmpty()
                 || sex.getText().isEmpty()|| birthPlace.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            dispose();
         }
         else{//ολα τα πεδια ειναι συμπληρωμένα
             if (modify==true) {//τροποποίηση
@@ -227,16 +228,19 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     selectedRow=genreTable.getSelectedRow();
                     eidos=musicGenreList.get(genreTable.convertRowIndexToModel(selectedRow));
                     artist.setMusicGenrename(eidos);
-                }
                 
-                if (DBManager.modifyArtist(artist)){
+                
+                    if (DBManager.modifyArtist(artist)){
                         ListOfArtists.artistList1.set(ListOfArtists.ArtistsTable.getSelectedRow(), artist);
                         JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
-                } 
-                else {
-                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    } 
+                   
                 }
+                else {
+                    JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                
             }
             else{//νέα εγγραφή
                 confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -260,6 +264,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                    
                     }
                 }
+                
             }
             
             
