@@ -6,6 +6,7 @@
 package plh24ergasia3;
 
 import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
 import static plh24ergasia3.DBManager.openConnection;
 import pojos.Album;
 
@@ -94,6 +95,11 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         });
 
         jButton2.setText("Διαγραφή");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Επεξεργασία");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +182,28 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         new ModifyBandAlbum().setVisible(true);
             
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+         // TODO add your handling code here:
+        selectedRow=jTable1.getSelectedRow();
+        album=albumList.get(jTable1.convertColumnIndexToModel(selectedRow));
+        
+        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album. getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (choice == 0) {    
+            if (DBManager.deleteAlbum(album)) {
+                albumList.remove(album); //διαγραφη καλλιτεχνη
+                JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+                new ListOfArtists().setVisible(true); //ανανέωση
+            } else {
+                JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής Άλμουμ καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
