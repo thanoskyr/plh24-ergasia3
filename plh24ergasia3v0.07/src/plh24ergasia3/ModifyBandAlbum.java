@@ -58,10 +58,6 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         songQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
         songList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(songQuery.getResultList());
         album1 = album;
-        query1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
-        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
-        query2 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
-        list2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query2.getResultList();
         DropDownMenu = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
         DropDownMenuList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : DropDownMenu.getResultList();
         musicProductionCompanyQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
@@ -468,7 +464,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         Song s1=new Song(title,duration,tracknr);
         DBManager.addSong(s1);
         s1.setAlbumtitle(album1);
-        list1.add(s1);
+        songList.add(s1);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -659,12 +655,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.util.List<pojos.Song> list1;
-    private java.util.List<pojos.Song> list2;
     private java.util.List<pojos.MusicProductionCompany> musicProductionCompanyList1;
     private javax.persistence.Query musicProductionCompanyQuery1;
-    private javax.persistence.Query query1;
-    private javax.persistence.Query query2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private javax.swing.JTable songArray;
     private java.util.List<pojos.Song> songList;
