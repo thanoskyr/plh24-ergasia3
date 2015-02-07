@@ -68,8 +68,8 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         insert = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        selectedArtistTable = new javax.swing.JTable();
+        deleteSelectedArtist = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -123,9 +123,9 @@ public class NewOrModifyBand extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setColumnSelectionAllowed(true);
+        selectedArtistTable.setColumnSelectionAllowed(true);
 
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, selectedArtistList, jTable1);
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, selectedArtistList, selectedArtistTable);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${firstName}"));
         columnBinding.setColumnName("Όνομα");
         columnBinding.setColumnClass(String.class);
@@ -139,15 +139,15 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane2.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(selectedArtistTable);
+        selectedArtistTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jButton1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(171, 25, 37));
-        jButton1.setText("<--");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        deleteSelectedArtist.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        deleteSelectedArtist.setForeground(new java.awt.Color(171, 25, 37));
+        deleteSelectedArtist.setText("<--");
+        deleteSelectedArtist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                deleteSelectedArtistActionPerformed(evt);
             }
         });
 
@@ -183,7 +183,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(insert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(deleteSelectedArtist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(groupName, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,7 +220,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
                                 .addGap(87, 87, 87)
                                 .addComponent(insert)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1)
+                                .addComponent(deleteSelectedArtist)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -242,7 +242,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-        
+        selectedAvailableArtistRow=availableArtistTable.getSelectedRow();
         //Ορισμος επιλεγμένου καλλιτέχνη
         artist=artistList.get(availableArtistTable.convertColumnIndexToModel(selectedAvailableArtistRow));
         // Αφαίρεση του επιλεγμένου καλλιτεχνη από τους διαθέσιμους 
@@ -254,11 +254,19 @@ public class NewOrModifyBand extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         //πρεπει να υπάρχει if ωστε το size της selectedList>1
+        
     }//GEN-LAST:event_SaveActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void deleteSelectedArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectedArtistActionPerformed
+        selectedSelectedArtistRow=selectedArtistTable.getSelectedRow();
+         // Ορισμός του επιλεγμένου καλλιτέχνη από τους επιλεγμένους
+        artist = selectedArtistList.get(selectedArtistTable.convertRowIndexToModel(selectedSelectedArtistRow));
+        // Αφαίρεση του επιλεγμένου καλλιέχνη από τους επιλεγμενους
+        selectedArtistList.remove(artist);
+        // Εισαγωγή στη λίστα/πίνακα των διαθέσιμων καλλιτεχνων
+        artistList.add(artistList.size(), artist);      
+        changes = true;
+    }//GEN-LAST:event_deleteSelectedArtistActionPerformed
 
     /**
      * @param args the command line arguments
@@ -301,20 +309,20 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private javax.persistence.Query artistQuery;
     private javax.swing.JTable availableArtistTable;
     private javax.swing.JButton cancel;
+    private javax.swing.JButton deleteSelectedArtist;
     private com.toedter.calendar.JDateChooser formationDate;
     private javax.swing.JTextField groupName;
     private javax.swing.JButton insert;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private java.util.List<pojos.Artist> selectedArtistList;
     private javax.persistence.Query selectedArtistQuery;
+    private javax.swing.JTable selectedArtistTable;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
