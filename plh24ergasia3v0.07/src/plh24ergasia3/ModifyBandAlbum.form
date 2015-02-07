@@ -44,6 +44,7 @@
         <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
           <ComponentRef name="query1"/>
         </Property>
+        <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Song&gt;"/>
@@ -81,6 +82,24 @@
           <ComponentRef name="DropDownMenu"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.persistence.Query" name="musicProductionCompanyQuery1">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT m FROM MusicProductionCompany m"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="radioDBv2PUEntityManager"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="musicProductionCompanyList1">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="musicProductionCompanyQuery1"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.MusicProductionCompany&gt;"/>
+      </AuxValues>
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -129,7 +148,7 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="title1" max="32767" attributes="0"/>
                                       <Component id="albumType" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="companyname" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Component id="AlbumNo" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -196,7 +215,7 @@
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="companyname" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="AlbumNo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -406,14 +425,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="albumTypeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="companyname">
+    <Component class="javax.swing.JTextField" name="AlbumNo">
       <BindingProperties>
-        <BindingProperty name="text" source="album1" sourcePath="${diskNumber}" target="companyname" targetPath="text" updateStrategy="0" immediately="false">
+        <BindingProperty name="text" source="album1" sourcePath="${diskNumber}" target="AlbumNo" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
         </BindingProperty>
       </BindingProperties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="companynameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AlbumNoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="Band">
@@ -428,7 +447,7 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
       <BindingProperties>
-        <BindingProperty name="elements" source="DropDownMenuList" target="jComboBox1" targetPath="elements" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="elements" source="musicProductionCompanyList1" target="jComboBox1" targetPath="elements" updateStrategy="0" immediately="false"/>
       </BindingProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>

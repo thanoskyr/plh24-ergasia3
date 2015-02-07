@@ -22,10 +22,12 @@ import pojos.Song;
 public class ModifyBandAlbum extends javax.swing.JFrame {
     
     private pojos.Album album;//δημιουργια field
-    private int selectedRow;
+    private pojos.Artist artist;
+    private int selectedRow,confirm;
     private int duration=0;
     private int tracknr=0;
     private String title;
+    boolean modify;
     /**
      * Creates new form ModifyBandAlbum
      */
@@ -57,11 +59,13 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         songList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(songQuery.getResultList());
         album1 = album;
         query1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
-        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query1.getResultList();
+        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
         query2 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
         list2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query2.getResultList();
         DropDownMenu = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
         DropDownMenuList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : DropDownMenu.getResultList();
+        musicProductionCompanyQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
+        musicProductionCompanyList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicProductionCompanyQuery1.getResultList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -78,7 +82,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         title1 = new javax.swing.JTextField();
         albumType = new javax.swing.JTextField();
-        companyname = new javax.swing.JTextField();
+        AlbumNo = new javax.swing.JTextField();
         Band = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
@@ -178,12 +182,12 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, album1, org.jdesktop.beansbinding.ELProperty.create("${diskNumber}"), companyname, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, album1, org.jdesktop.beansbinding.ELProperty.create("${diskNumber}"), AlbumNo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        companyname.addActionListener(new java.awt.event.ActionListener() {
+        AlbumNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                companynameActionPerformed(evt);
+                AlbumNoActionPerformed(evt);
             }
         });
 
@@ -196,7 +200,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, DropDownMenuList, jComboBox1);
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicProductionCompanyList1, jComboBox1);
         bindingGroup.addBinding(jComboBoxBinding);
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -358,7 +362,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(title1)
                                         .addComponent(albumType)
-                                        .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(AlbumNo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel7)
@@ -408,7 +412,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(AlbumNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
@@ -473,17 +477,49 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         // Υποχρεωτικό γέμισμα πεδίων
          if  (  title1.getText().equals("")|| 
                 albumType.getText().equals("") || 
-                companyname.getText().equals("") || 
+                AlbumNo.getText().equals("") || 
                 Band.getText().equals(""))
                 {
        JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
        }
         else{
-             album.setTitle(title1.getText());
-             album.setType(albumType.getText());
-             album.setReleaseDate(null);
-        }
-        
+              if (modify==true) {//τροποποίηση
+                    confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    album.setTitle(title1.getText());
+                    album.setType(albumType.getText());
+                    album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
+                    album.setReleaseDate(null);
+                    artist.setArtisticName(Band.getText());
+                
+                if (DBManager.modifyAlbum(album)){
+                        AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
+                        JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                } 
+                else {
+                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+              }
+                else{
+                        //νέα εγγραφή
+                        confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (confirm==0) {//πρόβλημα
+                        album.setTitle(title1.getText());
+                        album.setType(albumType.getText());
+                        album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
+                        album.setReleaseDate(null);
+                        artist.setArtisticName(Band.getText());
+                       
+                        if (DBManager.addAlbum(album)){
+                            AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
+                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                             dispose();
+                       } 
+                  }
+                        
+                        
+                }  
+              } 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -502,10 +538,10 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
        
     }//GEN-LAST:event_albumTypeActionPerformed
 
-    private void companynameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companynameActionPerformed
+    private void AlbumNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlbumNoActionPerformed
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_companynameActionPerformed
+    }//GEN-LAST:event_AlbumNoActionPerformed
 
     private void BandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BandActionPerformed
         // TODO add your handling code here:
@@ -590,12 +626,12 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AlbumNo;
     private javax.swing.JTextField Band;
     private javax.persistence.Query DropDownMenu;
     private java.util.List DropDownMenuList;
     private pojos.Album album1;
     private javax.swing.JTextField albumType;
-    private javax.swing.JTextField companyname;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -625,6 +661,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private java.util.List<pojos.Song> list1;
     private java.util.List<pojos.Song> list2;
+    private java.util.List<pojos.MusicProductionCompany> musicProductionCompanyList1;
+    private javax.persistence.Query musicProductionCompanyQuery1;
     private javax.persistence.Query query1;
     private javax.persistence.Query query2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
