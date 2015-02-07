@@ -38,9 +38,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         albumQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a");
-        albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : albumQuery.getResultList();
-        query1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM Album m");
-        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : query1.getResultList();
+        albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(albumQuery.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -174,7 +172,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         selectedRow = jTable1.getSelectedRow();
-        album = list1.get(jTable1.convertRowIndexToModel(selectedRow));
+        album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
         new ModifyBandAlbum().setVisible(true);
             
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -215,7 +213,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.util.List<pojos.Album> albumList;
+    public static java.util.List<pojos.Album> albumList;
     private javax.persistence.Query albumQuery;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -223,9 +221,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private java.util.List<pojos.Album> list1;
-    private javax.persistence.Query query1;
+    public static javax.swing.JTable jTable1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
