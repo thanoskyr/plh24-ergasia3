@@ -10,9 +10,6 @@ package plh24ergasia3;
 //under construction
 import javax.persistence.*;
 import pojos.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -225,7 +222,32 @@ public class DBManager {
         }
     }
     
-
+    public static boolean addBand(MusicGroup band, List<Artist> selectedArtistList){
+        try{
+            em.getTransaction().begin();
+            //διαγραφή καλλιτεχών που δεν υπάρχουν
+            for(Artist artist:band.getArtistList()){
+                artist=em.merge(artist);
+                if(!selectedArtistList.contains(artist)){
+                    artist.getMusicGroupList().remove(band);
+                }
+            }
+            band.getArtistList().retainAll(selectedArtistList);
+            for(Artist artist:selectedArtistList){//για όλους του καλλιτεχνες της λιστας επιλεγμενων
+                artist=em.merge(artist);
+                if (!band.getArtistList().contains(artist)){
+                    band.getArtistList().add(artist);
+                    artist.getMusicGroupList().add(band);             
+                }
+            }
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;      
+        }
+    }
 // Καθαρίζει όλους τους πίνακες της ΒΔ
    
     private void clearDB(){         
