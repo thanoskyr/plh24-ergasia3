@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import pojos.*;
 import javax.swing.JOptionPane;
-//import static plh24ergasia3.DBManager.addOrModifyBand;
+import static plh24ergasia3.DBManager.modifyMusicGroup;
 /**
  *
  * @author thanos
@@ -18,6 +20,8 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     int selectedAvailableArtistRow, selectedSelectedArtistRow;
     boolean changes = false;
     Artist artist;
+    private static EntityManager em;
+    private static EntityManagerFactory emf;
     
     /**
      * Creates new form NewOrModifyBand
@@ -43,7 +47,6 @@ public class NewOrModifyBand extends javax.swing.JFrame {
             availableArtistList.remove(ar);//βγάζει τους υπάρχοντες
         }
     }
-    
     
 
     /**
@@ -258,23 +261,24 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        //πρεπει να υπάρχει if ωστε το size της selectedList>1
-        if(selectedArtistList.size()>1){
-            band=new MusicGroup(groupName.getText());
-
-        //    if (addOrModifyBand(band, selectedArtistList))
-        //    {
-        //        JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση/τροποποίηση Συγκροτήματος" + band.getName(), "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                        
-        //        changes = false;
-        //    }
-        //    else{
-            
-         //       JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        //    }
+        
+        if(groupName.getText().isEmpty()||selectedArtistList.size()>1){
+            if (modify){//επεξεργασία
+                band=new MusicGroup(groupName.getText());
+                band.setFormationDate(formationDate.getDate());
+                band.setArtistList(selectedArtistList);
+                //να δω γιατι δεν ανανεωνει αυτοματα
+                if (modifyMusicGroup(band)){
+                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                        
+                    
+                } 
+                else {
+                    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }   
+            }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Πρέπει να επιλεγούν τουλάχιστον 2 καλλιτέχνες", "ERROR", JOptionPane.ERROR_MESSAGE);
-
+            JOptionPane.showMessageDialog(null, "Πρέπει να επιλεγούν τουλάχιστον 2 καλλιτέχνες και να συμπληρωθεί το όνομα συγκροτήματος", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         //checkButtons();
     }//GEN-LAST:event_SaveActionPerformed
