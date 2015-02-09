@@ -249,6 +249,37 @@ public class DBManager {
         }  
     }
 
-
+    public static boolean modifyBand(MusicGroup band, List<Artist> selectedArtistList){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+    
+    
+    try {
+        em.getTransaction().begin();
+        // Διαγραφή προϊόντων που δεν υπάρχουν
+        for (Artist artist : band.getArtistList()) {
+        /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
+            artist = em.merge(artist);
+            if (!selectedArtistList.contains(artist)){
+            artist.getMusicGroupList().remove(band);
+            band.getArtistList().remove(artist); // Να ξαναδώ γιατί δεν μου δούλευε και έβαλα παρακάτω το retain
+            }
+        }
+        band.getArtistList().retainAll(selectedArtistList);       
+        // Εισαγωγή νέων καλλιτεχνων 
+        for (Artist artist : selectedArtistList) {
+        /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
+            artist = em.merge(artist);
+            if (!band.getArtistList().contains(artist)){
+                band.getArtistList().add(artist);
+                artist.getMusicGroupList().add(band);           
+            }
+        }
+        em.getTransaction().commit();
+        return true;
+    }catch(Exception e){
+        System.out.println(e); 
+        return false;
+    }
+}
 
 }

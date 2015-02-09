@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import pojos.*;
 import javax.swing.JOptionPane;
-import static plh24ergasia3.DBManager.modifyMusicGroup;
+import static plh24ergasia3.DBManager.modifyBand;
 /**
  *
  * @author thanos
@@ -18,10 +20,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     boolean modify;
     int confirm;
     int selectedAvailableArtistRow, selectedSelectedArtistRow;
-    boolean changes = false;
     Artist artist;
-    private static EntityManager em;
-    private static EntityManagerFactory emf;
     
     /**
      * Creates new form NewOrModifyBand
@@ -37,8 +36,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         initComponents(); 
         //checkButtons();
         modify = true;
-        //artistList.clear(); //καθαρίζει τις εγγραφές
-        selectedArtistList.clear();//καθαριζει τις εγγραφες
+        selectedArtistList.clear();
         //θετω τις τιμες
         groupName.setText(band.getName());
         formationDate.setDate(band.getFormationDate());
@@ -252,12 +250,13 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         selectedAvailableArtistRow=availableArtistTable.getSelectedRow();
         //Ορισμος επιλεγμένου καλλιτέχνη
-        artist=availableArtistList.get(availableArtistTable.convertColumnIndexToModel(selectedAvailableArtistRow));
+        artist=availableArtistList.get(availableArtistTable.convertRowIndexToModel(selectedAvailableArtistRow));      
+        
         // Αφαίρεση του επιλεγμένου καλλιτεχνη από τους διαθέσιμους 
         availableArtistList.remove(artist);
         // Εισαγωγή στη λίστα/πίνακα ττων επιλεγμένων
         selectedArtistList.add(selectedArtistList.size(), artist);
-        changes = true;
+        
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
@@ -267,10 +266,12 @@ public class NewOrModifyBand extends javax.swing.JFrame {
                 band=new MusicGroup(groupName.getText());
                 band.setFormationDate(formationDate.getDate());
                 band.setArtistList(selectedArtistList);
+                List<Artist> artistList=new ArrayList(selectedArtistList);
+                System.out.println(selectedArtistList.toString());
                 //να δω γιατι δεν ανανεωνει αυτοματα
-                if (modifyMusicGroup(band)){
+                if (modifyBand(band,artistList)){
                     JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                        
-                    
+                    dispose();
                 } 
                 else {
                     JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -291,7 +292,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         selectedArtistList.remove(artist);
         // Εισαγωγή στη λίστα/πίνακα των διαθέσιμων καλλιτεχνων
         availableArtistList.add(availableArtistList.size(), artist);      
-        changes = true;
+        
     }//GEN-LAST:event_deleteSelectedArtistButtonActionPerformed
 
     /**

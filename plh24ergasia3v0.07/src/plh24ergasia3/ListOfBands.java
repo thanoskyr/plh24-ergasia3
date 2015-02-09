@@ -21,6 +21,7 @@ public class ListOfBands extends javax.swing.JFrame {
      */
     public ListOfBands() {
         initComponents();
+        //artistList.clear();
     }
 
     /**
@@ -45,16 +46,19 @@ public class ListOfBands extends javax.swing.JFrame {
         exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Εγγραφή σε Μάθημα");
 
         BandsTable1.setColumnSelectionAllowed(true);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList, BandsTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
-        columnBinding.setColumnName("Όνομα");
+        columnBinding.setColumnName("Επωνυμία");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${formationDate}"));
-        columnBinding.setColumnName("Ημ/νία Δημιουργίας");
+        columnBinding.setColumnName("Ημ/νία δημιουργίας");
         columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(BandsTable1);
@@ -101,24 +105,25 @@ public class ListOfBands extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(addBand)
-                        .addGap(37, 37, 37)
-                        .addComponent(deleteBand)
-                        .addGap(38, 38, 38)
-                        .addComponent(editBand)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(158, 158, 158)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(addBand)
+                                .addGap(37, 37, 37)
+                                .addComponent(deleteBand)
+                                .addGap(38, 38, 38)
+                                .addComponent(editBand))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(184, 184, 184)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
@@ -130,7 +135,7 @@ public class ListOfBands extends javax.swing.JFrame {
                         .addComponent(editBand)
                         .addComponent(deleteBand))
                     .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -141,7 +146,7 @@ public class ListOfBands extends javax.swing.JFrame {
     private void deleteBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBandActionPerformed
         // TODO add your handling code here:
         selectedRow = BandsTable1.getSelectedRow();
-        band=musicGroupList.get(BandsTable1.convertColumnIndexToModel(selectedRow));
+        band=musicGroupList.get(BandsTable1.convertRowIndexToModel(selectedRow));
         
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το επιλεγμένο συγκρότημα " + band.getName() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
