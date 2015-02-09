@@ -16,10 +16,10 @@ import static plh24ergasia3.DBManager.modifyBand;
  * @author thanos
  */
 public class NewOrModifyBand extends javax.swing.JFrame {
-    MusicGroup band;
+    private MusicGroup band;
     boolean modify;
     int selectedAvailableArtistRow, selectedSelectedArtistRow;
-    Artist artist;
+    private Artist artist;
     
     /**
      * Creates new form NewOrModifyBand
@@ -100,9 +100,11 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lastName}"));
         columnBinding.setColumnName("Επώνυμο");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artisticName}"));
         columnBinding.setColumnName("Καλλιτεχνικό");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         availableArtistTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -150,6 +152,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lastName}"));
         columnBinding.setColumnName("Επώνυμο");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artisticName}"));
         columnBinding.setColumnName("Καλλιτεχνικό");
         columnBinding.setColumnClass(String.class);
@@ -280,13 +283,13 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         
         if(groupName.getText().isEmpty()||selectedArtistList.size()>1){
             
-                band=new MusicGroup(groupName.getText());
-                band.setFormationDate(formationDate.getDate());
-                band.setArtistList(selectedArtistList);
-                List<Artist> artistList=new ArrayList(selectedArtistList);
-                System.out.println(selectedArtistList.toString());
+                //band=new MusicGroup(groupName.getText());
+                //band.setFormationDate(formationDate.getDate());
+                //band.setArtistList(selectedArtistList);
+                //List<Artist> artistList=new ArrayList(selectedArtistList);
+                //ystem.out.println(selectedArtistList.toString());
                 //να δω γιατι δεν ανανεωνει αυτοματα
-                if (modifyBand(band,artistList)){
+                if (modifyBand(band,selectedArtistList)){
                     JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
                     dispose();
                 } 
@@ -362,7 +365,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Save;
     private javax.persistence.Query artistQuery;
-    public static java.util.List<pojos.Artist> availableArtistList;
+    public java.util.List<pojos.Artist> availableArtistList;
     private javax.swing.JTable availableArtistTable;
     private javax.swing.JButton cancel;
     private javax.swing.JButton deleteSelectedArtistButton;
@@ -376,7 +379,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
-    public static java.util.List<pojos.Artist> selectedArtistList;
+    public java.util.List<pojos.Artist> selectedArtistList;
     private javax.swing.JTable selectedArtistTable;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
