@@ -4,13 +4,10 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import pojos.*;
 import javax.swing.JOptionPane;
 import static plh24ergasia3.DBManager.modifyBand;
+import static plh24ergasia3.DBManager.addMusicGroup;
 /**
  *
  * @author thanos
@@ -31,9 +28,10 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         selectedArtistList.clear();// καθαριζει τις εγραφες
     }
     
-    public NewOrModifyBand(MusicGroup band) {
+    public NewOrModifyBand(MusicGroup group) {
         initComponents(); 
         checkButtons();
+        band=group;
         modify = true;
         selectedArtistList.clear();
         //θετω τις τιμες
@@ -43,6 +41,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
             selectedArtistList.add(ar);
             availableArtistList.remove(ar);//βγάζει τους υπάρχοντες
         }
+        //artist.getMusicGroupList().clear();
     }
     
     private void checkButtons() {
@@ -133,7 +132,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         insertButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         insertButton.setForeground(new java.awt.Color(48, 119, 44));
         insertButton.setText("-->");
-        insertButton.setToolTipText("Εισαγωγή");
+        insertButton.setToolTipText("Εισαγωγή Καλλιτέχνη");
         insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 insertButtonActionPerformed(evt);
@@ -144,16 +143,14 @@ public class NewOrModifyBand extends javax.swing.JFrame {
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, selectedArtistList, selectedArtistTable);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${firstName}"));
-        columnBinding.setColumnName("Όνομα");
+        columnBinding.setColumnName("First Name");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lastName}"));
-        columnBinding.setColumnName("Επώνυμο");
+        columnBinding.setColumnName("Last Name");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artisticName}"));
-        columnBinding.setColumnName("Καλλιτεχνικό");
+        columnBinding.setColumnName("Artistic Name");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         selectedArtistTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,6 +164,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         deleteSelectedArtistButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         deleteSelectedArtistButton.setForeground(new java.awt.Color(171, 25, 37));
         deleteSelectedArtistButton.setText("<--");
+        deleteSelectedArtistButton.setToolTipText("Διαγραφή Καλλιτέχνη");
         deleteSelectedArtistButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteSelectedArtistButtonActionPerformed(evt);
@@ -265,7 +263,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
-        selectedAvailableArtistRow=availableArtistTable.getSelectedRow();
+        //selectedAvailableArtistRow=availableArtistTable.getSelectedRow();
         //Ορισμος επιλεγμένου καλλιτέχνη
         artist=availableArtistList.get(availableArtistTable.convertRowIndexToModel(selectedAvailableArtistRow));      
         
@@ -279,20 +277,33 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         
         if(groupName.getText().isEmpty()||selectedArtistList.size()>1){
-            
-                band=new MusicGroup(groupName.getText());
+            if(modify){
+                band.setName(groupName.getText());
                 band.setFormationDate(formationDate.getDate());
-                band.setArtistList(selectedArtistList);
-                List<Artist> artistList=new ArrayList(selectedArtistList);
-                System.out.println(selectedArtistList.toString());
-                //να δω γιατι δεν ανανεωνει αυτοματα
-                if (modifyBand(band,artistList)){
+                if (modifyBand(band,selectedArtistList)){
+                    
+                    
+                    //band.setArtistList(selectedArtistList);
                     JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
                     dispose();
                 } 
                 else {
                     JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }   
+                }
+            }
+            else{
+                band=new MusicGroup();
+                band.setName(groupName.getText());
+                band.setFormationDate(formationDate.getDate());
+                band.setArtistList(selectedArtistList);
+                if(addMusicGroup(band)==true){
+                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                    dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
         else{
             JOptionPane.showMessageDialog(null, "Πρέπει να επιλεγούν τουλάχιστον 2 καλλιτέχνες και να συμπληρωθεί το όνομα συγκροτήματος", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -301,7 +312,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveActionPerformed
 
     private void deleteSelectedArtistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectedArtistButtonActionPerformed
-        selectedSelectedArtistRow=selectedArtistTable.getSelectedRow();
+        //selectedSelectedArtistRow=selectedArtistTable.getSelectedRow();
          // Ορισμός του επιλεγμένου καλλιτέχνη από τους επιλεγμένους
         artist = selectedArtistList.get(selectedArtistTable.convertRowIndexToModel(selectedSelectedArtistRow));
         // Αφαίρεση του επιλεγμένου καλλιέχνη από τους επιλεγμενους
@@ -362,7 +373,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Save;
     private javax.persistence.Query artistQuery;
-    public static java.util.List<pojos.Artist> availableArtistList;
+    private java.util.List<pojos.Artist> availableArtistList;
     private javax.swing.JTable availableArtistTable;
     private javax.swing.JButton cancel;
     private javax.swing.JButton deleteSelectedArtistButton;
@@ -376,7 +387,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
-    public static java.util.List<pojos.Artist> selectedArtistList;
+    private java.util.List<pojos.Artist> selectedArtistList;
     private javax.swing.JTable selectedArtistTable;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

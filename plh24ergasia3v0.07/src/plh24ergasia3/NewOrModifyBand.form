@@ -24,7 +24,6 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Artist&gt;"/>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
     <Component class="java.util.List" name="selectedArtistList">
@@ -36,7 +35,6 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Artist&gt;"/>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
@@ -267,7 +265,7 @@
           <Color blue="2c" green="77" red="30" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="--&gt;"/>
-        <Property name="toolTipText" type="java.lang.String" value="&#x395;&#x3b9;&#x3c3;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae;"/>
+        <Property name="toolTipText" type="java.lang.String" value="&#x395;&#x3b9;&#x3c3;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae; &#x39a;&#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3c4;&#x3ad;&#x3c7;&#x3bd;&#x3b7;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertButtonActionPerformed"/>
@@ -309,18 +307,13 @@
           <BindingProperties>
             <BindingProperty name="elements" source="selectedArtistList" target="selectedArtistTable" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${firstName}">
-                <BindingParameter name="NAME" value="&#x38c;&#x3bd;&#x3bf;&#x3bc;&#x3b1;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${lastName}">
-                <BindingParameter name="NAME" value="&#x395;&#x3c0;&#x3ce;&#x3bd;&#x3c5;&#x3bc;&#x3bf;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${artisticName}">
-                <BindingParameter name="NAME" value="&#x39a;&#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3c4;&#x3b5;&#x3c7;&#x3bd;&#x3b9;&#x3ba;&#x3cc;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
@@ -339,6 +332,7 @@
           <Color blue="25" green="19" red="ab" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&lt;--"/>
+        <Property name="toolTipText" type="java.lang.String" value="&#x394;&#x3b9;&#x3b1;&#x3b3;&#x3c1;&#x3b1;&#x3c6;&#x3ae; &#x39a;&#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3c4;&#x3ad;&#x3c7;&#x3bd;&#x3b7;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteSelectedArtistButtonActionPerformed"/>

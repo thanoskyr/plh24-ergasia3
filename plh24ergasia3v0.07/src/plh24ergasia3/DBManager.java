@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import plh24ergasia3.NewOrModifyBand.*;
 
 public class DBManager {
     
@@ -123,21 +124,8 @@ public class DBManager {
             return false;
         }
     }
-
-    /* Μέθοδος τροποποίησης συγκροτήματος*/
-    public static boolean modifyMusicGroup(MusicGroup musicGroup){
-    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
-        try {
-            em.getTransaction().begin();
-            musicGroup=em.merge(musicGroup);
-            em.getTransaction().commit();
-            return true;
-        }
-        catch(Exception e){
-            System.out.println(e); 
-            return false;
-        }
-    }
+    
+    
 
     /* Μέθοδος διαγραφής συγκροτήματος */
     public static boolean deleteMusicGroup(MusicGroup musicGroup){
@@ -269,7 +257,8 @@ public class DBManager {
     
     try {
         em.getTransaction().begin();
-        // Διαγραφή προϊόντων που δεν υπάρχουν
+        // Διαγραφή καλλιτεχνών που δεν υπάρχουν
+        
         for (Artist artist : band.getArtistList()) {
         /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
             artist = em.merge(artist);

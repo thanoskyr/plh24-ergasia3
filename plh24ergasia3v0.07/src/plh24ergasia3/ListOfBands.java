@@ -164,6 +164,7 @@ public class ListOfBands extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         new NewOrModifyBand().setVisible(true);//ανοιγει φορμα προσθηκης
+        dispose();
     }//GEN-LAST:event_addBandActionPerformed
 
     private void editBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBandActionPerformed
@@ -172,6 +173,7 @@ public class ListOfBands extends javax.swing.JFrame {
         selectedRow = BandsTable1.getSelectedRow();
         band = musicGroupList.get(BandsTable1.convertRowIndexToModel(selectedRow));
         new NewOrModifyBand(band).setVisible(true);
+        dispose();
     }//GEN-LAST:event_editBandActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
