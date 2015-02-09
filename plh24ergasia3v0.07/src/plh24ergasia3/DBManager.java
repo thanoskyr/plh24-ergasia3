@@ -275,7 +275,7 @@ public class DBManager {
             artist = em.merge(artist);
             if (!selectedArtistList.contains(artist)){
             artist.getMusicGroupList().remove(band);
-            band.getArtistList().remove(artist); // Να ξαναδώ γιατί δεν μου δούλευε και έβαλα παρακάτω το retain
+            //band.getArtistList().remove(artist); // Να ξαναδώ γιατί δεν μου δούλευε και έβαλα παρακάτω το retain
             }
         }
         band.getArtistList().retainAll(selectedArtistList);       

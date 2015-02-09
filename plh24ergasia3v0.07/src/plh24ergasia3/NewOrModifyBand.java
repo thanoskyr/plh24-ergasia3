@@ -18,7 +18,6 @@ import static plh24ergasia3.DBManager.modifyBand;
 public class NewOrModifyBand extends javax.swing.JFrame {
     MusicGroup band;
     boolean modify;
-    int confirm;
     int selectedAvailableArtistRow, selectedSelectedArtistRow;
     Artist artist;
     
@@ -27,14 +26,14 @@ public class NewOrModifyBand extends javax.swing.JFrame {
      */
     public NewOrModifyBand() {//νεα εγγραφή
         initComponents();
-        //checkButtons();
+        checkButtons();
         modify=false;
         selectedArtistList.clear();// καθαριζει τις εγραφες
     }
     
     public NewOrModifyBand(MusicGroup band) {
         initComponents(); 
-        //checkButtons();
+        checkButtons();
         modify = true;
         selectedArtistList.clear();
         //θετω τις τιμες
@@ -45,6 +44,14 @@ public class NewOrModifyBand extends javax.swing.JFrame {
             availableArtistList.remove(ar);//βγάζει τους υπάρχοντες
         }
     }
+    
+    private void checkButtons() {
+        /* Έλεγχος των κουμπιών για ενεργοποίηση ή απενεργοποίηση */
+        selectedAvailableArtistRow = availableArtistTable.getSelectedRow();
+        selectedSelectedArtistRow = selectedArtistTable.getSelectedRow();        
+        insertButton.setEnabled(selectedAvailableArtistRow >= 0);
+        deleteSelectedArtistButton.setEnabled(selectedSelectedArtistRow >= 0);
+    } 
     
 
     /**
@@ -98,6 +105,11 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        availableArtistTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                availableArtistTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(availableArtistTable);
         availableArtistTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -144,6 +156,11 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        selectedArtistTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectedArtistTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(selectedArtistTable);
         selectedArtistTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -262,7 +279,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         
         if(groupName.getText().isEmpty()||selectedArtistList.size()>1){
-            if (modify){//επεξεργασία
+            
                 band=new MusicGroup(groupName.getText());
                 band.setFormationDate(formationDate.getDate());
                 band.setArtistList(selectedArtistList);
@@ -270,18 +287,17 @@ public class NewOrModifyBand extends javax.swing.JFrame {
                 System.out.println(selectedArtistList.toString());
                 //να δω γιατι δεν ανανεωνει αυτοματα
                 if (modifyBand(band,artistList)){
-                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                        
+                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
                     dispose();
                 } 
                 else {
                     JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }   
-            }
         }
         else{
             JOptionPane.showMessageDialog(null, "Πρέπει να επιλεγούν τουλάχιστον 2 καλλιτέχνες και να συμπληρωθεί το όνομα συγκροτήματος", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        //checkButtons();
+        checkButtons();
     }//GEN-LAST:event_SaveActionPerformed
 
     private void deleteSelectedArtistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSelectedArtistButtonActionPerformed
@@ -294,6 +310,19 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         availableArtistList.add(availableArtistList.size(), artist);      
         
     }//GEN-LAST:event_deleteSelectedArtistButtonActionPerformed
+
+    private void availableArtistTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_availableArtistTableMouseClicked
+        // TODO add your handling code here:
+        selectedArtistTable.clearSelection();
+        deleteSelectedArtistButton.setEnabled(false);
+        checkButtons();
+    }//GEN-LAST:event_availableArtistTableMouseClicked
+
+    private void selectedArtistTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedArtistTableMouseClicked
+        availableArtistTable.clearSelection();
+        insertButton.setEnabled(false);
+        checkButtons();
+    }//GEN-LAST:event_selectedArtistTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -333,7 +362,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Save;
     private javax.persistence.Query artistQuery;
-    private java.util.List<pojos.Artist> availableArtistList;
+    public static java.util.List<pojos.Artist> availableArtistList;
     private javax.swing.JTable availableArtistTable;
     private javax.swing.JButton cancel;
     private javax.swing.JButton deleteSelectedArtistButton;
@@ -347,7 +376,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
-    private java.util.List<pojos.Artist> selectedArtistList;
+    public static java.util.List<pojos.Artist> selectedArtistList;
     private javax.swing.JTable selectedArtistTable;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
