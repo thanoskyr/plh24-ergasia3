@@ -476,6 +476,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        selectedRow=jTable1.getSelectedRow();
         Artist artist1 = kalitexnesList.get(selectedRow);
         kalitexnesList.remove(artist1); //διαγραφή
         kalitexnesList.add(artist1); //πρόσθεση
@@ -483,6 +484,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        selectedRow=jTable2.getSelectedRow();
         MusicGroup group1 = sigkrotimaList.get(selectedRow);
         sigkrotimaList.remove(group1); //διαγραφή
         sigkrotimaList.add(group1); //πρόσθεση
