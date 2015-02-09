@@ -441,6 +441,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         //Δημιουργία νέου τραγουδιού
+        selectedRow = songArray.getSelectedRow();
         Song s1=new Song(title,duration,tracknr);
         DBManager.addSong(s1);
         s1.setAlbumtitle(album1);

@@ -183,6 +183,10 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         // TODO add your handling code here:
         //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου καλλιτεχνη
         selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε κάποιο άλμπουμ!!", "",
+                JOptionPane.WARNING_MESSAGE);
+            return;}
         album = list1.get(jTable1.convertRowIndexToModel(selectedRow));
         new ModifyBandAlbum().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed

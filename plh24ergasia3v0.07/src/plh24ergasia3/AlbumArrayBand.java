@@ -178,6 +178,10 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε κάποιο άλμπουμ!!", "",
+                JOptionPane.WARNING_MESSAGE);
+            return;}
         album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
         new ModifyBandAlbum().setVisible(true);
             
