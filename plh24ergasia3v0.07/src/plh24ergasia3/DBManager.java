@@ -189,6 +189,20 @@ public class DBManager {
     
     }
     
+    public static boolean modifyAlbum(Album album){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+        try {
+            em.getTransaction().begin();
+            em.merge(album);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;
+        }
+    }
+    
     public static boolean deleteAlbum(Album album){
         //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
         try {
