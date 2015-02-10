@@ -58,26 +58,12 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         songQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
         songList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(songQuery.getResultList());
-        DropDownMenu = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
-        DropDownMenuList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(DropDownMenu.getResultList());
         musicProductionCompanyQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
         musicProductionCompanyList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicProductionCompanyQuery1.getResultList());
-        kalitexnesQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("Select k From Artist k");
-        kalitexnesList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(kalitexnesQuery.getResultList());
-        sigkrotimaQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("Select s From MusicGroup s");
-        sigkrotimaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(sigkrotimaQuery.getResultList());
         artistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
+        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery.getResultList();
         musicGroupQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
-        musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicGroupQuery.getResultList());
-        musicGroupQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
-        musicGroupList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicGroupQuery1.getResultList());
-        artistQuery3 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList3 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery3.getResultList();
-        musicGroupQuery2 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
-        musicGroupList2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicGroupQuery2.getResultList();
-        artistQuery4 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList4 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery4.getResultList();
+        musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicGroupQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -219,18 +205,17 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, artistList3, jTable1);
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, artistList, jTable1);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artisticName}"));
-        columnBinding.setColumnName("Artistic Name");
+        columnBinding.setColumnName("Καλλιτέχνης");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable1);
 
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList1, jTable2);
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList, jTable2);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artistList}"));
-        columnBinding.setColumnName("Artist List");
+        columnBinding.setColumnName("Συγκρότημα");
         columnBinding.setColumnClass(java.util.List.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -478,17 +463,17 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         selectedRow=jTable1.getSelectedRow();
-        Artist artist1 = kalitexnesList.get(selectedRow);
-        kalitexnesList.remove(artist1); //διαγραφή
-        kalitexnesList.add(artist1); //πρόσθεση
+        Artist artist1 = artistList.get(selectedRow);
+        artistList.remove(artist1); //διαγραφή
+        artistList.add(artist1); //πρόσθεση
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         selectedRow=jTable2.getSelectedRow();
-        MusicGroup group1 = sigkrotimaList.get(selectedRow);
-        sigkrotimaList.remove(group1); //διαγραφή
-        sigkrotimaList.add(group1); //πρόσθεση
+        MusicGroup group1 = musicGroupList.get(selectedRow);
+        musicGroupList.remove(group1); //διαγραφή
+        musicGroupList.add(group1); //πρόσθεση
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -533,15 +518,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AlbumNo;
-    private javax.persistence.Query DropDownMenu;
-    private java.util.List DropDownMenuList;
     private javax.swing.JTextField albumType;
     private java.util.List<pojos.Artist> artistList;
-    private java.util.List<pojos.Artist> artistList3;
-    private java.util.List<pojos.Artist> artistList4;
     private javax.persistence.Query artistQuery;
-    private javax.persistence.Query artistQuery3;
-    private javax.persistence.Query artistQuery4;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -565,19 +544,11 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private java.util.List<pojos.Artist> kalitexnesList;
-    private javax.persistence.Query kalitexnesQuery;
     private java.util.List<pojos.MusicGroup> musicGroupList;
-    private java.util.List<pojos.MusicGroup> musicGroupList1;
-    private java.util.List<pojos.MusicGroup> musicGroupList2;
     private javax.persistence.Query musicGroupQuery;
-    private javax.persistence.Query musicGroupQuery1;
-    private javax.persistence.Query musicGroupQuery2;
     private java.util.List<pojos.MusicProductionCompany> musicProductionCompanyList1;
     private javax.persistence.Query musicProductionCompanyQuery1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
-    private java.util.List<pojos.MusicGroup> sigkrotimaList;
-    private javax.persistence.Query sigkrotimaQuery;
     private javax.swing.JTable songArray;
     private java.util.List<pojos.Song> songList;
     private javax.persistence.Query songQuery;

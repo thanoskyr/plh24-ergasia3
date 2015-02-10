@@ -26,22 +26,6 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Song&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.persistence.Query" name="DropDownMenu">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM MusicProductionCompany m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="radioDBv2PUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="DropDownMenuList">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="DropDownMenu"/>
-        </Property>
-        <Property name="observable" type="boolean" value="true"/>
-      </Properties>
-    </Component>
     <Component class="javax.persistence.Query" name="musicProductionCompanyQuery1">
       <Properties>
         <Property name="query" type="java.lang.String" value="SELECT m FROM MusicProductionCompany m"/>
@@ -61,47 +45,6 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.MusicProductionCompany&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.persistence.Query" name="kalitexnesQuery">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="Select k From Artist k"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="radioDBv2PUEntityManager"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
-      </AuxValues>
-    </Component>
-    <Component class="java.util.List" name="kalitexnesList">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="kalitexnesQuery"/>
-        </Property>
-        <Property name="observable" type="boolean" value="true"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Artist&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="sigkrotimaQuery">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="Select s From MusicGroup s"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="radioDBv2PUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="sigkrotimaList">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="sigkrotimaQuery"/>
-        </Property>
-        <Property name="observable" type="boolean" value="true"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.MusicGroup&gt;"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.persistence.Query" name="artistQuery">
       <Properties>
         <Property name="query" type="java.lang.String" value="SELECT a FROM Artist a"/>
@@ -115,7 +58,6 @@
         <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
           <ComponentRef name="artistQuery"/>
         </Property>
-        <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Artist&gt;"/>
@@ -134,83 +76,9 @@
         <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
           <ComponentRef name="musicGroupQuery"/>
         </Property>
-        <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.MusicGroup&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="musicGroupQuery1">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM MusicGroup m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="radioDBv2PUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="musicGroupList1">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="musicGroupQuery1"/>
-        </Property>
-        <Property name="observable" type="boolean" value="true"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.MusicGroup&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="artistQuery3">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT a FROM Artist a"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="radioDBv2PUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="artistList3">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="artistQuery3"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Artist&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="musicGroupQuery2">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT m FROM MusicGroup m"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="radioDBv2PUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="musicGroupList2">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="musicGroupQuery2"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.MusicGroup&gt;"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.persistence.Query" name="artistQuery4">
-      <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT a FROM Artist a"/>
-        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
-          <ComponentRef name="radioDBv2PUEntityManager"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="java.util.List" name="artistList4">
-      <Properties>
-        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
-          <ComponentRef name="artistQuery4"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Artist&gt;"/>
       </AuxValues>
     </Component>
   </NonVisualComponents>
@@ -589,11 +457,10 @@
             </Property>
           </Properties>
           <BindingProperties>
-            <BindingProperty name="elements" source="artistList3" target="jTable1" targetPath="elements" updateStrategy="0" immediately="true">
+            <BindingProperty name="elements" source="artistList" target="jTable1" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${artisticName}">
-                <BindingParameter name="NAME" value="Artistic Name"/>
+                <BindingParameter name="NAME" value="&#x39a;&#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3c4;&#x3ad;&#x3c7;&#x3bd;&#x3b7;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
@@ -623,8 +490,9 @@
             </Property>
           </Properties>
           <BindingProperties>
-            <BindingProperty name="elements" source="musicGroupList1" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
+            <BindingProperty name="elements" source="musicGroupList" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
               <Subbinding sourcePath="${artistList}">
+                <BindingParameter name="NAME" value="&#x3a3;&#x3c5;&#x3b3;&#x3ba;&#x3c1;&#x3cc;&#x3c4;&#x3b7;&#x3bc;&#x3b1;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.List.class"/>
               </Subbinding>
             </BindingProperty>
