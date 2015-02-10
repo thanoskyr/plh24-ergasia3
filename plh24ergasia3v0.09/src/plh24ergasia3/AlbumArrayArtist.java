@@ -174,7 +174,8 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        ModifyBandAlbum a1=new ModifyBandAlbum (); //Δημιουργία νέας φόρμας
+        int x=1;
+        ModifyBandAlbum a1=new ModifyBandAlbum (x); //Δημιουργία νέας φόρμας
         a1.setVisible(true);
         
    
