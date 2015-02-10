@@ -125,7 +125,19 @@ public class DBManager {
         }
     }
     
-    
+    public static boolean modifyMusicGroup(MusicGroup group){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+        try {
+            em.getTransaction().begin();
+            em.merge(group);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;
+        }
+    }
 
     /* Μέθοδος διαγραφής συγκροτήματος */
     public static boolean deleteMusicGroup(MusicGroup musicGroup){
@@ -285,4 +297,6 @@ public class DBManager {
     }
 }
 
+    
+     
 }

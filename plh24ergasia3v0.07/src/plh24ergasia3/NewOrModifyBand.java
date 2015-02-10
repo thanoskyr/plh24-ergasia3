@@ -6,8 +6,7 @@
 package plh24ergasia3;
 import pojos.*;
 import javax.swing.JOptionPane;
-import static plh24ergasia3.DBManager.modifyBand;
-import static plh24ergasia3.DBManager.addMusicGroup;
+import static plh24ergasia3.DBManager.*;
 /**
  *
  * @author thanos
@@ -280,10 +279,11 @@ public class NewOrModifyBand extends javax.swing.JFrame {
             if(modify){
                 band.setName(groupName.getText());
                 band.setFormationDate(formationDate.getDate());
+                band.setArtistList(selectedArtistList);
                 if (modifyBand(band,selectedArtistList)){
+                    //ανανεωση πίνακα
+                    ListOfBands.musicGroupList.set(ListOfBands.BandsTable1.getSelectedRow(), band);
                     
-                    
-                    //band.setArtistList(selectedArtistList);
                     JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
                     dispose();
                 } 
@@ -291,13 +291,18 @@ public class NewOrModifyBand extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            else{
+            else{//νεο συγκροτημα it works!
                 band=new MusicGroup();
                 band.setName(groupName.getText());
                 band.setFormationDate(formationDate.getDate());
                 band.setArtistList(selectedArtistList);
+                for(Artist artist:selectedArtistList){
+                    artist.getMusicGroupList().add(band);
+                }
                 if(addMusicGroup(band)==true){
                     JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                    //προσθηκη στον πινακα
+                    ListOfBands.musicGroupList.add(band);
                     dispose();
                 }
                 else {
