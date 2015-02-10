@@ -198,7 +198,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         selectedRow=jTable1.getSelectedRow();
         album=albumList.get(jTable1.convertColumnIndexToModel(selectedRow));
         
-        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album. getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {    
             if (DBManager.deleteAlbum(album)) {
