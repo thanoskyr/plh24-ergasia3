@@ -7,6 +7,7 @@ package plh24ergasia3;
 
 
 import javax.swing.JOptionPane;
+import static javax.swing.UIManager.get;
 import pojos.Album;
 import pojos.Artist;
 import pojos.MusicGroup;
@@ -29,6 +30,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private int tracknr=0;
     private String title;
     boolean modify;
+    int selectedKalitexnisRow;
     /**
      * Creates new form ModifyBandAlbum
      */
@@ -60,20 +62,12 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         songList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(songQuery.getResultList());
         DropDownMenu = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
         DropDownMenuList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : DropDownMenu.getResultList();
-        musicProductionCompanyQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
-        musicProductionCompanyList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicProductionCompanyQuery1.getResultList();
-        kalitexnesQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("Select k from Artist k");
-        kalitexnesList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(kalitexnesQuery.getResultList());
-        sigkrotimaQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("Select s from Artist s");
-        sigkrotimaList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(sigkrotimaQuery.getResultList());
         artistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery.getResultList();
-        artistQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery1.getResultList();
+        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
+        musicProductionCompanyQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
+        musicProductionCompanyList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicProductionCompanyQuery.getResultList();
         musicGroupQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
-        musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicGroupQuery.getResultList();
-        musicGroupQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
-        musicGroupList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicGroupQuery1.getResultList();
+        musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicGroupQuery.getResultList());
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -89,25 +83,17 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         albumType = new javax.swing.JTextField();
         AlbumNo = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
-        jPanel1 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        kalitexnes = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        kalitexnes2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
-        sigkrotima = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
-        sigkrotima2 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        kalitexnesArray = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        sigkrotimataArray = new javax.swing.JTable();
+        saveButton = new javax.swing.JButton();
+        akuroButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ΔΙΑΧΕΙΡΗΣΗ ΑΛΜΠΟΥΜ");
@@ -158,17 +144,11 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new pojos.Album(), org.jdesktop.beansbinding.ELProperty.create("${title}"), title1, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         title1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 title1ActionPerformed(evt);
             }
         });
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new pojos.Album(), org.jdesktop.beansbinding.ELProperty.create("${type}"), albumType, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
 
         albumType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,16 +156,13 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new pojos.Album(), org.jdesktop.beansbinding.ELProperty.create("${diskNumber}"), AlbumNo, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         AlbumNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AlbumNoActionPerformed(evt);
             }
         });
 
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicProductionCompanyList1, jComboBox1);
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicProductionCompanyList, jComboBox1);
         bindingGroup.addBinding(jComboBoxBinding);
 
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -194,97 +171,53 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Αποθήκευση");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(138, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(22, 22, 22))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 302, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         jLabel9.setText("Καλλιτέχνες");
 
         jLabel10.setText("Συγκροτήματα");
 
-        org.jdesktop.swingbinding.JListBinding jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, artistList, jList1);
-        bindingGroup.addBinding(jListBinding);
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, artistList, kalitexnesArray);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artisticName}"));
+        columnBinding.setColumnName("Καλλιτέχνης");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane2.setViewportView(kalitexnesArray);
 
-        kalitexnes.setViewportView(jList1);
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList, sigkrotimataArray);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artistList}"));
+        columnBinding.setColumnName("Συγκρότημα");
+        columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane3.setViewportView(sigkrotimataArray);
 
-        jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, artistList1, jList2);
-        bindingGroup.addBinding(jListBinding);
-
-        kalitexnes2.setViewportView(jList2);
-
-        jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList, jList3);
-        bindingGroup.addBinding(jListBinding);
-
-        sigkrotima.setViewportView(jList3);
-
-        jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList1, jList4);
-        bindingGroup.addBinding(jListBinding);
-
-        sigkrotima2.setViewportView(jList4);
-
-        jButton5.setText("Add ");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        saveButton.setText("Αποθήκευση");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                saveButtonActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Remove");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        akuroButton.setText("Άκυρο");
+        akuroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                akuroButtonActionPerformed(evt);
             }
         });
 
-        jButton7.setText("Add ");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setText("Remove");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Ακύρωση");
+        jButton1.setText("Add");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Add");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -293,61 +226,53 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AlbumNo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(albumType, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)))
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(kalitexnes, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kalitexnes2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)
-                            .addComponent(sigkrotima, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(57, 57, 57)
-                                .addComponent(jButton8))
-                            .addComponent(sigkrotima2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
-                        .addComponent(jButton6)))
-                .addContainerGap(41, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(79, 79, 79))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(342, 342, 342))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 483, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(jLabel5)))
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(AlbumNo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(albumType, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(akuroButton)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton2)))
+                            .addComponent(jButton1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveButton)
+                        .addGap(216, 216, 216))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,72 +288,53 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(albumType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(AlbumNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(117, 117, 117)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(AlbumNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(kalitexnes, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton6)
-                                    .addComponent(jButton5))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(kalitexnes2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(28, 28, 28)
-                .addComponent(jLabel10)
-                .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton7)
-                                    .addComponent(jButton8))
-                                .addGap(18, 18, 18)
-                                .addComponent(sigkrotima2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jButton1))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(27, 27, 27)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(134, 134, 134))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButton3)
-                                        .addComponent(jButton4))
-                                    .addGap(76, 76, 76)))))
-                    .addComponent(sigkrotima, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(38, 38, 38)
+                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel10)
+                        .addGap(9, 9, 9)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(saveButton)
+                    .addComponent(akuroButton))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -445,61 +351,6 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         songList.add(s1);
         
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        // Υποχρεωτικό γέμισμα πεδίων
-         if  (  title1.getText().equals("")|| 
-                albumType.getText().equals("") || 
-                AlbumNo.getText().equals(""))
-                {
-       JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
-       }
-        else{
-              if (modify==true) {//τροποποίηση
-                    confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    album.setTitle(title1.getText());
-                    album.setType(albumType.getText());
-                    album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
-                    album.setReleaseDate(null);
-                    
-                
-                if (DBManager.modifyAlbum(album)){
-                        AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
-                        JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                } 
-                else {
-                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-              }
-                else{
-                        //νέα εγγραφή
-                        confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (confirm==0) {//πρόβλημα
-                        album.setTitle(title1.getText());
-                        album.setType(albumType.getText());
-                        album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
-                        album.setReleaseDate(null);
-                        
-                       
-                        if (DBManager.addAlbum(album)){
-                            AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
-                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                             dispose();
-                       } 
-                  }
-                        
-                        
-                }  
-              } 
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false); //κλεινει αυτη η φορμα
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void title1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_title1ActionPerformed
         // TODO add your handling code here:
@@ -545,40 +396,102 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        Artist artist1 = kalitexnesList.get(selectedRow);
-        kalitexnesList.remove(artist1); //διαγραφή
-        kalitexnesList.add(artist1); //πρόσθεση
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        MusicGroup group1 = sigkrotimaList.get(selectedRow);
-        sigkrotimaList.remove(group1); //διαγραφή
-        sigkrotimaList.add(group1); //πρόσθεση
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
         
-        Artist artist1 = kalitexnesList.get(selectedRow);
-        kalitexnesList.remove(artist1); //διαγραφή
-        kalitexnesList.add(artist1); //πρόσθεση
-    }//GEN-LAST:event_jButton6ActionPerformed
+        if  (  title1.getText().equals("")|| 
+                albumType.getText().equals("") || 
+                AlbumNo.getText().equals(""))
+                {
+       JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
+       }
+        else{
+              if (modify==true) {//τροποποίηση
+                    confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    album.setTitle(title1.getText());
+                    album.setType(albumType.getText());
+                    album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
+                    album.setReleaseDate(null);
+                    
+                
+                if (DBManager.modifyAlbum(album)){
+                        AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
+                        JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                } 
+                else {
+                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+              }
+                else{
+                        //νέα εγγραφή
+                        confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (confirm==0) {//πρόβλημα
+                        album.setTitle(title1.getText());
+                        album.setType(albumType.getText());
+                        album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
+                        album.setReleaseDate(null);
+                        
+                       
+                        if (DBManager.addAlbum(album)){
+                            AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
+                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                             dispose();
+                       } 
+                  }
+                        
+                        
+                }  
+              } 
+    }//GEN-LAST:event_saveButtonActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void akuroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_akuroButtonActionPerformed
         // TODO add your handling code here:
+        dispose();
         
-        MusicGroup group1 = sigkrotimaList.get(selectedRow);
-        sigkrotimaList.remove(group1); //διαγραφή
-        sigkrotimaList.add(group1); //πρόσθεση
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_akuroButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       selectedRow = kalitexnesArray.getSelectedRow();
+     
+      if (selectedRow == -1) { 
+            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί τραγούδι.", "",
+                                          JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Ανάκτηση του συγκροτήματος
+        selectedKalitexnisRow=kalitexnesArray.getSelectedRow();
+        MusicGroup Group1 = musicGroupList.get(kalitexnesArray.convertRowIndexToModel(selectedRow));
+        // Διαγραφή από την μία λίστα και πρόσθεση στην άλλη
+        musicGroupList.remove(Group1);
+        musicGroupList.add(Group1);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       selectedRow = sigkrotimataArray.getSelectedRow();
+     
+      if (selectedRow == -1) { 
+            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί τραγούδι.", "",
+                                          JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Ανάκτηση του καλλιτέχνη
+        Artist artist1 = artistList.get(sigkrotimataArray.convertRowIndexToModel(selectedRow));
+        // Διαγραφή από την μία λίστα και πρόσθεση στην άλλη
+        artistList.remove(artist1);
+        artistList.add(artist1);
+        
+              
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -619,19 +532,14 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JTextField AlbumNo;
     private javax.persistence.Query DropDownMenu;
     private java.util.List DropDownMenuList;
+    private javax.swing.JButton akuroButton;
     private javax.swing.JTextField albumType;
     private java.util.List<pojos.Artist> artistList;
-    private java.util.List<pojos.Artist> artistList1;
     private javax.persistence.Query artistQuery;
-    private javax.persistence.Query artistQuery1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -643,28 +551,17 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
-    private javax.swing.JList jList4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane kalitexnes;
-    private javax.swing.JScrollPane kalitexnes2;
-    private java.util.List<pojos.Artist> kalitexnesList;
-    private javax.persistence.Query kalitexnesQuery;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable kalitexnesArray;
     private java.util.List<pojos.MusicGroup> musicGroupList;
-    private java.util.List<pojos.MusicGroup> musicGroupList1;
     private javax.persistence.Query musicGroupQuery;
-    private javax.persistence.Query musicGroupQuery1;
-    private java.util.List<pojos.MusicProductionCompany> musicProductionCompanyList1;
-    private javax.persistence.Query musicProductionCompanyQuery1;
+    private java.util.List<pojos.MusicProductionCompany> musicProductionCompanyList;
+    private javax.persistence.Query musicProductionCompanyQuery;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
-    private javax.swing.JScrollPane sigkrotima;
-    private javax.swing.JScrollPane sigkrotima2;
-    private java.util.List<pojos.MusicGroup> sigkrotimaList;
-    private javax.persistence.Query sigkrotimaQuery;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JTable sigkrotimataArray;
     private javax.swing.JTable songArray;
     private java.util.List<pojos.Song> songList;
     private javax.persistence.Query songQuery;
