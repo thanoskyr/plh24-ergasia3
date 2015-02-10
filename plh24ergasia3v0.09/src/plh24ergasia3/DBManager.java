@@ -113,9 +113,12 @@ public class DBManager {
     /* Μέθοδος αποθήκευσης νέου συγκροτήματος  */
     public static boolean addMusicGroup(MusicGroup musicGroup){//it works
     //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */   
+        
         try {
             em.getTransaction().begin();
             em.persist(musicGroup);
+            for(Artist artist:musicGroup.getArtistList()){
+                artist=em.merge(artist);}
             em.getTransaction().commit();
             return true;
         }
