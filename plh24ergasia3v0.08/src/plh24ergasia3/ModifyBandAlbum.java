@@ -13,6 +13,7 @@ import pojos.Artist;
 import pojos.MusicGroup;
 import pojos.Playlist;
 import pojos.Song;
+import java.sql.Date;
 
 
 
@@ -26,7 +27,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private pojos.Album album;//δημιουργια field
     private pojos.Artist artist;
     private int selectedRow,confirm;
-    private int duration=0;
+     private int duration=0;
     private int tracknr=0;
     private String title;
     boolean modify;
@@ -403,7 +404,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
-        
+   
         if  (  title1.getText().equals("")|| 
                 albumType.getText().equals("") || 
                 AlbumNo.getText().equals(""))
@@ -417,6 +418,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                     album.setType(albumType.getText());
                     album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
                     album.setReleaseDate(null);
+                    
                     
                 
                 if (DBManager.modifyAlbum(album)){
@@ -436,6 +438,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                         album.setType(albumType.getText());
                         album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
                         album.setReleaseDate(null);
+                       
                         
                        
                         if (DBManager.addAlbum(album)){
@@ -448,10 +451,12 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                         
                 }  
               } 
+       
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void akuroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_akuroButtonActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false); //κλεινει αυτη η φορμα
         dispose();
         
     }//GEN-LAST:event_akuroButtonActionPerformed
@@ -461,7 +466,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
        selectedRow = kalitexnesArray.getSelectedRow();
      
       if (selectedRow == -1) { 
-            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί τραγούδι.", "",
+            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί συγκρότημα.", "",
                                           JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -479,7 +484,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
        selectedRow = sigkrotimataArray.getSelectedRow();
      
       if (selectedRow == -1) { 
-            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί τραγούδι.", "",
+            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί καλλιτέχνης.", "",
                                           JOptionPane.WARNING_MESSAGE);
             return;
         }
