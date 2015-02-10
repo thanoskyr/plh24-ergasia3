@@ -111,7 +111,7 @@ public class DBManager {
 
     
     /* Μέθοδος αποθήκευσης νέου συγκροτήματος  */
-    public static boolean addMusicGroup(MusicGroup musicGroup){
+    public static boolean addMusicGroup(MusicGroup musicGroup){//it works
     //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */   
         try {
             em.getTransaction().begin();
@@ -129,7 +129,7 @@ public class DBManager {
     //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
         try {
             em.getTransaction().begin();
-            em.merge(group);
+            group=em.merge(group);
             em.getTransaction().commit();
             return true;
         }
@@ -270,15 +270,16 @@ public class DBManager {
     try {
         em.getTransaction().begin();
         // Διαγραφή καλλιτεχνών που δεν υπάρχουν
-        
+        //em.merge(band);
         for (Artist artist : band.getArtistList()) {
         /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
             artist = em.merge(artist);
             if (!selectedArtistList.contains(artist)){
             artist.getMusicGroupList().remove(band);
-            //band.getArtistList().remove(artist); // Να ξαναδώ γιατί δεν μου δούλευε και έβαλα παρακάτω το retain
+            band.getArtistList().remove(artist); // Να ξαναδώ γιατί δεν μου δούλευε και έβαλα παρακάτω το retain
             }
         }
+        
         band.getArtistList().retainAll(selectedArtistList);       
         // Εισαγωγή νέων καλλιτεχνων 
         for (Artist artist : selectedArtistList) {
@@ -289,6 +290,8 @@ public class DBManager {
                 artist.getMusicGroupList().add(band);           
             }
         }
+        
+        band=em.merge(band);
         em.getTransaction().commit();
         return true;
     }catch(Exception e){
