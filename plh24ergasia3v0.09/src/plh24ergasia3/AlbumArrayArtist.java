@@ -188,7 +188,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
             return;}
         album = list1.get(jTable1.convertRowIndexToModel(selectedRow));
-        new ModifyBandAlbum().setVisible(true);
+        new ModifyBandAlbum(album).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

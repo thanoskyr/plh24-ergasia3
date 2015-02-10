@@ -183,7 +183,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
             return;}
         album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
-        new ModifyBandAlbum().setVisible(true);
+        new ModifyBandAlbum(album).setVisible(true);
             
     }//GEN-LAST:event_jButton3ActionPerformed
 
