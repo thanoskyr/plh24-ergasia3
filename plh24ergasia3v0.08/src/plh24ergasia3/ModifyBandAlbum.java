@@ -384,13 +384,13 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
             Song s1=songList.get(selectedRow);
             if (DBManager.deleteSong(s1)) {
                  //διαγραφη τραγουδιου
-                JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή τραγουδιού!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
                 for (Playlist play : s1.getPlaylistList()){
                     play.getSongList().remove(s1);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής τραγουδιού!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }        
          
