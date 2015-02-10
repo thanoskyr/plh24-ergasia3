@@ -38,9 +38,15 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     public ModifyBandAlbum(int x) {
         initComponents();
         modify=false;
-        int intitial = 1;// Για να αρχίσει η εισαγωγή καλλητέχνη
+        int intitial = 1;// Για να αρχίσει η εισαγωγή καλλiτέχνη
     }
-   
+   public ModifyBandAlbum(double y) {
+        initComponents();
+        modify=false;
+        int intitial = 2;// Για να αρχίσει η εισαγωγή καλλiτέχνη
+    }
+    
+    
     public ModifyBandAlbum(){
          initComponents();
          modify=false;
@@ -382,7 +388,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         // Υποχρεωτικό γέμισμα πεδίων
-         if (initial ==1){ 
+     if (initial ==1){ 
          if  (  title1.getText().equals("")|| 
                 albumType.getText().equals("") || 
                 AlbumNo.getText().equals(""))
@@ -437,9 +443,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                 }  
               } 
          dispose();
-         
        }
-       else
+     else
        {
          // Υποχρεωτικό γέμισμα πεδίων
          if  (  title1.getText().equals("")|| 
@@ -480,7 +485,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                         }
                         
                        
-                        if (DBManager.addAlbum(album)){
+                        if (DBManager.addMusicGroup(music)){
                             AlbumArrayBand.musicGroupList.set(AlbumArrayBand.jTable1.getSelectedRow(), music);
                             JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων συγκροτήματος!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                             dispose();
@@ -491,8 +496,11 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                 }  
               } 
          dispose();
+       }   
     }//GEN-LAST:event_jButton2ActionPerformed
-   }
+   
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false); //κλεινει αυτη η φορμα
