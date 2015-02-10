@@ -38,7 +38,7 @@ public class ListOfBands extends javax.swing.JFrame {
         musicGroupQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
         musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicGroupQuery.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
-        BandsTable1 = new javax.swing.JTable();
+        BandsTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         deleteBand = new javax.swing.JButton();
         addBand = new javax.swing.JButton();
@@ -48,9 +48,9 @@ public class ListOfBands extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Εγγραφή σε Μάθημα");
 
-        BandsTable1.setColumnSelectionAllowed(true);
+        BandsTable.setColumnSelectionAllowed(true);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList, BandsTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList, BandsTable);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
         columnBinding.setColumnName("Επωνυμία");
         columnBinding.setColumnClass(String.class);
@@ -61,8 +61,8 @@ public class ListOfBands extends javax.swing.JFrame {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane1.setViewportView(BandsTable1);
-        BandsTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(BandsTable);
+        BandsTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         jLabel1.setText("Πίνακας Συγκροτημάτων");
@@ -145,8 +145,8 @@ public class ListOfBands extends javax.swing.JFrame {
 
     private void deleteBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBandActionPerformed
         // TODO add your handling code here:
-        selectedRow = BandsTable1.getSelectedRow();
-        band=musicGroupList.get(BandsTable1.convertRowIndexToModel(selectedRow));
+        selectedRow = BandsTable.getSelectedRow();
+        band=musicGroupList.get(BandsTable.convertRowIndexToModel(selectedRow));
         
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το επιλεγμένο συγκρότημα " + band.getName() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
@@ -161,17 +161,16 @@ public class ListOfBands extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteBandActionPerformed
 
     private void addBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBandActionPerformed
-        // TODO add your handling code here:
-        
+           
         new NewOrModifyBand().setVisible(true);//ανοιγει φορμα προσθηκης
-        //dispose();
+        
     }//GEN-LAST:event_addBandActionPerformed
 
     private void editBandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBandActionPerformed
         
         //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου συγκροήματος
-        selectedRow = BandsTable1.getSelectedRow();
-        band = musicGroupList.get(BandsTable1.convertRowIndexToModel(selectedRow));
+        selectedRow = BandsTable.getSelectedRow();
+        band = musicGroupList.get(BandsTable.convertRowIndexToModel(selectedRow));
         new NewOrModifyBand(band).setVisible(true);
         //dispose();
     }//GEN-LAST:event_editBandActionPerformed
@@ -219,7 +218,7 @@ public class ListOfBands extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTable BandsTable1;
+    public static javax.swing.JTable BandsTable;
     private javax.swing.JButton addBand;
     private javax.swing.JButton deleteBand;
     private javax.swing.JButton editBand;
