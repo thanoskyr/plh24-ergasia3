@@ -184,11 +184,11 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         selectedRow=jTable1.getSelectedRow();
         band=musicGroupList.get(jTable1.convertColumnIndexToModel(selectedRow));
         
-        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + band. getName() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + band.getName() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {    
             if (DBManager.deleteMusicGroup(band)) {
-                albumList.remove(band); //διαγραφη καλλιτεχνη
+                musicGroupList.remove(band); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
                 new ListOfArtists().setVisible(true); //ανανέωση
