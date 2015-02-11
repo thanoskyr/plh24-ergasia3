@@ -33,6 +33,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     Album album1;
     Artist a1;
     Song s1;
+    Playlist play;
     /**
      * Creates new form ModifyBandAlbum
      */
@@ -405,7 +406,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                             album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
                             album.setReleaseDate(jDateChooser2.getDate());
                             a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));
-                            s1=songList.get(jTable1.convertRowIndexToModel(selectedRow));
+                                    for (Artist a1 : artistList) {
+                                                a1.getAlbumList().add(album);}
+                            
                                 if (DBManager.addAlbum(album) && DBManager.addSong(s1) && DBManager.addArtist(a1)){
                                     AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
                                     JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
