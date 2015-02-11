@@ -43,8 +43,6 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
         albumQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a");
         albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(albumQuery.getResultList());
-        albumQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a");
-        albumList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(albumQuery1.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -60,38 +58,30 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, albumList, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artistList}"));
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artistartisticName}"));
         columnBinding.setColumnName("Καλλιτέχνης");
-        columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setColumnClass(pojos.Artist.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicProductionCompanyname}"));
+        columnBinding.setColumnName("Εταιρία Παραγωγής");
+        columnBinding.setColumnClass(pojos.MusicProductionCompany.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${releaseDate}"));
+        columnBinding.setColumnName("Ημερομηνία Κυκλοφορίας");
+        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
         columnBinding.setColumnName("Τίτλος");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicProductionCompanyname}"));
-        columnBinding.setColumnName("Εταιρεία παραγωγής");
-        columnBinding.setColumnClass(pojos.MusicProductionCompany.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${songList}"));
-        columnBinding.setColumnName("Λίστα τραγουδιών");
-        columnBinding.setColumnClass(java.util.List.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${diskNumber}"));
-        columnBinding.setColumnName("Αριθμός Άλμπουμ");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
-        columnBinding.setColumnName("Τύπος Άλμπουμ");
+        columnBinding.setColumnName("Τύπος");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${releaseDate}"));
-        columnBinding.setColumnName("Ημερομηνία κυκλοφορίας");
-        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jButton1.setText("Εισαγωγή");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -170,12 +160,13 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         dispose();
+        new Kentriki().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int x=1;
-        ModifyBandAlbum a1=new ModifyBandAlbum (x); //Δημιουργία νέας φόρμας
+        
+        ModifyBandAlbum a1=new ModifyBandAlbum (); //Δημιουργία νέας φόρμας
         a1.setVisible(true);
         
    
@@ -196,7 +187,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         selectedRow=jTable1.getSelectedRow();
-        album=albumList.get(jTable1.convertColumnIndexToModel(selectedRow));
+        album = albumList.get(jTable1.convertColumnIndexToModel(selectedRow));
         
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
@@ -205,7 +196,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
                 albumList.remove(album); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
-                new ListOfArtists().setVisible(true); //ανανέωση
+                new AlbumArrayArtist().setVisible(true); //ανανέωση
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής Άλμουμ καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -249,11 +240,9 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.util.List<pojos.Album> albumList;
-    protected static java.util.List<pojos.Album> albumList1;
+    protected static java.util.List<pojos.Album> albumList;
     private javax.persistence.Query albumQuery;
-    protected static javax.persistence.Query albumQuery1;
-    private java.util.List<pojos.Artist> artistList;
+    protected static java.util.List<pojos.Artist> artistList;
     private javax.persistence.Query artistQuery;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -261,7 +250,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    protected static javax.swing.JTable jTable1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables

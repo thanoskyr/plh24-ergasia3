@@ -7,6 +7,7 @@ package plh24ergasia3;
 
 
 import javax.swing.JOptionPane;
+import static plh24ergasia3.AlbumArrayArtist.albumList;
 import pojos.Album;
 import pojos.Artist;
 import pojos.MusicGroup;
@@ -26,25 +27,16 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private pojos.Album album;//δημιουργια field
     private pojos.Artist artist;
     private int selectedRow,confirm;
-    private int duration=0;
-    private int tracknr=0;
     private String title;
     boolean modify;
     private MusicGroup music;
-    private int initial; 
+    Album album1;
+    Artist a1;
+    Song s1;
     /**
      * Creates new form ModifyBandAlbum
      */
-    public ModifyBandAlbum(int x) {
-        initComponents();
-        modify=false;
-        int intitial = 1;// Για να αρχίσει η εισαγωγή καλλiτέχνη
-    }
-   public ModifyBandAlbum(double y) {
-        initComponents();
-        modify=false;
-        int intitial = 2;// Για να αρχίσει η εισαγωγή καλλiτέχνη
-    }
+  
     
     
     public ModifyBandAlbum(){
@@ -57,25 +49,13 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         this.album=album;
         initComponents();               
         modify = true;
-      
-       
         title1.setText(album.getTitle());
         albumType.setText(album.getType());
         jDateChooser2.setDate(album.getReleaseDate());
         
         
     }
-        
-    public ModifyBandAlbum(MusicGroup music){
-    
-        this.music=music;
-        initComponents();               
-        modify = true;
-      
-        title1.setText(music.getName());
-        jDateChooser2.setDate(music.getFormationDate());
-    
-    }   
+         
                 
        
     
@@ -96,7 +76,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         musicProductionCompanyQuery1 = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
         musicProductionCompanyList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicProductionCompanyQuery1.getResultList());
         artistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery.getResultList();
+        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
         musicGroupQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
         musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicGroupQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
@@ -379,8 +359,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Δημιουργία νέου τραγουδιού
         selectedRow = songArray.getSelectedRow();
-        Song s1=new Song(title,duration,tracknr);
-        DBManager.addSong(s1);
+        Song s1=new Song("Τίτλος",0,0);
         songList.add(s1);
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -388,7 +367,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         // Υποχρεωτικό γέμισμα πεδίων
-     if (initial ==1){ 
+     
          if  (  title1.getText().equals("")|| 
                 albumType.getText().equals("") || 
                 AlbumNo.getText().equals(""))
@@ -406,7 +385,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                     
                     
                 if (DBManager.modifyAlbum(album)){
-                        AlbumArrayArtist.albumList1.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
+                        AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
+                        
                         JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                         dispose();
                 } 
@@ -419,84 +399,32 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                         confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (confirm==0) {
                             confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            album=new Album();
                             album.setTitle(title1.getText());
                             album.setType(albumType.getText());
                             album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
                             album.setReleaseDate(jDateChooser2.getDate());
-                    
-                        
-                        
-                             for (Album album : music.getAlbumList()){
-                                     music.getAlbumList().add(album);
-                                     DBManager.addAlbum(album);
-                        }
-                        
+                            a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));
+                            s1=songList.get(jTable1.convertRowIndexToModel(selectedRow));
+                            
+                                if (DBManager.addAlbum(album) && DBManager.addSong(s1)){
+                                    AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
+                                    JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                                    dispose();
+                            
+                            }
+                
                        
-                        if (DBManager.addAlbum(album)){
-                            AlbumArrayArtist.albumList1.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
-                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                            dispose();
-                       } 
                   }
                         
                         
                 }  
-              } 
-         dispose();
-       }
-     else
-       {
-         // Υποχρεωτικό γέμισμα πεδίων
-         if  (  title1.getText().equals("")|| 
-                albumType.getText().equals("") || 
-                AlbumNo.getText().equals(""))
-                {
-       JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
-       }
-        else{
-              if (modify==true) {//τροποποίηση
-                    confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    music.setName(title1.getText());
-                    music.setFormationDate(jDateChooser2.getDate());
-                    
-                    
-                if (DBManager.modifyMusicGroup(music)){
-                        AlbumArrayBand.musicGroupList.set(AlbumArrayBand.jTable1.getSelectedRow(), music);
-                        JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων συγκροτήματος!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                } 
-                else {
-                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης συγκροτήματος!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-              }
-                else{
-                        //νέα εγγραφή
-                        confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (confirm==0) {
-                            confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                            music.setName(title1.getText());
-                            music.setFormationDate(jDateChooser2.getDate());
-                    
-                        
-                        
-                             for (Album album : music.getAlbumList()){
-                                     music.getAlbumList().add(album);
-                                     DBManager.addAlbum(album);
-                        }
-                        
-                       
-                        if (DBManager.addMusicGroup(music)){
-                            AlbumArrayBand.musicGroupList.set(AlbumArrayBand.jTable1.getSelectedRow(), music);
-                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων συγκροτήματος!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                            dispose();
-                       } 
-                  }
-                        
-                        
-                }  
-              } 
-         dispose();
-       }   
+             
+         } 
+         
+       
+    
+     
     }//GEN-LAST:event_jButton2ActionPerformed
    
     
@@ -537,13 +465,10 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         
         if (choice == 0) {  
             Song s1=songList.get(selectedRow);
-            if (DBManager.deleteSong(s1)) {
+            if (songList.remove(s1)) {
                  //διαγραφη τραγουδιου
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφής τραγουδιού!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                for (Playlist play : s1.getPlaylistList()){
-                    play.getSongList().remove(s1);
-                }
+               
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής τραγουδιού!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -554,9 +479,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         selectedRow=jTable1.getSelectedRow();
-        Artist artist1 = artistList.get(selectedRow);
-        artistList.remove(artist1); //διαγραφή
-        artistList.add(artist1); //πρόσθεση
+        Artist a1 = artistList.get(selectedRow);
+        artistList.remove(a1); //διαγραφή
+        artistList.add(a1); //πρόσθεση
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed

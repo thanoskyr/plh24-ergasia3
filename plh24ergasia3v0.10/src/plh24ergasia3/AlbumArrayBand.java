@@ -26,7 +26,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         openConnection();
         initComponents();
     }
-    MusicGroup band; 
+    Album album; 
     int selectedRow;
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,22 +56,26 @@ public class AlbumArrayBand extends javax.swing.JFrame {
 
         jTable1.setColumnSelectionAllowed(true);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, musicGroupList, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, albumList, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicGroupname}"));
         columnBinding.setColumnName("Συγκρότημα");
+        columnBinding.setColumnClass(pojos.MusicGroup.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicProductionCompanyname}"));
+        columnBinding.setColumnName("Εταιρία Παραγωγής");
+        columnBinding.setColumnClass(pojos.MusicProductionCompany.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${releaseDate}"));
+        columnBinding.setColumnName("Ημερομηνία Κυκλοφορίας");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
+        columnBinding.setColumnName("Τίτλος");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${albumList}"));
-        columnBinding.setColumnName("Άλμπουμ");
-        columnBinding.setColumnClass(java.util.List.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${artistList}"));
-        columnBinding.setColumnName("Καλλιτέχνης");
-        columnBinding.setColumnClass(java.util.List.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${formationDate}"));
-        columnBinding.setColumnName("Ημερομηνία ");
-        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
+        columnBinding.setColumnName("Τύπος");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -173,8 +177,8 @@ public class AlbumArrayBand extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε κάποιο άλμπουμ!!", "",
                 JOptionPane.WARNING_MESSAGE);
             return;}
-        band = musicGroupList.get(jTable1.convertRowIndexToModel(selectedRow));
-        new ModifyBandAlbum(band).setVisible(true);
+        album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
+        new ModifyBandAlbum(album).setVisible(true);
             
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -183,13 +187,13 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         
          // TODO add your handling code here:
         selectedRow=jTable1.getSelectedRow();
-        band=musicGroupList.get(jTable1.convertColumnIndexToModel(selectedRow));
+        album=albumList.get(jTable1.convertColumnIndexToModel(selectedRow));
         
-        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + band.getName() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {    
-            if (DBManager.deleteMusicGroup(band)) {
-                musicGroupList.remove(band); //διαγραφη καλλιτεχνη
+            if (DBManager.deleteAlbum(album)) {
+                albumList.remove(album); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
                 new ListOfArtists().setVisible(true); //ανανέωση
@@ -236,7 +240,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static java.util.List<pojos.Album> albumList;
+    protected static java.util.List<pojos.Album> albumList;
     private javax.persistence.Query albumQuery;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
