@@ -406,8 +406,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                             album.setReleaseDate(jDateChooser2.getDate());
                             a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));
                             s1=songList.get(jTable1.convertRowIndexToModel(selectedRow));
-                            
-                                if (DBManager.addAlbum(album) && DBManager.addSong(s1)){
+                                if (DBManager.addAlbum(album) && DBManager.addSong(s1) && DBManager.addArtist(a1)){
                                     AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
                                     JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                                     dispose();
@@ -480,8 +479,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         // TODO add your handling code here:
         selectedRow=jTable1.getSelectedRow();
         Artist a1 = artistList.get(selectedRow);
-        artistList.remove(a1); //διαγραφή
-        artistList.add(a1); //πρόσθεση
+        artistList.remove(a1);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
