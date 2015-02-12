@@ -276,18 +276,21 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         
         if(groupName.getText().isEmpty()||selectedArtistList.size()>1){
-            if(modify){//επεξεργασία συγκροτηματος //αποθηκευει τη νεα κρατα και την παλια χωρις λιστα καλλιτεχνων
+            if(modify){//επεξεργασία συγκροτηματος //δουλευει μονο αν αλλαξεις μονο λιστα καλλιτεχνων
                 band.setName(groupName.getText());
                 band.setFormationDate(formationDate.getDate());
-                band.setArtistList(selectedArtistList);
-                for(Artist artist:selectedArtistList)
-                    artist.getMusicGroupList().add(band);
+                //band.setArtistList(selectedArtistList);
+                //for(Artist artist:selectedArtistList)
+                //    artist.getMusicGroupList().add(band);
                 if (modifyBand(band,selectedArtistList)){
-                    //ανανεωση πίνακα
-                    ListOfBands.musicGroupList.set(ListOfBands.BandsTable.getSelectedRow(), band);
+                    if(modifyMusicGroup(band)){
                     
-                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
-                    dispose();
+                        //ανανεωση πίνακα
+                        ListOfBands.musicGroupList.set(ListOfBands.BandsTable.getSelectedRow(), band);
+                    
+                        JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                        dispose();
+                    }
                 } 
                 else {
                     JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);

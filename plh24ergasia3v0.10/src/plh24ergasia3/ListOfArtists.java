@@ -169,7 +169,7 @@ public class ListOfArtists extends javax.swing.JFrame {
     private void deleteArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteArtistActionPerformed
         // TODO add your handling code here:
         selectedRow = ArtistsTable.getSelectedRow();
-        artist=artistList1.get(ArtistsTable.convertColumnIndexToModel(selectedRow));
+        artist=artistList1.get(ArtistsTable.convertRowIndexToModel(selectedRow));
         
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει ο καλλιτέχνης " + artist.getFirstName() + " " + artist.getLastName()+ "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         

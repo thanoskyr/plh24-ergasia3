@@ -132,9 +132,7 @@ public class DBManager {
     //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
         try {
             em.getTransaction().begin();
-            group=em.merge(group);
-            for(Artist artist:group.getArtistList()){
-                artist=em.merge(artist);}
+            em.merge(group);
             em.getTransaction().commit();
             return true;
         }
@@ -289,14 +287,13 @@ public class DBManager {
     try {
         em.getTransaction().begin();
         // Διαγραφή καλλιτεχνών που δεν υπάρχουν
-        //em.persist(band);
-        //band=em.merge(band);
+        
         for (Artist artist : band.getArtistList()) {
         /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
             artist = em.merge(artist);
             if (!selectedArtistList.contains(artist)){
             artist.getMusicGroupList().remove(band);
-            band.getArtistList().remove(artist); // Να ξαναδώ γιατί δεν μου δούλευε και έβαλα παρακάτω το retain
+            //band.getArtistList().remove(artist); // Να ξαναδώ γιατί δεν μου δούλευε και έβαλα παρακάτω το retain
             }
         }
         
@@ -308,10 +305,11 @@ public class DBManager {
             artist = em.merge(artist);
             if (!band.getArtistList().contains(artist)){
                 band.getArtistList().add(artist);
-                artist.getMusicGroupList().add(band);           
+                artist.getMusicGroupList().add(band);
+             
             }
         }
-        //band=em.merge(band);
+        
         em.getTransaction().commit();
         return true;
     }catch(Exception e){
