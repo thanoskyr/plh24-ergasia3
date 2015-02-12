@@ -160,7 +160,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        ModifyBandAlbum b1=new ModifyBandAlbum (); //Δημιουργία νέας φόρμας
+        ModifyBandAlbum b1=new ModifyBandAlbum (x); //Δημιουργία νέας φόρμας
         b1.setVisible(true);
           
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -179,7 +179,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
             return;}
         album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
-        new ModifyBandAlbum(album).setVisible(true);
+        new ModifyBandAlbum(album,x).setVisible(true);
             
     }//GEN-LAST:event_jButton3ActionPerformed
 
