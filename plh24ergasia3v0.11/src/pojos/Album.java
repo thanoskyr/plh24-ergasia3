@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Album.findAll", query = "SELECT a FROM Album a"),
+    @NamedQuery(name = "Album.findByAlbumId", query = "SELECT a FROM Album a WHERE a.albumId = :albumId"),
     @NamedQuery(name = "Album.findByTitle", query = "SELECT a FROM Album a WHERE a.title = :title"),
     @NamedQuery(name = "Album.findByReleaseDate", query = "SELECT a FROM Album a WHERE a.releaseDate = :releaseDate"),
     @NamedQuery(name = "Album.findByType", query = "SELECT a FROM Album a WHERE a.type = :type"),
@@ -39,6 +42,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Album implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ALBUM_ID")
+    private Integer albumId;
     @Basic(optional = false)
     @Column(name = "TITLE")
     private String title;
@@ -52,14 +59,14 @@ public class Album implements Serializable {
     @Basic(optional = false)
     @Column(name = "DISK_NUMBER")
     private int diskNumber;
-    @OneToMany(mappedBy = "albumtitle")
+    @OneToMany(mappedBy = "albumalbumId")
     private List<Song> songList;
-    @JoinColumn(name = "ARTISTARTISTIC_NAME", referencedColumnName = "ARTISTIC_NAME")
+    @JoinColumn(name = "ARTISTARTIST_ID", referencedColumnName = "ARTIST_ID")
     @ManyToOne
-    private Artist artistartisticName;
-    @JoinColumn(name = "MUSIC_GROUPNAME", referencedColumnName = "NAME")
+    private Artist artistartistId;
+    @JoinColumn(name = "MUSIC_GROUPMUSIC_GROUP_ID", referencedColumnName = "MUSIC_GROUP_ID")
     @ManyToOne
-    private MusicGroup musicGroupname;
+    private MusicGroup musicGroupmusicGroupId;
     @JoinColumn(name = "MUSIC_PRODUCTION_COMPANYNAME", referencedColumnName = "NAME")
     @ManyToOne
     private MusicProductionCompany musicProductionCompanyname;
@@ -67,15 +74,24 @@ public class Album implements Serializable {
     public Album() {
     }
 
-    public Album(String title) {
-        this.title = title;
+    public Album(Integer albumId) {
+        this.albumId = albumId;
     }
 
-    public Album(String title, Date releaseDate, String type, int diskNumber) {
+    public Album(Integer albumId, String title, Date releaseDate, String type, int diskNumber) {
+        this.albumId = albumId;
         this.title = title;
         this.releaseDate = releaseDate;
         this.type = type;
         this.diskNumber = diskNumber;
+    }
+
+    public Integer getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(Integer albumId) {
+        this.albumId = albumId;
     }
 
     public String getTitle() {
@@ -119,20 +135,20 @@ public class Album implements Serializable {
         this.songList = songList;
     }
 
-    public Artist getArtistartisticName() {
-        return artistartisticName;
+    public Artist getArtistartistId() {
+        return artistartistId;
     }
 
-    public void setArtistartisticName(Artist artistartisticName) {
-        this.artistartisticName = artistartisticName;
+    public void setArtistartistId(Artist artistartistId) {
+        this.artistartistId = artistartistId;
     }
 
-    public MusicGroup getMusicGroupname() {
-        return musicGroupname;
+    public MusicGroup getMusicGroupmusicGroupId() {
+        return musicGroupmusicGroupId;
     }
 
-    public void setMusicGroupname(MusicGroup musicGroupname) {
-        this.musicGroupname = musicGroupname;
+    public void setMusicGroupmusicGroupId(MusicGroup musicGroupmusicGroupId) {
+        this.musicGroupmusicGroupId = musicGroupmusicGroupId;
     }
 
     public MusicProductionCompany getMusicProductionCompanyname() {
@@ -146,7 +162,7 @@ public class Album implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (title != null ? title.hashCode() : 0);
+        hash += (albumId != null ? albumId.hashCode() : 0);
         return hash;
     }
 
@@ -157,7 +173,7 @@ public class Album implements Serializable {
             return false;
         }
         Album other = (Album) object;
-        if ((this.title == null && other.title != null) || (this.title != null && !this.title.equals(other.title))) {
+        if ((this.albumId == null && other.albumId != null) || (this.albumId != null && !this.albumId.equals(other.albumId))) {
             return false;
         }
         return true;
@@ -165,7 +181,7 @@ public class Album implements Serializable {
 
     @Override
     public String toString() {
-        return "pojos.Album[ title=" + title + " ]";
+        return "pojos.Album[ albumId=" + albumId + " ]";
     }
     
 }

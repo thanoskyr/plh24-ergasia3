@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -29,12 +31,17 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Song.findAll", query = "SELECT s FROM Song s"),
+    @NamedQuery(name = "Song.findBySongId", query = "SELECT s FROM Song s WHERE s.songId = :songId"),
     @NamedQuery(name = "Song.findByTitle", query = "SELECT s FROM Song s WHERE s.title = :title"),
     @NamedQuery(name = "Song.findByDuration", query = "SELECT s FROM Song s WHERE s.duration = :duration"),
     @NamedQuery(name = "Song.findByTracknr", query = "SELECT s FROM Song s WHERE s.tracknr = :tracknr")})
 public class Song implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "SONG_ID")
+    private Integer songId;
     @Basic(optional = false)
     @Column(name = "TITLE")
     private String title;
@@ -46,21 +53,30 @@ public class Song implements Serializable {
     private int tracknr;
     @ManyToMany(mappedBy = "songList")
     private List<Playlist> playlistList;
-    @JoinColumn(name = "ALBUMTITLE", referencedColumnName = "TITLE")
+    @JoinColumn(name = "ALBUMALBUM_ID", referencedColumnName = "ALBUM_ID")
     @ManyToOne
-    private Album albumtitle;
+    private Album albumalbumId;
 
     public Song() {
     }
 
-    public Song(String title) {
-        this.title = title;
+    public Song(Integer songId) {
+        this.songId = songId;
     }
 
-    public Song(String title, int duration, int tracknr) {
+    public Song(Integer songId, String title, int duration, int tracknr) {
+        this.songId = songId;
         this.title = title;
         this.duration = duration;
         this.tracknr = tracknr;
+    }
+
+    public Integer getSongId() {
+        return songId;
+    }
+
+    public void setSongId(Integer songId) {
+        this.songId = songId;
     }
 
     public String getTitle() {
@@ -96,18 +112,18 @@ public class Song implements Serializable {
         this.playlistList = playlistList;
     }
 
-    public Album getAlbumtitle() {
-        return albumtitle;
+    public Album getAlbumalbumId() {
+        return albumalbumId;
     }
 
-    public void setAlbumtitle(Album albumtitle) {
-        this.albumtitle = albumtitle;
+    public void setAlbumalbumId(Album albumalbumId) {
+        this.albumalbumId = albumalbumId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (title != null ? title.hashCode() : 0);
+        hash += (songId != null ? songId.hashCode() : 0);
         return hash;
     }
 
@@ -118,7 +134,7 @@ public class Song implements Serializable {
             return false;
         }
         Song other = (Song) object;
-        if ((this.title == null && other.title != null) || (this.title != null && !this.title.equals(other.title))) {
+        if ((this.songId == null && other.songId != null) || (this.songId != null && !this.songId.equals(other.songId))) {
             return false;
         }
         return true;
@@ -126,7 +142,7 @@ public class Song implements Serializable {
 
     @Override
     public String toString() {
-        return "pojos.Song[ title=" + title + " ]";
+        return "pojos.Song[ songId=" + songId + " ]";
     }
     
 }

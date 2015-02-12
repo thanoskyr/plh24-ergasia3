@@ -11,6 +11,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -34,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Artist.findAll", query = "SELECT a FROM Artist a"),
+    @NamedQuery(name = "Artist.findByArtistId", query = "SELECT a FROM Artist a WHERE a.artistId = :artistId"),
     @NamedQuery(name = "Artist.findByFirstName", query = "SELECT a FROM Artist a WHERE a.firstName = :firstName"),
     @NamedQuery(name = "Artist.findByLastName", query = "SELECT a FROM Artist a WHERE a.lastName = :lastName"),
     @NamedQuery(name = "Artist.findByArtisticName", query = "SELECT a FROM Artist a WHERE a.artisticName = :artisticName"),
@@ -42,13 +45,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Artist.findByBirthPlace", query = "SELECT a FROM Artist a WHERE a.birthPlace = :birthPlace")})
 public class Artist implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ARTIST_ID")
+    private Integer artistId;
     @Basic(optional = false)
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Basic(optional = false)
     @Column(name = "LAST_NAME")
     private String lastName;
-    @Id
     @Basic(optional = false)
     @Column(name = "ARTISTIC_NAME")
     private String artisticName;
@@ -60,27 +67,36 @@ public class Artist implements Serializable {
     @Column(name = "BIRTH_PLACE")
     private String birthPlace;
     @JoinTable(name = "ARTIST_MUSIC_GROUP", joinColumns = {
-        @JoinColumn(name = "ARTISTARTISTIC_NAME", referencedColumnName = "ARTISTIC_NAME")}, inverseJoinColumns = {
-        @JoinColumn(name = "MUSIC_GROUPNAME", referencedColumnName = "NAME")})
+        @JoinColumn(name = "ARTISTARTIST_ID", referencedColumnName = "ARTIST_ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "MUSIC_GROUPMUSIC_GROUP_ID", referencedColumnName = "MUSIC_GROUP_ID")})
     @ManyToMany
     private List<MusicGroup> musicGroupList;
     @JoinColumn(name = "MUSIC_GENRENAME", referencedColumnName = "NAME")
     @ManyToOne(optional = false)
     private MusicGenre musicGenrename;
-    @OneToMany(mappedBy = "artistartisticName")
+    @OneToMany(mappedBy = "artistartistId")
     private List<Album> albumList;
 
     public Artist() {
     }
 
-    public Artist(String artisticName) {
+    public Artist(Integer artistId) {
+        this.artistId = artistId;
+    }
+
+    public Artist(Integer artistId, String firstName, String lastName, String artisticName) {
+        this.artistId = artistId;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.artisticName = artisticName;
     }
 
-    public Artist(String artisticName, String firstName, String lastName) {
-        this.artisticName = artisticName;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Integer getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(Integer artistId) {
+        this.artistId = artistId;
     }
 
     public String getFirstName() {
@@ -160,7 +176,7 @@ public class Artist implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (artisticName != null ? artisticName.hashCode() : 0);
+        hash += (artistId != null ? artistId.hashCode() : 0);
         return hash;
     }
 
@@ -171,7 +187,7 @@ public class Artist implements Serializable {
             return false;
         }
         Artist other = (Artist) object;
-        if ((this.artisticName == null && other.artisticName != null) || (this.artisticName != null && !this.artisticName.equals(other.artisticName))) {
+        if ((this.artistId == null && other.artistId != null) || (this.artistId != null && !this.artistId.equals(other.artistId))) {
             return false;
         }
         return true;
@@ -179,7 +195,7 @@ public class Artist implements Serializable {
 
     @Override
     public String toString() {
-        return "pojos.Artist[ artisticName=" + artisticName + " ]";
+        return "pojos.Artist[ artistId=" + artistId + " ]";
     }
     
 }
