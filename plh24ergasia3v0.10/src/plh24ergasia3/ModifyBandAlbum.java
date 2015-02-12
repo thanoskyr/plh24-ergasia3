@@ -424,14 +424,30 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                             album1.setType(albumType.getText());
                             album1.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
                             album1.setReleaseDate(jDateChooser2.getDate());
-                            a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));}
-                                    for (Artist a1 : artistList) {
-                                                a1.getAlbumList().add(album1);}
+                            if (initial==1){
+                                a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));
+                                        for (Artist a1 : artistList) {
+                                                  a1.getAlbumList().add(album1);}
                             
                                 if (DBManager.addAlbum(album1) && DBManager.addSong(s1) && DBManager.addArtist(a1)){
                                     AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album1);
                                     JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                                     dispose();
+                                }
+                                else if (initial==2){
+                                group1=musicGroupList.get(jTable1.convertRowIndexToModel(selectedRow));
+                                        for (MusicGroup group1 : musicGroupList) {
+                                                 group1.getAlbumList().add(album1);}
+                            
+                                if (DBManager.addAlbum(album1) && DBManager.addSong(s1) && DBManager.addArtist(a1)){
+                                    AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album1);
+                                    JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                                    dispose();
+                                }
+                                    
+                                    
+                                }
+                            }
                             
                             }
               }
