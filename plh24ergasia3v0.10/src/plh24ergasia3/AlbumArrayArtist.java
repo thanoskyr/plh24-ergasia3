@@ -25,7 +25,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     }
 
   
-        
+    int x=1;    
     int selectedRow;
     Album album;
     /**

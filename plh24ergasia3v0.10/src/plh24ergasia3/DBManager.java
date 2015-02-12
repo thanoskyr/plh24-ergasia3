@@ -194,6 +194,20 @@ public class DBManager {
     
     }
     
+    public static boolean addSongList(List<Song> songList){
+        try {
+            em.getTransaction().begin();
+            em.persist(songList);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;
+        }
+    
+    }
+    
     public static boolean modifyAlbum(Album album){
     //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
         try {

@@ -30,10 +30,10 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private String title;
     boolean modify;
     private MusicGroup music;
-    Album album1;
     Artist a1;
     Song s1;
     Playlist play;
+    Album album1=new Album();
     /**
      * Creates new form ModifyBandAlbum
      */
@@ -54,13 +54,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         albumType.setText(album.getType());
         jDateChooser2.setDate(album.getReleaseDate());
         
-        
     }
          
-                
        
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -362,6 +358,8 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         selectedRow = songArray.getSelectedRow();
         Song s1=new Song("Τίτλος",0,0);
         songList.add(s1);
+        album1.setSongList(songList);
+        DBManager.addSongList(songList);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -400,17 +398,16 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                         confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (confirm==0) {
                             confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                            album=new Album();
-                            album.setTitle(title1.getText());
-                            album.setType(albumType.getText());
-                            album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
-                            album.setReleaseDate(jDateChooser2.getDate());
+                            album1.setTitle(title1.getText());
+                            album1.setType(albumType.getText());
+                            album1.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
+                            album1.setReleaseDate(jDateChooser2.getDate());
                             a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));
                                     for (Artist a1 : artistList) {
-                                                a1.getAlbumList().add(album);}
+                                                a1.getAlbumList().add(album1);}
                             
-                                if (DBManager.addAlbum(album) && DBManager.addSong(s1) && DBManager.addArtist(a1)){
-                                    AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
+                                if (DBManager.addAlbum(album1) && DBManager.addSong(s1) && DBManager.addArtist(a1)){
+                                    AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album1);
                                     JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                                     dispose();
                             
@@ -565,7 +562,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
     private java.util.List<pojos.MusicProductionCompany> musicProductionCompanyList1;
     private javax.persistence.Query musicProductionCompanyQuery1;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
-    private javax.swing.JTable songArray;
+    protected static javax.swing.JTable songArray;
     private java.util.List<pojos.Song> songList;
     private javax.persistence.Query songQuery;
     private javax.swing.JTextField title1;

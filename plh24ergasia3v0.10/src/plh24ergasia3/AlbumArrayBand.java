@@ -26,6 +26,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         openConnection();
         initComponents();
     }
+    int x=2;
     Album album; 
     int selectedRow;
     /**
