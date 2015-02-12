@@ -375,7 +375,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     
-    if (initial==1){   
+     
         // Υποχρεωτικό γέμισμα πεδίων
          if  (  title1.getText().equals("")|| 
                 albumType.getText().equals("") || 
@@ -392,73 +392,30 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                     album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
                     album.setReleaseDate(jDateChooser2.getDate());
                     
-                   
-                if (DBManager.modifyAlbum(album)){
-                        
-                        AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
-                        JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                } 
-                else {
-                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-              }
-                else{
-                        //νέα εγγραφή
-                        confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                        if (confirm==0) {
-                            confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                            album1.setTitle(title1.getText());
-                            album1.setType(albumType.getText());
-                            album1.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
-                            album1.setReleaseDate(jDateChooser2.getDate());
-                            a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));
-                                    for (Artist a1 : artistList) {
-                                                a1.getAlbumList().add(album1);}
-                            
-                                if (DBManager.addAlbum(album1) && DBManager.addSong(s1) && DBManager.addArtist(a1)){
-                                    AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album1);
-                                    JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                                    dispose();
-                            
-                            }
+                  
                 
-                       
-                  }
+                     if (initial==1){
+                        if (DBManager.modifyAlbum(album)){    
+                                AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
+                                JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);}
+                         else { 
+                                JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                              }
+                            dispose();
+                            }
                         
-                        
-                }  
-             
-         } 
-    }   
-    else if (initial==2){  
-        if  (  title1.getText().equals("")|| 
-                albumType.getText().equals("") || 
-                AlbumNo.getText().equals(""))
-                {
-       JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
-       } 
-         
-        else {
-              if (modify==true) {//τροποποίηση
-                    confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    album.setTitle(title1.getText());
-                    album.setType(albumType.getText());
-                    album.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
-                    album.setReleaseDate(jDateChooser2.getDate());
+                     else if (initial==2){
+                        if (DBManager.modifyAlbum(album)){    
+                            AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
+                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);}
+                        else { 
+                            JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                             }
+                             dispose();
+                             }
                     
-                   
-                if (DBManager.modifyAlbum(album)){
-                        
-                        AlbumArrayBand.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
-                        JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                        dispose();
-                } 
-                else {
-                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
               }
-                else{
+              else {
                         //νέα εγγραφή
                         confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                         if (confirm==0) {
@@ -467,7 +424,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                             album1.setType(albumType.getText());
                             album1.setDiskNumber(Integer.parseInt(AlbumNo.getText()));// για ΙΝΤEGER Τιμές
                             album1.setReleaseDate(jDateChooser2.getDate());
-                            a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));
+                            a1=artistList.get(jTable1.convertRowIndexToModel(selectedRow));}
                                     for (Artist a1 : artistList) {
                                                 a1.getAlbumList().add(album1);}
                             
@@ -477,18 +434,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                                     dispose();
                             
                             }
-                
-                       
-                  }
-                        
-                        
-                }  
-             
-         } 
-    
-        
-        
-    }
+              }
+         }             
+                  
     }//GEN-LAST:event_jButton2ActionPerformed
    
     
