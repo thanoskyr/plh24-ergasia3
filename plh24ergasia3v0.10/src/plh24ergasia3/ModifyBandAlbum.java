@@ -480,6 +480,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         selectedRow=jTable1.getSelectedRow();
         Artist a1 = artistList.get(selectedRow);
         artistList.remove(a1);
+        album1.setArtistartisticName(a1);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -487,7 +488,7 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
         selectedRow=jTable2.getSelectedRow();
         MusicGroup group1 = musicGroupList.get(selectedRow);
         musicGroupList.remove(group1); //διαγραφή
-        musicGroupList.add(group1); //πρόσθεση
+        album1.setMusicGroupname(group1);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
