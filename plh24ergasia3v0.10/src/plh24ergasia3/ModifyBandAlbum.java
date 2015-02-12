@@ -407,9 +407,9 @@ public class ModifyBandAlbum extends javax.swing.JFrame {
                      else if (initial==2){
                         if (DBManager.modifyAlbum(album)){    
                             AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(), album);
-                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);}
+                            JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων συγκροτήματος!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);}
                         else { 
-                            JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης συγκροτήματος!", "ERROR", JOptionPane.ERROR_MESSAGE);
                              }
                              dispose();
                              }

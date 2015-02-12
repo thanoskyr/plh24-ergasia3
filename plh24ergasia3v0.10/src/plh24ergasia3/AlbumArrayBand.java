@@ -180,7 +180,6 @@ public class AlbumArrayBand extends javax.swing.JFrame {
             return;}
         album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
         new ModifyBandAlbum(album,x).setVisible(true);
-            
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -197,7 +196,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
                 albumList.remove(album); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
-                new ListOfArtists().setVisible(true); //ανανέωση
+                new AlbumArrayBand().setVisible(true); //ανανέωση
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής Άλμουμ καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
