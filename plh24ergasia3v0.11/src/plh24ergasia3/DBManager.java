@@ -175,7 +175,7 @@ public class DBManager {
 //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
         
     }
-    
+   
     // Εισαγωγή τραγουδιού
     
     public static boolean addSong(Song song){
@@ -192,16 +192,16 @@ public class DBManager {
     
     }
     
-    public static boolean addSongList(List<Song> songList){
+    public static void addSongList(List<Song> songList){//edited
         try {
             em.getTransaction().begin();
             em.persist(songList);
             em.getTransaction().commit();
-            return true;
+            //return true;
         }
         catch(Exception e){
             System.out.println(e); 
-            return false;
+            //return false;
         }
     
     }

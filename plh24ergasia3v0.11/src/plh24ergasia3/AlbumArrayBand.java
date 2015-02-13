@@ -58,25 +58,29 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         jTable1.setColumnSelectionAllowed(true);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, albumList, jTable1);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicGroupname}"));
-        columnBinding.setColumnName("Συγκρότημα");
-        columnBinding.setColumnClass(pojos.MusicGroup.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicProductionCompanyname}"));
-        columnBinding.setColumnName("Εταιρία Παραγωγής");
-        columnBinding.setColumnClass(pojos.MusicProductionCompany.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${releaseDate}"));
-        columnBinding.setColumnName("Ημερομηνία Κυκλοφορίας");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
         columnBinding.setColumnName("Τίτλος");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${type}"));
         columnBinding.setColumnName("Τύπος");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${diskNumber}"));
+        columnBinding.setColumnName("Αριθμός Αλμπουμ");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicProductionCompanyname}"));
+        columnBinding.setColumnName(" Εταιρεία παραγωγής");
+        columnBinding.setColumnClass(pojos.MusicProductionCompany.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${musicGroupmusicGroupId}"));
+        columnBinding.setColumnName("Συγκροτημα");
+        columnBinding.setColumnClass(pojos.MusicGroup.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${releaseDate}"));
+        columnBinding.setColumnName("Ημ/νία κυκλοφορίας");
+        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -160,7 +164,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        ModifyBandAlbum b1=new ModifyBandAlbum (x); //Δημιουργία νέας φόρμας
+        NewOrModifyBandAlbum b1=new NewOrModifyBandAlbum (); //Δημιουργία νέας φόρμας δεν παιρνει όρισμα
         b1.setVisible(true);
           
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -179,7 +183,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
             return;}
         album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
-        new ModifyBandAlbum(album,x).setVisible(true);
+        new NewOrModifyBandAlbum(album).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

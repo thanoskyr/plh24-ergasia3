@@ -236,11 +236,10 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                         dispose();
                     } 
                    
+                    else {
+                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                else {
-                    JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                
             }
             else{//νέα εγγραφή
                 confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να ολοκληρώσετε την καταχώριση;", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -262,6 +261,9 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     dispose();//κλεισιμο παραθυρου
                     //new ListOfArtists().setVisible(true);//και ανοιγμα ανανεωμενης λιστας
                    
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 
