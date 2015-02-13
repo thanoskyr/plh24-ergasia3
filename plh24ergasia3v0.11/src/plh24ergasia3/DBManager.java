@@ -192,16 +192,16 @@ public class DBManager {
     
     }
     
-    public static void addSongList(List<Song> songList){//edited
+    public static boolean addSongList(List<Song> songList){
         try {
             em.getTransaction().begin();
             em.persist(songList);
             em.getTransaction().commit();
-            //return true;
+            return true;
         }
         catch(Exception e){
             System.out.println(e); 
-            //return false;
+            return false;
         }
     
     }
