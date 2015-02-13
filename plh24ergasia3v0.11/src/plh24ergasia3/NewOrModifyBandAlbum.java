@@ -42,6 +42,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
   
      public NewOrModifyBandAlbum(){
          initComponents();
+         songList.clear();
          modify=false;
        
     }
@@ -222,7 +223,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        saveSongList.setText("Αποθήκευση");
+        saveSongList.setText("Αποθήκευση λίστας");
         saveSongList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveSongListActionPerformed(evt);
@@ -391,7 +392,8 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
             album.setSongList(songList);
             
             for(Song song:songList){//για κάθε τραγούδι της λιστας                 
-                    song.setAlbumalbumId(album);
+                System.out.println(song.getTitle());    
+                song.setAlbumalbumId(album);
                 }
             if(DBManager.addAlbum(album)){//ενημερωση πίνακα
                 AlbumArrayBand.albumList.set(AlbumArrayBand.jTable1.getSelectedRow(),album);
@@ -403,11 +405,9 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // δε δουλεύει
-        Song song = new Song();
+        Song song = new Song(songList.size()+1,"",0,0);
         songList.add(song);
-        if(!DBManager.addSong(song)){
-            JOptionPane.showMessageDialog(null, "Αποτυχία !", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+ 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void deleteSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSongActionPerformed
@@ -426,9 +426,10 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     private void saveSongListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSongListActionPerformed
         // TODO add your handling code here:
         
-        
-        if(!DBManager.addSongList(songList)){
+        for(Song song:songList){
+        if(!DBManager.addSong(song)){
             JOptionPane.showMessageDialog(null, "Αποτυχία εισαγωγής τραγουδιου!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
         }
         
     }//GEN-LAST:event_saveSongListActionPerformed
