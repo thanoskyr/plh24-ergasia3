@@ -275,7 +275,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         
-        if(groupName.getText().isEmpty()||selectedArtistList.size()>1){
+        if(!(groupName.getText().isEmpty())&&selectedArtistList.size()>1){
             if(modify){//επεξεργασία συγκροτηματος 
                 band.setName(groupName.getText());
                 band.setFormationDate(formationDate.getDate());

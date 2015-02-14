@@ -133,7 +133,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
         columnBinding.setColumnName("διάρκεια σε sec");
         columnBinding.setColumnClass(Integer.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tracknr}"));
-        columnBinding.setColumnName("Νούμερο");
+        columnBinding.setColumnName("Αριθμός σειράς");
         columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -391,7 +391,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                 song.setAlbumalbumId(album);
                 }
             if(DBManager.addAlbum(album)){//ενημερωση πίνακα
-                AlbumArrayBand.albumList1.set(AlbumArrayBand.jTable1.getSelectedRow(),album);
+                AlbumArrayBand.albumList1.add(album);
                 JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
@@ -420,6 +420,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
 
     private void saveNewSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewSongActionPerformed
         // TODO add your handling code here:
+        //εδώ πρέπει να γίνει και έλεγχος!!!
         if(DBManager.addSong(song)){ 
             JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
         }
