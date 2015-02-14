@@ -396,6 +396,23 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                 dispose();
             }
         }
+        else{//επεξεργασία του υπάρχοντος
+            album.setTitle(albumTitle.getText());
+            album.setType(albumType.getText());
+            album.setDiskNumber(Integer.parseInt(albumNo.getText()));//κανω το string int
+            album.setReleaseDate(releaseDate.getDate());
+            album.setMusicProductionCompanyname(company);
+            album.setMusicGroupmusicGroupId(band);
+            if(DBManager.modifyAlbumSongList(album,songList)){
+                if(DBManager.modifyAlbum(album)){
+                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                    dispose();
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        }
     }//GEN-LAST:event_saveActionPerformed
 
     private void insertSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertSongActionPerformed
