@@ -24,7 +24,6 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     boolean modify;
     Artist artist1;
     Song s1;
-    MusicGroup group1;
     Album album1=new Album();
     
     
@@ -44,11 +43,11 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         songQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT s FROM Song s");
-        songList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : songQuery.getResultList();
+        songList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(songQuery.getResultList());
         musicProductionCompanyQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicProductionCompany m");
-        musicProductionCompanyList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : musicProductionCompanyQuery.getResultList();
+        musicProductionCompanyList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicProductionCompanyQuery.getResultList());
         artistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : artistQuery.getResultList();
+        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
         albumTitle = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         albumType = new javax.swing.JTextField();
