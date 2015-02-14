@@ -46,21 +46,16 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     public NewOrModifyBandAlbum(Album album){
          initComponents();
          modify=false;
+         songList.clear();
          albumTitle.setText(album.getTitle());
          albumType.setText(album.getType());
          releaseDate.setDate(album.getReleaseDate());
-         
+         for(Song song:album.getSongList()){
+             songList.add(song);
+         }
     }
     
-    //public NewOrModifyBandAlbum(Album album, int x) {
-    //    this.album=album;
-     //   initComponents();               
-     //   modify = true;
-     //   albumTitle.setText(album.getTitle());
-     //   albumType.setText(album.getType());
-    //    releaseDate.setDate(album.getReleaseDate());
-    //    initial=x;
-    //}
+
          
        
     /**
