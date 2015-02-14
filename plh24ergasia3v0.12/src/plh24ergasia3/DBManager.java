@@ -191,6 +191,18 @@ public class DBManager {
         }
     
     }
+    public static boolean modifySong(Song song){
+        try{
+            em.getTransaction().begin();
+            em.merge(song);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
     
     public static boolean addSongList(List<Song> songList){
         try {
