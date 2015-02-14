@@ -302,19 +302,43 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
+         // Υποχρεωτικό γέμισμα πεδίων
+         if  (  albumTitle.getText().equals("")|| 
+                albumType.getText().equals("") || 
+                albumNo.getText().equals(""))
+                {
+       JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
+       } 
+         
+        else {
+              if (modify==true) {//τροποποίηση
+                    confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    album.setTitle(albumTitle.getText());
+                    album.setType(albumType.getText());
+                    album.setDiskNumber(Integer.parseInt(albumNo.getText()));// για ΙΝΤEGER Τιμές
+                    album.setReleaseDate(releaseDate.getDate());
+                    
+              if (DBManager.modifyAlbum(album)){    
+                                AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
+                                JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);}
+                         else { 
+                                JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                              }
+                            dispose();
+                            }      
+                    
         selectedBandRow=artistTable.getSelectedRow();
         selectedCompanyRow=companyTable.getSelectedRow();
         artist=artistList.get(artistTable.convertRowIndexToModel(selectedBandRow));
         company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
         if(!modify){//νέα εγγραφή άλμπουμ
-            album = new Album();
-            album.setTitle(albumTitle.getText());
-            album.setType(albumType.getText());
-            album.setDiskNumber(Integer.parseInt(albumNo.getText()));//κανω το string int
-            album.setReleaseDate(releaseDate.getDate());
-            album.setMusicProductionCompanyname(company);
-            album.setArtistartistId(artist);
-            album.setSongList(songList);
+            album1.setTitle(albumTitle.getText());
+            album1.setType(albumType.getText());
+            album1.setDiskNumber(Integer.parseInt(albumNo.getText()));//κανω το string int
+            album1.setReleaseDate(releaseDate.getDate());
+            album1.setMusicProductionCompanyname(company);
+            album1.setArtistartistId(artist);
+            album1.setSongList(songList);
                 artistList.add(artist1);
                                 artist1=artistList.get(artistTable.convertRowIndexToModel(selectedRow));
                                         for (Artist a : artistList) { //εισαγωγή του άλμπουμ στον καλλιτέχνη
@@ -322,12 +346,13 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
             //for(Song song:songList){//για κάθε τραγούδι της λιστας
                 //        song.getAlbumalbumId()
                 //    }
-            if(DBManager.addAlbum(album)){//ενημερωση πίνακα
-                AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(),album);
+            if(DBManager.addAlbum(album1)){//ενημερωση πίνακα
+                AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(),album1);
                 JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
         }
+         }
     }//GEN-LAST:event_saveActionPerformed
 
     private void albumNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_albumNoActionPerformed
