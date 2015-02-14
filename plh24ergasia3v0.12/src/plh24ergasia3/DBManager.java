@@ -331,5 +331,43 @@ public class DBManager {
 }
 
     
+        public static boolean modifyAlbumSongList(Album album, List<Song> songList){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+    
+    try {
+        em.getTransaction().begin();
+        // Διαγραφή τραγουδιων που δεν υπάρχουν
+        
+        for (Song song : album.getSongList()) {
+        /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
+            song = em.merge(song);
+            if (!songList.contains(song)){
+                song.setAlbumalbumId(null);
+            //    album.getSongList().remove(song);
+            
+            }
+        }
+        album.getSongList().retainAll(songList);
+   
+        // Εισαγωγή νέων τραγουδιών
+        for (Song song : songList) {
+        /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
+            song = em.merge(song);
+            if(!album.getSongList().contains(song)){
+                album.getSongList().add(song);
+                song.setAlbumalbumId(album);
+             
+            }
+        }
+        
+        em.getTransaction().commit();
+        return true;
+    }catch(Exception e){
+        System.out.println(e); 
+        return false;
+    }
+}
+
+    
      
 }
