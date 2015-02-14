@@ -19,7 +19,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
      */
     private pojos.Album album;//δημιουργια field
     private pojos.Artist artist;
-    private int selectedBandRow,selectedCompanyRow,confirm;
+    private int selectedBandRow,selectedCompanyRow,confirm,selectedRow;
     private MusicProductionCompany company;
     boolean modify;
     Artist artist1;
@@ -72,7 +72,8 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         songArray = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("ΔΙΑΧΕΙΡΗΣΗ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
         setPreferredSize(new java.awt.Dimension(1200, 667));
 
         albumTitle.addActionListener(new java.awt.event.ActionListener() {
@@ -315,12 +316,15 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
             album.setMusicProductionCompanyname(company);
             album.setArtistartistId(artist);
             album.setSongList(songList);
-
+                artistList.add(artist1);
+                                artist1=artistList.get(artistTable.convertRowIndexToModel(selectedRow));
+                                        for (Artist a : artistList) { //εισαγωγή του άλμπουμ στον καλλιτέχνη
+                                                  artist1.getAlbumList().add(album1);}
             //for(Song song:songList){//για κάθε τραγούδι της λιστας
                 //        song.getAlbumalbumId()
                 //    }
             if(DBManager.addAlbum(album)){//ενημερωση πίνακα
-                AlbumArrayBand.albumList1.set(AlbumArrayBand.jTable1.getSelectedRow(),album);
+                AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(),album);
                 JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
