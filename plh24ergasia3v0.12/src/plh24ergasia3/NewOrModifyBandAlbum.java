@@ -6,13 +6,11 @@
 package plh24ergasia3;
 
 
+import java.util.Random;
 import javax.swing.JOptionPane;
-import static plh24ergasia3.AlbumArrayArtist.albumList;
 import pojos.Album;
-import pojos.Artist;
 import pojos.MusicGroup;
 import pojos.MusicProductionCompany;
-import pojos.Playlist;
 import pojos.Song;
 
 
@@ -27,14 +25,11 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     private pojos.Album album;//δημιουργια field
     private MusicProductionCompany company;
     private int selectedBandRow,selectedCompanyRow,confirm;
-    //private String title;
     boolean modify;
     private MusicGroup band;
-    //Artist a1;
-   // Song s1;
-    //MusicGroup group1;
-    //Album album1=new Album();
-    int initial;
+    
+    Song song;
+    Random generator = new Random(); 
     
     /**
      * Creates new form ModifyBandAlbum
@@ -104,10 +99,10 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
         bandTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         companyTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        insertSong = new javax.swing.JButton();
         deleteSong = new javax.swing.JButton();
         save = new javax.swing.JButton();
-        saveSongList = new javax.swing.JButton();
+        saveNewSong = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ΔΙΑΧΕΙΡΗΣΗ ΑΛΜΠΟΥΜ");
@@ -202,10 +197,10 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
         jTableBinding.bind();
         jScrollPane3.setViewportView(companyTable);
 
-        jButton1.setText("Εισαγωγή");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        insertSong.setText("Εισαγωγή");
+        insertSong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                insertSongActionPerformed(evt);
             }
         });
 
@@ -223,10 +218,10 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        saveSongList.setText("Αποθήκευση λίστας");
-        saveSongList.addActionListener(new java.awt.event.ActionListener() {
+        saveNewSong.setText("Αποθήκευση");
+        saveNewSong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveSongListActionPerformed(evt);
+                saveNewSongActionPerformed(evt);
             }
         });
 
@@ -242,7 +237,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
                         .addGap(80, 80, 80)
-                        .addComponent(albumTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                        .addComponent(albumTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -261,23 +256,24 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(insertSong)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(deleteSong))
                                     .addComponent(jLabel7))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(66, 66, 66)
-                                        .addComponent(releaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(saveSongList))))))
+                                        .addComponent(releaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(saveNewSong))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -328,15 +324,14 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jButton1)
-                                            .addComponent(deleteSong)
-                                            .addComponent(saveSongList))
-                                        .addGap(99, 99, 99)
-                                        .addComponent(jLabel7))
-                                    .addComponent(releaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(insertSong)
+                                    .addComponent(deleteSong)
+                                    .addComponent(saveNewSong))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(releaseDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(69, 69, 69))))
@@ -403,36 +398,35 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // δε δουλεύει
-        Song song = new Song(songList.size()+1,"",0,0);
-        songList.add(song);
- 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void insertSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertSongActionPerformed
+        int id=generator.nextInt();
+        song = new Song(id,"τιτλος",0,0);//δημιουργει νεο κενό που το τροποποιουμε με το χέρι
+        songList.add(song);//εισαγει το "λευκο" song
+        JOptionPane.showMessageDialog(null, "Παρακαλω επεξεργαστείτε το νέο τραγούδι και πατηστε το κουμπί αποθηκευση", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
+      
+    }//GEN-LAST:event_insertSongActionPerformed
 
     private void deleteSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSongActionPerformed
         // TODO add your handling code here:
         int selectedSongRow=songArray.getSelectedRow();
         Song song1=songList.get(songArray.convertRowIndexToModel(selectedSongRow));
         if (DBManager.deleteSong(song1)){
-            songList.remove(song1);
-            
+            songList.remove(song1);           
         }
         else {
             JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής τραγουδιου!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_deleteSongActionPerformed
 
-    private void saveSongListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveSongListActionPerformed
+    private void saveNewSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewSongActionPerformed
         // TODO add your handling code here:
-        
-        for(Song song:songList){
-        if(!DBManager.addSong(song)){
-            JOptionPane.showMessageDialog(null, "Αποτυχία εισαγωγής τραγουδιου!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        if(DBManager.addSong(song)){ 
+            JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
         }
+        else{
+            JOptionPane.showMessageDialog(null, "Αποτυχία εισαγωγής τραγουδιου στη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
-    }//GEN-LAST:event_saveSongListActionPerformed
+    }//GEN-LAST:event_saveNewSongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -478,7 +472,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     private javax.swing.JButton cancel;
     private javax.swing.JTable companyTable;
     private javax.swing.JButton deleteSong;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton insertSong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -497,7 +491,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private com.toedter.calendar.JDateChooser releaseDate;
     private javax.swing.JButton save;
-    private javax.swing.JButton saveSongList;
+    private javax.swing.JButton saveNewSong;
     protected static javax.swing.JTable songArray;
     private java.util.List<pojos.Song> songList;
     private javax.persistence.Query songQuery;
