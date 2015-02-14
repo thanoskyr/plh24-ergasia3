@@ -23,10 +23,9 @@ public class AlbumArrayBand extends javax.swing.JFrame {
      * Creates new form AlbumArrayBand
      */
     public AlbumArrayBand() {
-        openConnection();
         initComponents();
     }
-    int x=2;
+    
     Album album; 
     int selectedRow;
     /**
@@ -41,7 +40,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         albumQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a");
-        albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(albumQuery.getResultList());
+        albumList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(albumQuery.getResultList());
         musicGroupQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT m FROM MusicGroup m");
         musicGroupList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(musicGroupQuery.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -56,8 +55,9 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         setTitle("ΠΙΝΑΚΑΣ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΩΝ");
 
         jTable1.setColumnSelectionAllowed(true);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, albumList, jTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, albumList1, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${title}"));
         columnBinding.setColumnName("Τίτλος");
         columnBinding.setColumnClass(String.class);
@@ -182,7 +182,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε κάποιο άλμπουμ!!", "",
                 JOptionPane.WARNING_MESSAGE);
             return;}
-        album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
+        album = albumList1.get(jTable1.convertRowIndexToModel(selectedRow));
         new NewOrModifyBandAlbum(album).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -191,13 +191,13 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         
          // TODO add your handling code here:
         selectedRow=jTable1.getSelectedRow();
-        album=albumList.get(jTable1.convertColumnIndexToModel(selectedRow));
+        album=albumList1.get(jTable1.convertColumnIndexToModel(selectedRow));
         
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {    
             if (DBManager.deleteAlbum(album)) {
-                albumList.remove(album); //διαγραφη καλλιτεχνη
+                albumList1.remove(album); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
                 new AlbumArrayBand().setVisible(true); //ανανέωση
@@ -244,7 +244,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    protected static java.util.List<pojos.Album> albumList;
+    protected static java.util.List<pojos.Album> albumList1;
     private javax.persistence.Query albumQuery;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

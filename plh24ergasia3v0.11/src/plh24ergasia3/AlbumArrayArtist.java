@@ -20,12 +20,11 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
      * Creates new form AlbumArrayArtist
      */
     public AlbumArrayArtist() {
-        openConnection();
         initComponents();
     }
 
   
-    int x=1;   
+     
     int selectedRow;
     Album album;
     /**
