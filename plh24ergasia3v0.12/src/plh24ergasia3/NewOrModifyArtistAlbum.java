@@ -6,6 +6,7 @@
 package plh24ergasia3;
 
 
+import java.util.Random;
 import javax.swing.JOptionPane;
 import pojos.*;
 
@@ -25,12 +26,25 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     Artist artist1;
     Song s1;
     Album album1=new Album();
+    Random generator = new Random(); 
     
     
     public NewOrModifyArtistAlbum() {
     initComponents();
     }
 
+    public NewOrModifyArtistAlbum(Album album){
+         initComponents();
+         modify=false;
+         songList.clear();
+         albumTitle.setText(album.getTitle());
+         albumType.setText(album.getType());
+         releaseDate.setDate(album.getReleaseDate());
+         for(Song song:album.getSongList()){
+             songList.add(song);
+         }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,6 +84,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         songArray = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ΔΙΑΧΕΙΡΗΣΗ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
@@ -82,6 +97,11 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         });
 
         jButton2.setText("Διαγραφή");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         albumType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +201,13 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Αποθήκευση");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,16 +239,19 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(46, 46, 46)
-                                .addComponent(jButton2))
                             .addComponent(jLabel8)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(66, 66, 66)
                                 .addComponent(releaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jButton1)
+                                    .addGap(46, 46, 46)
+                                    .addComponent(jButton2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton3))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -276,7 +306,8 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton1)
-                                    .addComponent(jButton2))
+                                    .addComponent(jButton2)
+                                    .addComponent(jButton3))
                                 .addGap(99, 99, 99)
                                 .addComponent(jLabel7))
                             .addComponent(releaseDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -318,14 +349,16 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                     album.setDiskNumber(Integer.parseInt(albumNo.getText()));// για ΙΝΤEGER Τιμές
                     album.setReleaseDate(releaseDate.getDate());
                     
-              if (DBManager.modifyAlbum(album)){    
-                                AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(), album);
-                                JOptionPane.showMessageDialog(null, "Επιτυχής τροποποίηση στοιχείων καλλιτέχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);}
-                         else { 
-                                JOptionPane.showMessageDialog(null, "Αποτυχία τροποποίησης καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                              }
-                            dispose();
-                            }      
+              if(DBManager.modifyAlbumSongList(album,songList)){
+                if(DBManager.modifyAlbum(album)){
+                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                    dispose();
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        }
                     
         selectedBandRow=artistTable.getSelectedRow();
         selectedCompanyRow=companyTable.getSelectedRow();
@@ -339,18 +372,17 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
             album1.setMusicProductionCompanyname(company);
             album1.setArtistartistId(artist);
             album1.setSongList(songList);
-                artistList.add(artist1);
-                                artist1=artistList.get(artistTable.convertRowIndexToModel(selectedRow));
-                                        for (Artist a : artistList) { //εισαγωγή του άλμπουμ στον καλλιτέχνη
-                                                  artist1.getAlbumList().add(album1);}
-            //for(Song song:songList){//για κάθε τραγούδι της λιστας
-                //        song.getAlbumalbumId()
-                //    }
+                
+           for(Song song:songList){//για κάθε τραγούδι της λιστας                 
+                System.out.println(song.getTitle());    
+                song.setAlbumalbumId(album1);
+                }
             if(DBManager.addAlbum(album1)){//ενημερωση πίνακα
-                AlbumArrayArtist.albumList.set(AlbumArrayArtist.jTable1.getSelectedRow(),album1);
+                AlbumArrayArtist.albumList.add(album1);
                 JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
+            
         }
          }
     }//GEN-LAST:event_saveActionPerformed
@@ -369,11 +401,33 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Song song1 = new Song(null,"Τίτλος",0,0);
-        songList.add(song1);
-        album1.setSongList(songList);
-        DBManager.addSongList(songList);
+        int id=generator.nextInt();
+        s1 = new Song(id,"τιτλος",0,0);//δημιουργει νεο κενό που το τροποποιουμε με το χέρι
+        songList.add(s1);//εισαγει το "λευκο" song
+        JOptionPane.showMessageDialog(null, "Παρακαλω επεξεργαστείτε το νέο τραγούδι και πατηστε το κουμπί αποθηκευση", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int selectedSongRow=songArray.getSelectedRow();
+        Song song1=songList.get(songArray.convertRowIndexToModel(selectedSongRow));
+        if (DBManager.deleteSong(song1)){
+            songList.remove(song1);           
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής τραγουδιου!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if(DBManager.addSong(s1)){ 
+            JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Αποτυχία εισαγωγής τραγουδιου στη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,6 +475,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     private javax.swing.JTable companyTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
