@@ -163,7 +163,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         companyTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Διαχείρηση Άλμπουμ Συγκροτήματος");
+        jLabel1.setText("Διαχείρηση Άλμπουμ Καλλιτεχνών");
 
         jLabel2.setText("Τίτλος");
 
@@ -378,11 +378,14 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                 song.setAlbumalbumId(album1);
                 }
             if(DBManager.addAlbum(album1)){//ενημερωση πίνακα
+                for (Artist artist1 : artistList) { 
+                    if (artist1.getAlbumList().contains(album1))
+                        artist1.getAlbumList().remove(album1);
                 AlbumArrayArtist.albumList.add(album1);
                 JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
-            
+           }  
         }
          }
     }//GEN-LAST:event_saveActionPerformed
@@ -422,6 +425,9 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         if(DBManager.addSong(s1)){ 
+            for (Song s1 : songList) { 
+                    if (s1.getPlaylistList().contains(s1))
+                        s1.getPlaylistList().remove(s1);}
             JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
         }
         else{

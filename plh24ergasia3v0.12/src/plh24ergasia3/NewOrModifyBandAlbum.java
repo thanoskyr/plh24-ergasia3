@@ -386,6 +386,9 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                 song.setAlbumalbumId(album);
                 }
             if(DBManager.addAlbum(album)){//ενημερωση πίνακα
+                 for (MusicGroup band : musicGroupList) { 
+                      if (!band.getAlbumList().contains(album))
+                          band.getAlbumList().add(album);}
                 AlbumArrayBand.albumList1.add(album);
                 JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
@@ -432,8 +435,10 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
 
     private void saveNewSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewSongActionPerformed
         // TODO add your handling code here:
-        //εδώ πρέπει να γίνει και έλεγχος!!!
         if(DBManager.addSong(song)){ 
+            for (Song song : songList) { 
+                    if (song.getPlaylistList().contains(song))
+                        song.getPlaylistList().remove(song);}
             JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
         }
         else{
