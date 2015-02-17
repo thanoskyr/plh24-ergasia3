@@ -17,7 +17,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
 
     Artist artist;
     boolean modify;
-    int confirm,selectedRow;
+    int confirm,selectedRow=-1;
     MusicGenre eidos;
     /**
      * Creates new form NewOrModifyArtist
@@ -210,10 +210,10 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
 
     private void saveArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveArtistActionPerformed
         // TODO add your handling code here:
+        selectedRow=genreTable.getSelectedRow();
         if(firstName.getText().isEmpty()|| lastName.getText().isEmpty()||artisticName.getText().isEmpty()
-                || sex.getText().isEmpty()|| birthPlace.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            dispose();
+                || sex.getText().isEmpty()|| birthPlace.getText().isEmpty()||selectedRow<0){
+            JOptionPane.showMessageDialog(null, "Όλα τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         else{//ολα τα πεδια ειναι συμπληρωμένα
             if (modify==true) {//τροποποίηση
@@ -225,7 +225,6 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
                     artist.setSex(sex.getText());
                     artist.setBirthDate(birthDate.getDate());
                     artist.setBirthPlace(birthPlace.getText());
-                    selectedRow=genreTable.getSelectedRow();
                     eidos=musicGenreList.get(genreTable.convertRowIndexToModel(selectedRow));
                     artist.setMusicGenrename(eidos);
                 
