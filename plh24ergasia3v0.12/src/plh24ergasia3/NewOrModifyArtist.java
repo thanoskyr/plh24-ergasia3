@@ -212,8 +212,8 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
         // TODO add your handling code here:
         selectedRow=genreTable.getSelectedRow();
         if(firstName.getText().isEmpty()|| lastName.getText().isEmpty()||artisticName.getText().isEmpty()
-                || sex.getText().isEmpty()|| birthPlace.getText().isEmpty()||selectedRow<0){
-            JOptionPane.showMessageDialog(null, "Όλα τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                || sex.getText().isEmpty()||(birthDate.getDate()==null)|| birthPlace.getText().isEmpty()||selectedRow<0){
+            JOptionPane.showMessageDialog(null, "Ολα τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         else{//ολα τα πεδια ειναι συμπληρωμένα
             if (modify==true) {//τροποποίηση
