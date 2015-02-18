@@ -29,21 +29,119 @@ public class Playlist extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        addArtist = new javax.swing.JButton();
+        deleteArtist = new javax.swing.JButton();
+        editArtist = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Λίστες Τραγουδιών");
+
+        addArtist.setText("Προσθήκη");
+        addArtist.setToolTipText("");
+        addArtist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSongPlaylistActionPerformed(evt);
+            }
+        });
+
+        deleteArtist.setText("Διαγραφή");
+        deleteArtist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteSongPlaylistActionPerformed(evt);
+            }
+        });
+
+        editArtist.setText("Επεξεργασία");
+        editArtist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editSongPlaylistActionPerformed(evt);
+            }
+        });
+
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        exit.setToolTipText("Έξοδος");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addArtist)
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(deleteArtist)
+                        .addGap(44, 44, 44)
+                        .addComponent(editArtist))
+                    .addComponent(jLabel1))
+                .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addArtist)
+                    .addComponent(deleteArtist)
+                    .addComponent(editArtist))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addSongPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSongPlaylistActionPerformed
+        // ανοίγει τη φόρμα διαχείρησης Καλλιτέχνη
+        //dispose();
+        new NewOrModifySongPlaylist().setVisible(true);
+    }//GEN-LAST:event_addSongPlaylistActionPerformed
+
+    private void deleteSongPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSongPlaylistActionPerformed
+        // TODO add your handling code here:
+        selectedRow = ArtistsTable.getSelectedRow();
+        artist=artistList1.get(ArtistsTable.convertRowIndexToModel(selectedRow));
+
+        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει ο καλλιτέχνης " + artist.getFirstName() + " " + artist.getLastName()+ "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (choice == 0) {
+            if (DBManager.deleteArtist(artist)) {
+                artistList1.remove(artist); //διαγραφη καλλιτεχνη
+                JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_deleteSongPlaylistActionPerformed
+
+    private void editSongPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSongPlaylistActionPerformed
+        //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου καλλιτεχνη
+        selectedRow = ArtistsTable.getSelectedRow();
+        artist = artistList1.get(ArtistsTable.convertRowIndexToModel(selectedRow));
+        new NewOrModifyArtist(artist).setVisible(true);
+
+    }//GEN-LAST:event_editSongPlaylistActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        dispose();
+    }//GEN-LAST:event_exitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,5 +179,10 @@ public class Playlist extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addArtist;
+    private javax.swing.JButton deleteArtist;
+    private javax.swing.JButton editArtist;
+    private javax.swing.JButton exit;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
