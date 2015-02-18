@@ -51,6 +51,11 @@ public class Kentriki extends javax.swing.JFrame {
         });
 
         jButton2.setText("Λίστες Τραγουδιών");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/main.jpeg"))); // NOI18N
 
@@ -172,6 +177,11 @@ public class Kentriki extends javax.swing.JFrame {
         // TODO add your handling code here:
         new AlbumArrayBand().setVisible(true);
     }//GEN-LAST:event_AlbumGroupActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+          new Playlist().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
