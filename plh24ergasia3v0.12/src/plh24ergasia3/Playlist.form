@@ -47,6 +47,19 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.Playlist&gt;"/>
       </AuxValues>
     </Component>
+    <Component class="javax.persistence.Query" name="queryGroup">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT NAME FROM MUSIC_GROUP"/>
+      </Properties>
+    </Component>
+    <Component class="java.util.List" name="listGroup">
+      <Properties>
+        <Property name="observable" type="boolean" value="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;pojos.MusicGroup&gt;"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>

@@ -35,6 +35,8 @@ public class Playlist extends javax.swing.JFrame {
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         playlistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT p FROM Playlist p");
         playlistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(playlistQuery.getResultList());
+        queryGroup = java.beans.Beans.isDesignTime() ? null : ((javax.persistence.EntityManager)null).createQuery("SELECT NAME FROM MUSIC_GROUP");
+        listGroup = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(((javax.persistence.Query)null).getResultList());
         jLabel1 = new javax.swing.JLabel();
         exit = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -228,8 +230,10 @@ public class Playlist extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private java.util.List<pojos.MusicGroup> listGroup;
     private java.util.List<pojos.Playlist> playlistList;
     private javax.persistence.Query playlistQuery;
+    private javax.persistence.Query queryGroup;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
