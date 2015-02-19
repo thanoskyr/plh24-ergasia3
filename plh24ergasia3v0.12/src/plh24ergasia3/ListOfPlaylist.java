@@ -164,7 +164,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
              selectedRow = PlaylistTable.getSelectedRow();
         playlist=playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
         
-        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει η playlist " + playlist.getName() + " ","",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει η playlist " + playlist.getName() +  "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {    
             if (DBManager.deletePlaylist(playlist)) {
@@ -173,8 +173,8 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής playlist!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+           }
+       }
     }//GEN-LAST:event_DeletePlaylistSongActionPerformed
 
     private void EditPlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPlaylistSongActionPerformed
