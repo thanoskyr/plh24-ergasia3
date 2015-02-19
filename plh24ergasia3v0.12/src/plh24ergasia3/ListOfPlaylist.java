@@ -9,14 +9,14 @@ package plh24ergasia3;
  *
  * @author tkomitopoulos
  */
-public class Playlist extends javax.swing.JFrame {
+public class ListOfPlaylist extends javax.swing.JFrame {
 
     /**
-     * Creates new form Playlist
+     * Creates new form ListOfPlaylist
      */
-      Playlist playlist;
+      ListOfPlaylist listofplaylist;
      int selectedRow;
-    public Playlist() {
+    public ListOfPlaylist() {
         initComponents();
     }
 
@@ -33,33 +33,33 @@ public class Playlist extends javax.swing.JFrame {
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         playlistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT p FROM Playlist p");
         playlistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : playlistQuery.getResultList();
-        jLabel1 = new javax.swing.JLabel();
-        exit = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        PlaylistLabel = new javax.swing.JLabel();
+        Exit = new javax.swing.JButton();
+        XMLexport = new javax.swing.JButton();
         AddPlaylistSong = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        DeletePlaylistSong = new javax.swing.JButton();
+        EditPlaylistSong = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        PlaylistTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ΛΙΣΤΕΣ ΤΡΑΓΟΥΔΙΩΝ");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Λίστες Τραγουδιών");
+        PlaylistLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        PlaylistLabel.setText("Λίστες Τραγουδιών");
 
-        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
-        exit.setToolTipText("Έξοδος");
-        exit.addActionListener(new java.awt.event.ActionListener() {
+        Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        Exit.setToolTipText("Έξοδος");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
+                ExitActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Εξαγωγή σε XML");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        XMLexport.setText("Εξαγωγή σε XML");
+        XMLexport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                XMLexportActionPerformed(evt);
             }
         });
 
@@ -70,22 +70,27 @@ public class Playlist extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Διαγραφή");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        DeletePlaylistSong.setText("Διαγραφή");
+        DeletePlaylistSong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                DeletePlaylistSongActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Επεξεργασία");
+        EditPlaylistSong.setText("Επεξεργασία");
+        EditPlaylistSong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditPlaylistSongActionPerformed(evt);
+            }
+        });
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, playlistList, jTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, playlistList, PlaylistTable);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${name}"));
         columnBinding.setColumnName("Name");
         columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(PlaylistTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,41 +99,41 @@ public class Playlist extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(XMLexport)
                         .addGap(41, 41, 41)
-                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(144, 144, 144)
-                            .addComponent(jLabel1))
+                            .addComponent(PlaylistLabel))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(AddPlaylistSong)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton3)
+                            .addComponent(DeletePlaylistSong)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton4))))
+                            .addComponent(EditPlaylistSong))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(PlaylistLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddPlaylistSong)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(DeletePlaylistSong)
+                    .addComponent(EditPlaylistSong))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(jButton1))
-                    .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(XMLexport))
+                    .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -137,13 +142,13 @@ public class Playlist extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         dispose();
-    }//GEN-LAST:event_exitActionPerformed
+    }//GEN-LAST:event_ExitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void XMLexportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XMLexportActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_XMLexportActionPerformed
 
     private void AddPlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPlaylistSongActionPerformed
         // TODO add your handling code here:
@@ -152,9 +157,13 @@ public class Playlist extends javax.swing.JFrame {
         new NeworModifyPlaylist().setVisible(true);
     }//GEN-LAST:event_AddPlaylistSongActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void DeletePlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePlaylistSongActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_DeletePlaylistSongActionPerformed
+
+    private void EditPlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPlaylistSongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditPlaylistSongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,13 +202,13 @@ public class Playlist extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddPlaylistSong;
-    private javax.swing.JButton exit;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton DeletePlaylistSong;
+    private javax.swing.JButton EditPlaylistSong;
+    private javax.swing.JButton Exit;
+    private javax.swing.JLabel PlaylistLabel;
+    private javax.swing.JTable PlaylistTable;
+    private javax.swing.JButton XMLexport;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private java.util.List<pojos.Playlist> playlistList;
     private javax.persistence.Query playlistQuery;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;

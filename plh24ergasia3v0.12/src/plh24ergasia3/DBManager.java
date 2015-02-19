@@ -266,7 +266,54 @@ public class DBManager {
             return false;
         }
     }
-    
+     /* Μέθοδος αποθήκευσης νέας playlist  */
+    public static boolean addPlaylist(Playlist playlist){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */   
+        try {
+            em.getTransaction().begin();
+            em.persist(playlist);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;
+        }
+    }
+
+    /* Μέθοδος τροποποίησης playlist */
+    public static boolean modifyPlaylist(Playlist playlist){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+        try {
+            em.getTransaction().begin();
+            em.merge(playlist);
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e); 
+            return false;
+        }
+    }
+
+    /* Μέθοδος διαγραφής playlist */
+    public static boolean deletePlaylist(Playlist playlist){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+        try {
+            em.getTransaction().begin();
+    /* Merging the contents of the detached entity with
+    the persistence context and returns a reference to a managed entity */
+            Playlist pl = em.merge(playlist);
+            em.remove(pl);            
+            em.getTransaction().commit();
+            return true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
+
     
 // Καθαρίζει όλους τους πίνακες της ΒΔ
    
