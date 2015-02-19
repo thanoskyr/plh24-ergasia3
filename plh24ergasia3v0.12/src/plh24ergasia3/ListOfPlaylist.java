@@ -181,6 +181,9 @@ public class ListOfPlaylist extends javax.swing.JFrame {
 
     private void EditPlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPlaylistSongActionPerformed
         // TODO add your handling code here:
+        selectedRow =PlaylistTable.getSelectedRow();
+        playlist = playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
+       new NeworModifyPlaylist().setVisible(true);
     }//GEN-LAST:event_EditPlaylistSongActionPerformed
 
     /**
