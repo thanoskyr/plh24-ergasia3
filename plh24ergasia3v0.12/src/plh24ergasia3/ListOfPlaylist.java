@@ -7,6 +7,7 @@ package plh24ergasia3;
 import javax.swing.JOptionPane;
 import pojos.Playlist;
 
+
 /**
  *
  * @author tkomitopoulos
@@ -150,6 +151,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
 
     private void XMLexportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XMLexportActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_XMLexportActionPerformed
 
     private void AddPlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPlaylistSongActionPerformed
