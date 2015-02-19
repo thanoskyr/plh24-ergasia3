@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+import javax.swing.JOptionPane;
+import pojos.Playlist;
 
 /**
  *
@@ -14,7 +16,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
     /**
      * Creates new form ListOfPlaylist
      */
-      ListOfPlaylist listofplaylist;
+    Playlist playlist;
      int selectedRow;
     public ListOfPlaylist() {
         initComponents();
@@ -32,7 +34,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
         playlistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT p FROM Playlist p");
-        playlistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : playlistQuery.getResultList();
+        playlistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(playlistQuery.getResultList());
         PlaylistLabel = new javax.swing.JLabel();
         Exit = new javax.swing.JButton();
         XMLexport = new javax.swing.JButton();
@@ -159,6 +161,20 @@ public class ListOfPlaylist extends javax.swing.JFrame {
 
     private void DeletePlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePlaylistSongActionPerformed
         // TODO add your handling code here:
+             selectedRow = PlaylistTable.getSelectedRow();
+        playlist=playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
+        
+        int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει η playlist " + playlist.getName() + " ","",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if (choice == 0) {    
+            if (DBManager.deletePlaylist(playlist)) {
+                playlistList.remove(playlist); //διαγραφη playlist
+                JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή playlist!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής playlist!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_DeletePlaylistSongActionPerformed
 
     private void EditPlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPlaylistSongActionPerformed
@@ -195,7 +211,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Playlist().setVisible(true);
+                new ListOfPlaylist().setVisible(true);
             }
         });
     }
