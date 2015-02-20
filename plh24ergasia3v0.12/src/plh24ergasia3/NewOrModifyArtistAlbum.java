@@ -39,8 +39,8 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
          songList.clear();
          albumTitle.setText(album.getTitle());
          releaseDate.setDate(album.getReleaseDate());
-         for(Song song:album.getSongList()){
-             songList.add(song);
+         for(Song s1:album.getSongList()){
+             songList.add(s1);
          }
     }
     
@@ -327,77 +327,70 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     }//GEN-LAST:event_albumTitleActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        // TODO add your handling code here:
-         // Υποχρεωτικό γέμισμα πεδίων
-         if  (  albumTitle.getText().equals("")|| 
-              albumNo.getText().equals(""))
-                {
-       JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
-       } 
-         
-        else {
-              if (modify==true) {//τροποποίηση
-                    confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    album.setTitle(albumTitle.getText());
-                    // Tύπος άλμπουμ
-                     typos = (String) type.getSelectedItem();
-                        if (typos.equals("CD")) { 
-                             album.setType("CS");
-                             } else if (type.equals("EP")) { 
-                               album.setType("EP");
-                             } else { 
-                              album.setType("LP");
-                                                    }
-                    album.setDiskNumber(Integer.parseInt(albumNo.getText()));// για ΙΝΤEGER Τιμές
-                    album.setReleaseDate(releaseDate.getDate());
-                    
-              if(DBManager.modifyAlbumSongList(album,songList)){
-                if(DBManager.modifyAlbum(album)){
-                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
-                    dispose();
-                }
-            }
-            else
-                JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
 
-        }
-                    
-        selectedBandRow=artistTable.getSelectedRow();
-        selectedCompanyRow=companyTable.getSelectedRow();
-        artist=artistList.get(artistTable.convertRowIndexToModel(selectedBandRow));
-        company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
-        if(!modify){//νέα εγγραφή άλμπουμ
-            album1.setTitle(albumTitle.getText());
-            //Tύπος άλμπουμ
-            typos = (String) type.getSelectedItem();
-                        if (typos.equals("CD")) { 
-                             album1.setType("CS");
-                             } else if (type.equals("EP")) { 
-                               album1.setType("EP");
-                             } else { 
-                              album1.setType("LP");
+        // TODO add your handling code here:
+                selectedBandRow=artistTable.getSelectedRow();
+                selectedCompanyRow=companyTable.getSelectedRow();
+                artist=artistList.get(artistTable.convertRowIndexToModel(selectedBandRow));
+                company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
+                     if(!modify){//νέα εγγραφή άλμπουμ
+                         album1.setTitle(albumTitle.getText());
+                        //Tύπος άλμπουμ
+                         typos = (String) type.getSelectedItem();
+                                if (typos.equals("CD")) { 
+                                    album1.setType("CS");
+                                    } else if (type.equals("EP")) { 
+                                      album1.setType("EP");
+                                     } else { 
+                                     album1.setType("LP");
                                                     }
-            album1.setDiskNumber(Integer.parseInt(albumNo.getText()));//κανω το string int
-            album1.setReleaseDate(releaseDate.getDate());
-            album1.setMusicProductionCompanyname(company);
-            album1.setArtistartistId(artist);
-            album1.setSongList(songList);
-                
-           for(Song song:songList){//για κάθε τραγούδι της λιστας                 
-                System.out.println(song.getTitle());    
-                song.setAlbumalbumId(album1);
+                 album1.setDiskNumber(Integer.parseInt(albumNo.getText()));//κανω το string int
+                 album1.setReleaseDate(releaseDate.getDate());
+                 album1.setMusicProductionCompanyname(company);
+                 album1.setArtistartistId(artist);
+                 album1.setSongList(songList);
+            
+                 for(Song song:songList){//για κάθε τραγούδι της λιστας                 
+                     System.out.println(song.getTitle());    
+                        song.setAlbumalbumId(album);
+                        }
+                 if(DBManager.addAlbum(album)){//ενημερωση πίνακα
+                         for (Artist artist1 : artistList) { 
+                             if (artist1.getAlbumList().contains(album1))
+                                 artist1.getAlbumList().remove(album1);
+                                 AlbumArrayBand.albumList1.add(album);
+                        JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                     dispose();
+                 }
                 }
-            if(DBManager.addAlbum(album1)){//ενημερωση πίνακα
-                for (Artist artist1 : artistList) { 
-                    if (artist1.getAlbumList().contains(album1))
-                        artist1.getAlbumList().remove(album1);
-                AlbumArrayArtist.albumList.add(album1);
-                JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση νέου αλμπουμ!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            }
-           }  
-        }
-         }
+             else{//επεξεργασία του υπάρχοντος
+                    album.setTitle(albumTitle.getText());
+                    //Tύπος άλμπουμ
+                     typos = (String) type.getSelectedItem();
+                             if (typos.equals("CD")) { 
+                                     album.setType("CS");
+                                     } else if (type.equals("EP")) { 
+                                      album.setType("EP");
+                                     } else { 
+                                      album.setType("LP");
+                                                    }
+                    album.setDiskNumber(Integer.parseInt(albumNo.getText()));//κανω το string int
+                    album.setReleaseDate(releaseDate.getDate());
+                    album.setMusicProductionCompanyname(company);
+                    album.setArtistartistId(artist);
+                    if(DBManager.modifyAlbumSongList(album,songList)){
+                        if(DBManager.modifyAlbum(album)){
+                            JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                            dispose();
+                      }
+                    }
+                 else
+                      JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        
+             }         
+
+                     }       
+
     }//GEN-LAST:event_saveActionPerformed
 
     private void albumNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_albumNoActionPerformed
