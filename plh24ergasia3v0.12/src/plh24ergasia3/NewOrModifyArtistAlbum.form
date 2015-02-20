@@ -469,7 +469,7 @@
     <Component class="javax.swing.JComboBox" name="type">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;CD Single&quot;, &quot;Extended Play&quot;, &quot;Long Play&quot;  })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;CD&quot;, &quot;EP&quot;, &quot;LP&quot;  })" type="code"/>
         </Property>
       </Properties>
       <Events>

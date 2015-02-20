@@ -213,7 +213,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
             }
         });
 
-        type2.setModel(new javax.swing.DefaultComboBoxModel(new String[] {  "CD Single", "Extended Play", "Long Play" }));
+        type2.setModel(new javax.swing.DefaultComboBoxModel(new String[] {  "CD", "EP", "LP" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

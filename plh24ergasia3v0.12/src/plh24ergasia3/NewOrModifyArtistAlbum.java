@@ -20,7 +20,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
      */
     private pojos.Album album;//δημιουργια field
     private pojos.Artist artist;
-    private int selectedBandRow,selectedCompanyRow,confirm,selectedRow;
+    private int selectedArtistRow,selectedCompanyRow,confirm,selectedRow;
     private MusicProductionCompany company;
     boolean modify;
     Artist artist1;
@@ -201,7 +201,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
             }
         });
 
-        type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CD Single", "Extended Play", "Long Play"  }));
+        type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CD", "EP", "LP"  }));
         type.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typeActionPerformed(evt);
@@ -329,9 +329,9 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
 
         // TODO add your handling code here:
-                selectedBandRow=artistTable.getSelectedRow();
+                selectedArtistRow=artistTable.getSelectedRow();
                 selectedCompanyRow=companyTable.getSelectedRow();
-                artist=artistList.get(artistTable.convertRowIndexToModel(selectedBandRow));
+                artist=artistList.get(artistTable.convertRowIndexToModel(selectedArtistRow));
                 company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
                      if(!modify){//νέα εγγραφή άλμπουμ
                          album1.setTitle(albumTitle.getText());
