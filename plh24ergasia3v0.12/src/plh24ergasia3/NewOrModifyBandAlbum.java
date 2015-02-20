@@ -30,7 +30,6 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     String typos;
     Song song;
     Random generator = new Random(); 
-    
     /**
      * Creates new form ModifyBandAlbum
      */
@@ -43,15 +42,17 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     }
     
     
-    public NewOrModifyBandAlbum(Album album){
+    public NewOrModifyBandAlbum(Album a){
          initComponents();
-         modify=false;
+         album=a;
+         modify=true;
          songList.clear();
          albumTitle.setText(album.getTitle());
          releaseDate.setDate(album.getReleaseDate());
          for(Song song:album.getSongList()){
              songList.add(song);
          }
+         
     }
     
 
