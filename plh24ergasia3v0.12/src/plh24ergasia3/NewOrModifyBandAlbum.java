@@ -366,8 +366,8 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
              //Tύπος άλμπουμ
             typos = (String) type2.getSelectedItem();
                         if (typos.equals("CD")) { 
-                             album.setType("CS");
-                             } else if (type2.equals("EP")) { 
+                             album.setType("CD");
+                             } else if (typos.equals("EP")) { 
                                album.setType("EP");
                              } else { 
                               album.setType("LP");
@@ -396,8 +396,8 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
             //Tύπος άλμπουμ
             typos = (String) type2.getSelectedItem();
                         if (typos.equals("CD")) { 
-                             album.setType("CS");
-                             } else if (type2.equals("EP")) { 
+                             album.setType("CD");
+                             } else if (typos.equals("EP")) { 
                                album.setType("EP");
                              } else { 
                               album.setType("LP");
