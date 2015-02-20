@@ -27,7 +27,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     Song s1;
     Album album1=new Album();
     Random generator = new Random(); 
-    
+    String typos;
     
     public NewOrModifyArtistAlbum() {
     initComponents();
@@ -38,7 +38,6 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
          modify=false;
          songList.clear();
          albumTitle.setText(album.getTitle());
-         albumType.setText(album.getType());
          releaseDate.setDate(album.getReleaseDate());
          for(Song song:album.getSongList()){
              songList.add(song);
@@ -64,7 +63,6 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
         albumTitle = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        albumType = new javax.swing.JTextField();
         save = new javax.swing.JButton();
         albumNo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -85,10 +83,11 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         songArray = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        type = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ΔΙΑΧΕΙΡΗΣΗ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
-        setPreferredSize(new java.awt.Dimension(1200, 667));
+        setPreferredSize(new java.awt.Dimension(1200, 800));
 
         albumTitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,12 +99,6 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        albumType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                albumTypeActionPerformed(evt);
             }
         });
 
@@ -208,6 +201,13 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
             }
         });
 
+        type.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CD Single", "Extended Play", "Long Play"  }));
+        type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,9 +231,9 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(albumTitle, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(albumType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                            .addComponent(albumNo))
+                            .addComponent(albumTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                            .addComponent(albumNo)
+                            .addComponent(type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -282,8 +282,8 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(albumType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -326,17 +326,11 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
 
     }//GEN-LAST:event_albumTitleActionPerformed
 
-    private void albumTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_albumTypeActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_albumTypeActionPerformed
-
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
          // Υποχρεωτικό γέμισμα πεδίων
          if  (  albumTitle.getText().equals("")|| 
-                albumType.getText().equals("") || 
-                albumNo.getText().equals(""))
+              albumNo.getText().equals(""))
                 {
        JOptionPane.showMessageDialog(null, "Τα πεδία είναι υποχρεωτικά!", "ERROR", JOptionPane.ERROR_MESSAGE);
        } 
@@ -345,7 +339,15 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
               if (modify==true) {//τροποποίηση
                     confirm = JOptionPane.showConfirmDialog(null, "Επιθυμείτε να αποθηκεύσετε τις αλλαγές;" , "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                     album.setTitle(albumTitle.getText());
-                    album.setType(albumType.getText());
+                    // Tύπος άλμπουμ
+                     typos = (String) type.getSelectedItem();
+                        if (typos.equals("CD")) { 
+                             album.setType("CS");
+                             } else if (type.equals("EP")) { 
+                               album.setType("EP");
+                             } else { 
+                              album.setType("LP");
+                                                    }
                     album.setDiskNumber(Integer.parseInt(albumNo.getText()));// για ΙΝΤEGER Τιμές
                     album.setReleaseDate(releaseDate.getDate());
                     
@@ -366,7 +368,15 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
         if(!modify){//νέα εγγραφή άλμπουμ
             album1.setTitle(albumTitle.getText());
-            album1.setType(albumType.getText());
+            //Tύπος άλμπουμ
+            typos = (String) type.getSelectedItem();
+                        if (typos.equals("CD")) { 
+                             album1.setType("CS");
+                             } else if (type.equals("EP")) { 
+                               album1.setType("EP");
+                             } else { 
+                              album1.setType("LP");
+                                                    }
             album1.setDiskNumber(Integer.parseInt(albumNo.getText()));//κανω το string int
             album1.setReleaseDate(releaseDate.getDate());
             album1.setMusicProductionCompanyname(company);
@@ -435,6 +445,12 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_typeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,7 +489,6 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField albumNo;
     private javax.swing.JTextField albumTitle;
-    private javax.swing.JTextField albumType;
     private java.util.List<pojos.Artist> artistList;
     private javax.persistence.Query artistQuery;
     private javax.swing.JTable artistTable;
@@ -501,6 +516,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     protected static javax.swing.JTable songArray;
     private java.util.List<pojos.Song> songList;
     private javax.persistence.Query songQuery;
+    private javax.swing.JComboBox type;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
