@@ -183,7 +183,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
         // TODO add your handling code here:
         selectedRow =PlaylistTable.getSelectedRow();
         playlist = playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
-       new NeworModifyPlaylist().setVisible(true);
+       new NeworModifyPlaylist(playlist).setVisible(true);
     }//GEN-LAST:event_EditPlaylistSongActionPerformed
 
     /**

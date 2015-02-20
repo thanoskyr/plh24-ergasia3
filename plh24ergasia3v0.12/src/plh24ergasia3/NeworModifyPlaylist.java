@@ -12,14 +12,24 @@ import plh24ergasia3.DBManager;
  * @author tkomitopoulos
  */
 public class NeworModifyPlaylist extends javax.swing.JFrame {
-
+Playlist playlist;
+boolean modify;
     /**
      * Creates new form NeworModifyPlaylist
      */
     public NeworModifyPlaylist() {
         initComponents();
+         modify=false;
     }
-
+public  NeworModifyPlaylist(Playlist pl){//τροποποίηση
+        initComponents();               
+        modify = true;
+        playlist=pl;
+        setTitle("ΤΡΟΠΟΠΟΙΗΣΗ PLAYLIST");
+        
+        PlaylistName.setText(playlist.getName());
+       
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
