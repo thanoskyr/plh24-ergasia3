@@ -59,6 +59,7 @@ public class Artist implements Serializable {
     @Basic(optional = false)
     @Column(name = "ARTISTIC_NAME")
     private String artisticName;
+    @Basic(optional = false)
     @Column(name = "SEX")
     private String sex;
     @Column(name = "BIRTH_DATE")
@@ -84,11 +85,12 @@ public class Artist implements Serializable {
         this.artistId = artistId;
     }
 
-    public Artist(Integer artistId, String firstName, String lastName, String artisticName) {
+    public Artist(Integer artistId, String firstName, String lastName, String artisticName, String sex) {
         this.artistId = artistId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.artisticName = artisticName;
+        this.sex = sex;
     }
 
     public Integer getArtistId() {
