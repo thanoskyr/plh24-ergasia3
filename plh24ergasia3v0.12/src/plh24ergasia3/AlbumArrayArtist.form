@@ -150,6 +150,11 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
               </TableColumnModel>
             </Property>
             <Property name="columnSelectionAllowed" type="boolean" value="true"/>
@@ -162,30 +167,29 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="albumList" target="jTable1" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${artistartisticName}">
+              <Subbinding sourcePath="${artistartistId}">
                 <BindingParameter name="NAME" value="&#x39a;&#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3c4;&#x3ad;&#x3c7;&#x3bd;&#x3b7;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="pojos.Artist.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-              </Subbinding>
-              <Subbinding sourcePath="${musicProductionCompanyname}">
-                <BindingParameter name="NAME" value="&#x395;&#x3c4;&#x3b1;&#x3b9;&#x3c1;&#x3af;&#x3b1; &#x3a0;&#x3b1;&#x3c1;&#x3b1;&#x3b3;&#x3c9;&#x3b3;&#x3ae;&#x3c2;"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="pojos.MusicProductionCompany.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
-              </Subbinding>
-              <Subbinding sourcePath="${releaseDate}">
-                <BindingParameter name="NAME" value="&#x397;&#x3bc;&#x3b5;&#x3c1;&#x3bf;&#x3bc;&#x3b7;&#x3bd;&#x3af;&#x3b1; &#x39a;&#x3c5;&#x3ba;&#x3bb;&#x3bf;&#x3c6;&#x3bf;&#x3c1;&#x3af;&#x3b1;&#x3c2;"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${title}">
                 <BindingParameter name="NAME" value="&#x3a4;&#x3af;&#x3c4;&#x3bb;&#x3bf;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${type}">
                 <BindingParameter name="NAME" value="&#x3a4;&#x3cd;&#x3c0;&#x3bf;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
+              </Subbinding>
+              <Subbinding sourcePath="${diskNumber}">
+                <BindingParameter name="NAME" value="&#x391;&#x3c1;&#x3b9;&#x3b8;&#x3bc;&#x3cc;&#x3c2; &#x394;&#x3af;&#x3c3;&#x3ba;&#x3bf;&#x3c5;"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${musicProductionCompanyname}">
+                <BindingParameter name="NAME" value="&#x394;&#x3b9;&#x3c3;&#x3ba;&#x3bf;&#x3b3;&#x3c1;&#x3b1;&#x3c6;&#x3b9;&#x3ba;&#x3ae; &#x395;&#x3c4;&#x3b1;&#x3b9;&#x3c1;&#x3af;&#x3b1;"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="pojos.MusicProductionCompany.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${releaseDate}">
+                <BindingParameter name="NAME" value="&#x397;&#x3bc;&#x3b5;&#x3c1;&#x3bf;&#x3bc;&#x3b7;&#x3bd;&#x3af;&#x3b1; &#x3ad;&#x3ba;&#x3b4;&#x3bf;&#x3c3;&#x3b7;&#x3c2;"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
