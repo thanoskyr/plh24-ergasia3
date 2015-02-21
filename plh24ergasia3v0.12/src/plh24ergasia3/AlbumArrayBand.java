@@ -5,11 +5,9 @@
  */
 package plh24ergasia3;
 
-import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
-import static plh24ergasia3.DBManager.openConnection;
 import pojos.Album;
-import pojos.MusicGroup;
+import pojos.Song;
 
 
 /**
@@ -17,17 +15,18 @@ import pojos.MusicGroup;
  * @author Rithri
  */
 public class AlbumArrayBand extends javax.swing.JFrame {
-    
+    Album album; 
+    int selectedRow;
     
     /**
      * Creates new form AlbumArrayBand
      */
     public AlbumArrayBand() {
         initComponents();
+        album=new Album();
     }
     
-    Album album; 
-    int selectedRow;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,13 +191,17 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
         if (choice == 0) {    
+            //διαγραφη πρωτα των τραγουδιών του αλμπουμ
+            for(Song song:album.getSongList()){
+                DBManager.deleteSong(song);
+            }
+            album.getSongList().clear();
             if (DBManager.deleteAlbum(album)) {
-                albumList1.remove(album); //διαγραφη καλλιτεχνη
-                JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                new AlbumArrayBand().setVisible(true); //ανανέωση
+                albumList1.remove(album); //διαγραφη 
+                JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ συγκροτήματος!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
+                
             } else {
-                JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής Άλμουμ καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής Άλμουμ συγκροτήματος!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
         
