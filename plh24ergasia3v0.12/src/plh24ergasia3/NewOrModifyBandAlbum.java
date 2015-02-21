@@ -400,7 +400,8 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                 album.setMusicGroupmusicGroupId(band);
                 album.setSongList(songList);
             
-                for(Song song:songList){//για κάθε τραγούδι της λιστας                    
+                for(Song song:songList){//για κάθε τραγούδι της λιστας                 
+                    System.out.println(song.getTitle());    
                     song.setAlbumalbumId(album);
                     }
                 if(DBManager.addAlbum(album)){//ενημερωση πίνακα
@@ -449,13 +450,9 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     private void insertSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertSongActionPerformed
         int id=generator.nextInt();
         song = new Song(id,"τιτλος",0,0);//δημιουργει νεο κενό που το τροποποιουμε με το χέρι
-        
-        if(!DBManager.addSong(song))
-            JOptionPane.showMessageDialog(null, "Αποτυχία εισαγωγής τραγουδιου στη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        else{
-            JOptionPane.showMessageDialog(null, "Παρακαλω επεξεργαστείτε το νέο τραγούδι και πατηστε το κουμπί αποθηκευση", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
-            songList.add(song);//εισαγει το "λευκο" song στη λίστα
-        }
+        songList.add(song);//εισαγει το "λευκο" song
+        JOptionPane.showMessageDialog(null, "Παρακαλω επεξεργαστείτε το νέο τραγούδι και πατηστε το κουμπί αποθηκευση", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
+      
     }//GEN-LAST:event_insertSongActionPerformed
 
     private void deleteSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSongActionPerformed
@@ -471,9 +468,8 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteSongActionPerformed
     public boolean checkSong(Song song, List<Song> songlist ){
         //εμεις εχουμε σχεδιασει τη βάση ώστεκαθε τραγουδι να έχει μοναδικο id
-        
         for(Song s : songlist){
-            if(s.getTitle().equals(song.getTitle()))
+            if((s.getTitle().equals(song.getTitle()))&&(s.getTracknr()==song.getTracknr())&&(s.getDuration()==song.getDuration()))
                 return true;//υπάρχει το τραγουδι μεσα στη λιστα ηδη
             }
         
@@ -481,23 +477,22 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     }
     private void saveNewSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewSongActionPerformed
         // TODO add your handling code here: πρεπει να γινεται ελεγχος!
-        //song=songList.get(songList.size()-1);//το επεξεργασμένο τραγουδι
-        
-       // if(!checkSong(song,songList)){//αν δεν υπάρχει το ιδιο τραγουδι στη λιστα, δε δουλευει
-            if(DBManager.modifySong(song)){ 
-               
+        //if(!checkSong(song,songList)){//αν δεν υπάρχει το τραγουδι στη λιστα
+            if(DBManager.addSong(song)){ 
+            //    for (Song song : songList) { 
+            //        if (song.getPlaylistList().contains(song))
+            //            song.getPlaylistList().remove(song);}
                 JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
-       
             }
             else{
                 JOptionPane.showMessageDialog(null, "Αποτυχία εισαγωγής τραγουδιου στη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-       // }
-       // else{
-       //     songList.remove(song);
-
-       //    JOptionPane.showMessageDialog(null, "Το τραγούδι υπάρχει ήδη στη λίστα!", "ERROR", JOptionPane.ERROR_MESSAGE);
         //}
+        //else{
+        //    songList.remove(song);
+//            song.getPlaylistList().remove(song);
+        //    JOptionPane.showMessageDialog(null, "Το τραγούδι υπάρχει ήδη στη λίστα!", "ERROR", JOptionPane.ERROR_MESSAGE);
+       // }
     }//GEN-LAST:event_saveNewSongActionPerformed
 
     /**
