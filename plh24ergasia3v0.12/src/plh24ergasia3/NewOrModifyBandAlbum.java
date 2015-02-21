@@ -480,7 +480,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
         // TODO add your handling code here: πρεπει να γινεται ελεγχος!
         if(!checkSong(song,songList)){//αν δεν υπάρχει το τραγουδι στη λιστα
             songList.add(song);
-            System.out.println("titlos:"+song.getTitle());
+            
             if(DBManager.addSong(song)){ 
             
                 JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
