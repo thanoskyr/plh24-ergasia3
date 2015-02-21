@@ -468,31 +468,31 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteSongActionPerformed
     public boolean checkSong(Song song, List<Song> songlist ){
         //εμεις εχουμε σχεδιασει τη βάση ώστεκαθε τραγουδι να έχει μοναδικο id
+        songlist.remove(song);//αφαιρω το song
         for(Song s : songlist){
-            if((s.getTitle().equals(song.getTitle()))&&(s.getTracknr()==song.getTracknr())&&(s.getDuration()==song.getDuration()))
+            if(s.getTitle().equals(song.getTitle())){
                 return true;//υπάρχει το τραγουδι μεσα στη λιστα ηδη
             }
-        
+        }
         return false;
     }
     private void saveNewSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewSongActionPerformed
         // TODO add your handling code here: πρεπει να γινεται ελεγχος!
-        //if(!checkSong(song,songList)){//αν δεν υπάρχει το τραγουδι στη λιστα
+        if(!checkSong(song,songList)){//αν δεν υπάρχει το τραγουδι στη λιστα
+            songList.add(song);
+            System.out.println("titlos:"+song.getTitle());
             if(DBManager.addSong(song)){ 
-            //    for (Song song : songList) { 
-            //        if (song.getPlaylistList().contains(song))
-            //            song.getPlaylistList().remove(song);}
+            
                 JOptionPane.showMessageDialog(null, "Το νέο τραγούδι αποθηκεύτηκε με επιτυχία", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
             }
             else{
                 JOptionPane.showMessageDialog(null, "Αποτυχία εισαγωγής τραγουδιου στη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-        //}
-        //else{
-        //    songList.remove(song);
-//            song.getPlaylistList().remove(song);
-        //    JOptionPane.showMessageDialog(null, "Το τραγούδι υπάρχει ήδη στη λίστα!", "ERROR", JOptionPane.ERROR_MESSAGE);
-       // }
+        }
+        else{
+            
+            JOptionPane.showMessageDialog(null, "Το τραγούδι υπάρχει ήδη στη λίστα!", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_saveNewSongActionPerformed
 
     /**
