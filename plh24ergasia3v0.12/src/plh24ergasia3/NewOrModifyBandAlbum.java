@@ -22,9 +22,10 @@ import pojos.Song;
  */
 public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     
-    private pojos.Album album;//δημιουργια field
+    private Album album;//δημιουργια field
     private MusicProductionCompany company;
-    private int selectedBandRow,selectedCompanyRow,confirm;
+    private int selectedBandRow=-1;
+    private int selectedCompanyRow=-1;
     boolean modify;
     private MusicGroup band;
     String typos;
@@ -49,6 +50,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
          songList.clear();
          albumTitle.setText(album.getTitle());
          releaseDate.setDate(album.getReleaseDate());
+         albumNo.setText(Integer.toString(album.getDiskNumber()));
          for(Song song:album.getSongList()){
              songList.add(song);
          }
@@ -56,7 +58,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     }
     
     public boolean checkFields(){
-        if((!albumTitle.getText().isEmpty())&&(!albumNo.getText().isEmpty())&&selectedBandRow>=0&&selectedCompanyRow>=0&&songList.size()>0)
+        if((!albumTitle.getText().isEmpty())&&(!albumNo.getText().isEmpty())&&(songList.size()>0)&&releaseDate!=null)
             return true;
         else
             return false;     
@@ -362,11 +364,13 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        selectedBandRow=bandTable.getSelectedRow();
-        selectedCompanyRow=companyTable.getSelectedRow();
-        band=musicGroupList.get(bandTable.convertRowIndexToModel(selectedBandRow));
-        company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
+        
+        
         if(checkFields()==true){
+            selectedBandRow=bandTable.getSelectedRow();
+            selectedCompanyRow=companyTable.getSelectedRow();
+            band=musicGroupList.get(bandTable.convertRowIndexToModel(selectedBandRow));
+            company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
             if(!modify){//νέα εγγραφή άλμπουμ
                 album = new Album();
                 album.setTitle(albumTitle.getText());
