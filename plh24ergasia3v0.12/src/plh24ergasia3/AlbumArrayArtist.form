@@ -29,7 +29,7 @@
     </Component>
     <Component class="javax.persistence.Query" name="albumQuery">
       <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT a FROM Album a"/>
+        <Property name="query" type="java.lang.String" value="SELECT a FROM Album a "/>
         <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
           <ComponentRef name="radioDBv2PUEntityManager"/>
         </Property>
@@ -170,26 +170,32 @@
               <Subbinding sourcePath="${artistartistId}">
                 <BindingParameter name="NAME" value="&#x39a;&#x3b1;&#x3bb;&#x3bb;&#x3b9;&#x3c4;&#x3ad;&#x3c7;&#x3bd;&#x3b7;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="pojos.Artist.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${title}">
                 <BindingParameter name="NAME" value="&#x3a4;&#x3af;&#x3c4;&#x3bb;&#x3bf;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${type}">
                 <BindingParameter name="NAME" value="&#x3a4;&#x3cd;&#x3c0;&#x3bf;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${diskNumber}">
                 <BindingParameter name="NAME" value="&#x391;&#x3c1;&#x3b9;&#x3b8;&#x3bc;&#x3cc;&#x3c2; &#x394;&#x3af;&#x3c3;&#x3ba;&#x3bf;&#x3c5;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${musicProductionCompanyname}">
                 <BindingParameter name="NAME" value="&#x394;&#x3b9;&#x3c3;&#x3ba;&#x3bf;&#x3b3;&#x3c1;&#x3b1;&#x3c6;&#x3b9;&#x3ba;&#x3ae; &#x395;&#x3c4;&#x3b1;&#x3b9;&#x3c1;&#x3af;&#x3b1;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="pojos.MusicProductionCompany.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${releaseDate}">
                 <BindingParameter name="NAME" value="&#x397;&#x3bc;&#x3b5;&#x3c1;&#x3bf;&#x3bc;&#x3b7;&#x3bd;&#x3af;&#x3b1; &#x3ad;&#x3ba;&#x3b4;&#x3bf;&#x3c3;&#x3b7;&#x3c2;"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
