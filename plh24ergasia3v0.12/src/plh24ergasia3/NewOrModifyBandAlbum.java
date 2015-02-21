@@ -24,8 +24,8 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     
     private Album album;//δημιουργια field
     private MusicProductionCompany company;
-    private int selectedBandRow=-1;
-    private int selectedCompanyRow=-1;
+    private int selectedBandRow;
+    private int selectedCompanyRow;
     boolean modify;
     private MusicGroup band;
     String typos;
@@ -39,6 +39,8 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
          initComponents();
          songList.clear();
          modify=false;
+         selectedBandRow=-1;
+         selectedCompanyRow=-1;
        
     }
     
@@ -59,9 +61,17 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     
     public boolean checkFields(){
         if((!albumTitle.getText().isEmpty())&&(!albumNo.getText().isEmpty())&&(songList.size()>0)&&releaseDate!=null)
-            return true;
-        else
-            return false;     
+            if(selectedBandRow>=0&&selectedCompanyRow>=0)
+                return true;
+            else{
+                JOptionPane.showMessageDialog(null, "Πρέπει να επιλεγει εταιρεία και συγκροτημα απο τι λιστες", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        else{
+            JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθoύν όλα τα πεδία και να προστεθει τουλαχιστον ενα τραγούδι ", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return false; 
+        }
+                
     }
          
        
@@ -364,11 +374,11 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         // TODO add your handling code here:
-        
+        selectedBandRow=bandTable.getSelectedRow();
+        selectedCompanyRow=companyTable.getSelectedRow();
         
         if(checkFields()==true){
-            selectedBandRow=bandTable.getSelectedRow();
-            selectedCompanyRow=companyTable.getSelectedRow();
+            
             band=musicGroupList.get(bandTable.convertRowIndexToModel(selectedBandRow));
             company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
             if(!modify){//νέα εγγραφή άλμπουμ
@@ -431,9 +441,9 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
 
             }
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθoύν όλα τα πεδία, να προστεθει τουλαχιστον ενα τραγούδι και να επιλεγει εταιρεία και συγκροτημα απο τι λιστες", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+        //else{
+          //  JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθoύν όλα τα πεδία, να προστεθει τουλαχιστον ενα τραγούδι και να επιλεγει εταιρεία και συγκροτημα απο τι λιστες", "ERROR", JOptionPane.ERROR_MESSAGE);
+        //}
     }//GEN-LAST:event_saveActionPerformed
 
     private void insertSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertSongActionPerformed
@@ -457,7 +467,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteSongActionPerformed
 
     private void saveNewSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveNewSongActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: πρεπει να γινεται ελεγχος!
         if(DBManager.addSong(song)){ 
             for (Song song : songList) { 
                     if (song.getPlaylistList().contains(song))
