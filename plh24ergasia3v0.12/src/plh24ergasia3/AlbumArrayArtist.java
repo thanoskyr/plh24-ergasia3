@@ -8,6 +8,7 @@ package plh24ergasia3;
 import javax.swing.JOptionPane;
 import static plh24ergasia3.DBManager.openConnection;
 import pojos.Album;
+import pojos.Song;
 
 
 /**
@@ -187,12 +188,16 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
-        if (choice == 0) {    
+        if (choice == 0) {   
+             //διαγραφη πρωτα των τραγουδιών του αλμπουμ
+            for(Song song:album.getSongList()){
+                DBManager.deleteSong(song);
+            }
+            album.getSongList().clear();
             if (DBManager.deleteAlbum(album)) {
                 albumList.remove(album); //διαγραφη καλλιτεχνη
                 JOptionPane.showMessageDialog(null, "Επιτυχής διαγραφή Άλμουμ καλλιτεχνη!", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-                new AlbumArrayArtist().setVisible(true); //ανανέωση
+               
             } else {
                 JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής Άλμουμ καλλιτέχνη!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
