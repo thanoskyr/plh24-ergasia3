@@ -39,9 +39,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         radioDBv2PUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("radioDBv2PU").createEntityManager();
-        artistQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Artist a");
-        artistList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(artistQuery.getResultList());
-        albumQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a ");
+        albumQuery = java.beans.Beans.isDesignTime() ? null : radioDBv2PUEntityManager.createQuery("SELECT a FROM Album a WHERE a.musicGroupmusicGroupId is null");
         albumList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(albumQuery.getResultList());
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -160,7 +158,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+        
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         dispose();
@@ -172,11 +170,12 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         NewOrModifyArtistAlbum a1=new NewOrModifyArtistAlbum (); //Δημιουργία νέας φόρμας
         a1.setVisible(true);
         
-   
+    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        
         //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου καλλιτεχνη
         selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
@@ -249,8 +248,6 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static java.util.List<pojos.Album> albumList;
     private javax.persistence.Query albumQuery;
-    protected static java.util.List<pojos.Artist> artistList;
-    private javax.persistence.Query artistQuery;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
