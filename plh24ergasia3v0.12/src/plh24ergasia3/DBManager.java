@@ -257,7 +257,7 @@ public class DBManager {
     /* Merging the contents of the detached entity with
     the persistence context and returns a reference to a managed entity */
             Song s = em.merge(song);
-            em.remove(song);            
+            em.remove(s);            
             em.getTransaction().commit();
             return true;
         }
