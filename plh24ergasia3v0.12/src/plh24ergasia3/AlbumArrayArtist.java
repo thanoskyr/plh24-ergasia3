@@ -45,7 +45,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        edit = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -99,10 +99,10 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Ενημέρωση");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        edit.setText("Επεξεργασία");
+        edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                editActionPerformed(evt);
             }
         });
 
@@ -128,7 +128,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(edit)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -149,7 +149,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
+                    .addComponent(edit)
                     .addComponent(jButton4))
                 .addGap(33, 33, 33))
         );
@@ -162,7 +162,6 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         dispose();
-        new Kentriki().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -173,7 +172,7 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         // TODO add your handling code here:
         
         //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου καλλιτεχνη
@@ -183,8 +182,8 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
                 JOptionPane.WARNING_MESSAGE);
             return;}
         album = albumList.get(jTable1.convertRowIndexToModel(selectedRow));
-        new NewOrModifyBandAlbum(album).setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        new NewOrModifyArtistAlbum(album).setVisible(true);
+    }//GEN-LAST:event_editActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -248,9 +247,9 @@ public class AlbumArrayArtist extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static java.util.List<pojos.Album> albumList;
     private javax.persistence.Query albumQuery;
+    private javax.swing.JButton edit;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

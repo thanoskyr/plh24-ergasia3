@@ -400,8 +400,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
                 album.setMusicGroupmusicGroupId(band);
                 album.setSongList(songList);
             
-                for(Song song:songList){//για κάθε τραγούδι της λιστας                 
-                    System.out.println(song.getTitle());    
+                for(Song song:songList){//για κάθε τραγούδι της λιστας                   
                     song.setAlbumalbumId(album);
                     }
                 if(DBManager.addAlbum(album)){//ενημερωση πίνακα
@@ -442,16 +441,14 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
 
             }
         }
-        //else{
-          //  JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθoύν όλα τα πεδία, να προστεθει τουλαχιστον ενα τραγούδι και να επιλεγει εταιρεία και συγκροτημα απο τι λιστες", "ERROR", JOptionPane.ERROR_MESSAGE);
-        //}
+        
     }//GEN-LAST:event_saveActionPerformed
 
     private void insertSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertSongActionPerformed
         int id=generator.nextInt();
         song = new Song(id,"τιτλος",0,0);//δημιουργει νεο κενό που το τροποποιουμε με το χέρι
         songList.add(song);//εισαγει το "λευκο" song
-        JOptionPane.showMessageDialog(null, "Παρακαλω επεξεργαστείτε το νέο τραγούδι και πατηστε το κουμπί αποθηκευση", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
+        JOptionPane.showMessageDialog(null, "Παρακαλω επεξεργαστείτε το νέο τραγούδι, πατήστε enter και το κουμπί αποθηκευση", "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);     
       
     }//GEN-LAST:event_insertSongActionPerformed
 
