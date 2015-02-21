@@ -46,7 +46,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -90,10 +90,10 @@ public class AlbumArrayBand extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Διαγραφή");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        delete.setText("Διαγραφή");
+        delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                deleteActionPerformed(evt);
             }
         });
 
@@ -126,7 +126,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
                             .addGap(65, 65, 65)
                             .addComponent(jButton1)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton2)
+                            .addComponent(delete)
                             .addGap(18, 18, 18)
                             .addComponent(jButton3)
                             .addGap(399, 399, 399)
@@ -146,7 +146,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(delete)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
                 .addContainerGap(51, Short.MAX_VALUE))
@@ -182,12 +182,12 @@ public class AlbumArrayBand extends javax.swing.JFrame {
         new NewOrModifyBandAlbum(album).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
         
          // TODO add your handling code here:
         selectedRow=jTable1.getSelectedRow();
-        album=albumList1.get(jTable1.convertColumnIndexToModel(selectedRow));
+        album=albumList1.get(jTable1.convertRowIndexToModel(selectedRow));
         
         int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει το Άλμπουμ " + album.getTitle() + "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
         
@@ -202,7 +202,7 @@ public class AlbumArrayBand extends javax.swing.JFrame {
             }
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,8 +242,8 @@ public class AlbumArrayBand extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected static java.util.List<pojos.Album> albumList1;
     private javax.persistence.Query albumQuery;
+    private javax.swing.JButton delete;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
