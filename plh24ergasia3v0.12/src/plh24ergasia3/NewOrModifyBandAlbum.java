@@ -463,7 +463,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Αποτυχία διαγραφής τραγουδιου!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_deleteSongActionPerformed
-    public boolean checkSong(Song song, List<Song> songlist ){
+    public static boolean checkSong(Song song, List<Song> songlist ){
         //εμεις εχουμε σχεδιασει τη βάση ώστεκαθε τραγουδι να έχει μοναδικο id
         songlist.remove(song);//αφαιρω το song
         for(Song s : songlist){
