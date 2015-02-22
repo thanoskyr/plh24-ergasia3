@@ -21,7 +21,7 @@ public class XMLfile {
     
    
         
-    public static void XmlFile(){
+    public static void XmlFile(File xmlFile){
         
         try {
             
@@ -61,7 +61,7 @@ public class XMLfile {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("C:\\songlist.xml"));
+            StreamResult result = new StreamResult(new File("C:\\Desktop\\songlist.xml"));
        
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(XMLfile.class.getName()).log(Level.SEVERE, null, ex);

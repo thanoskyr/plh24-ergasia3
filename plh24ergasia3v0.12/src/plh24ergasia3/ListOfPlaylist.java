@@ -192,13 +192,13 @@ public class ListOfPlaylist extends javax.swing.JFrame {
             int chooser = Jfile.showSaveDialog(this);
             if (chooser == JFileChooser.APPROVE_OPTION) { 
                 //Αρχείο
-                File outputXMLFile = Jfile.getSelectedFile();
+                File XML = Jfile.getSelectedFile();
                 
                 // Δημιουργία ενός ΧΜLfile
                 XMLfile xml = new XMLfile();
-                xml.XmlFile();
+                xml.XmlFile(XML);
                 // Εμφάνισε μήνυμα επιβεβαίωσης
-                JOptionPane.showMessageDialog(this, "Αποθήκευση λίστας επιτυχής", "Επιτυχής ολοκλήρωση",
+                JOptionPane.showMessageDialog(this, "Αποθήκευση", "Επιτυχής Αποθήκευση",
                                           JOptionPane.INFORMATION_MESSAGE);
             }
         } catch(Exception ex) { 
