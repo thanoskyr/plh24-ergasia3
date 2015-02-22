@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import pojos.Playlist;
 
@@ -22,7 +24,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
     public ListOfPlaylist() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,6 +170,42 @@ public class ListOfPlaylist extends javax.swing.JFrame {
 
     private void XMLexportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XMLexportActionPerformed
         // TODO add your handling code here:
+      // Ανάκτηση της επιλεγμένης λίστας
+        selectedRow = PlaylistTable.getSelectedRow();
+
+        // Έλεγχος για το αν έχει επιλεχθεί λίστα
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί λίστα", "Σφάλμα",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Πάρε την επιλεγμένη λίστα
+        playlist = playlistList.get(selectedRow);
+        
+        
+        try { 
+            // Eπιλογέας αρχείων για XML
+            JFileChooser Jfile = new JFileChooser();
+            
+            // Επιλογή xml
+            int chooser = Jfile.showSaveDialog(this);
+            if (chooser == JFileChooser.APPROVE_OPTION) { 
+                //Αρχείο
+                File outputXMLFile = Jfile.getSelectedFile();
+                
+                // Δημιουργία ενός ΧΜLfile
+                XMLfile xml = new XMLfile();
+                xml.XmlFile();
+                // Εμφάνισε μήνυμα επιβεβαίωσης
+                JOptionPane.showMessageDialog(this, "Αποθήκευση λίστας επιτυχής", "Επιτυχής ολοκλήρωση",
+                                          JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch(Exception ex) { 
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Σφάλμα",
+                                          JOptionPane.WARNING_MESSAGE);
+        }
+          
         
     }//GEN-LAST:event_XMLexportActionPerformed
 
