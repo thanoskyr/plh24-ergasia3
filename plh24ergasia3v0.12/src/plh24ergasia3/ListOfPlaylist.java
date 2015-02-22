@@ -244,10 +244,10 @@ public class ListOfPlaylist extends javax.swing.JFrame {
     private javax.swing.JButton EditPlaylistSong;
     private javax.swing.JButton Exit;
     private javax.swing.JLabel PlaylistLabel;
-    private javax.swing.JTable PlaylistTable;
+    public static javax.swing.JTable PlaylistTable;
     private javax.swing.JButton XMLexport;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.util.List<pojos.Playlist> playlistList;
+    public static java.util.List<pojos.Playlist> playlistList;
     private javax.persistence.Query playlistQuery;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
