@@ -34,8 +34,8 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         modify = true;
         playlist=pl;
         setTitle("ΤΡΟΠΟΠΟΙΗΣΗ PLAYLIST");
-        
-        description.setText(playlist.getName());
+        selectedSongList.clear();//αδειασμα της λίστας
+        description.setText(playlist.getDescription());
         CreationDate.setDate(playlist.getCreationDate());
         for(Song song:playlist.getSongList()){
             selectedSongList.add(song);
