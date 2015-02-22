@@ -272,6 +272,9 @@ public class DBManager {
         try {
             em.getTransaction().begin();
             em.persist(playlist);
+            for(Song song:playlist.getSongList()){
+                song=em.merge(song);                
+            }
             em.getTransaction().commit();
             return true;
         }
@@ -415,6 +418,44 @@ public class DBManager {
     }
 }
 
+        
+ public static boolean modifyPL(Playlist playlist, List<Song> selectedSongList){
+    //* Χρήση exceptions για τον χειρισμό λαθών κατά την επικοινωνία με τη ΒΔ */
+    
+    
+    try {
+        em.getTransaction().begin();
+        // Διαγραφή τραγουδιών που δεν υπάρχουν
+        
+        for (Song song :playlist.getSongList() ) {
+        /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
+            song = em.merge(song);
+            if (!selectedSongList.contains(song)){
+                song.getPlaylistList().remove(playlist);
+                
+            }
+        }
+        playlist.getSongList().retainAll(selectedSongList);
+        
+        
+        // Εισαγωγή νέων τραγουδιων 
+        for (Song song : selectedSongList) {
+        /* Merging the contents of the detached entity with the persistence context, and returns a reference to a managed entity */
+            song = em.merge(song);
+            if (!playlist.getSongList().contains(song)){
+                playlist.getSongList().add(song);
+                song.getPlaylistList().add(playlist);
+                         
+            }
+        }
+        
+        em.getTransaction().commit();
+        return true;
+    }catch(Exception e){
+        System.out.println(e); 
+        return false;
+    }
+}
     
      
 }
