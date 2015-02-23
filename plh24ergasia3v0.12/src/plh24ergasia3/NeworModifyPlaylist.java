@@ -388,12 +388,11 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         song=availableSongList.get(availableSongTable.convertRowIndexToModel(selectedAvailableSongRow));      
         if(!checkSong(song,selectedSongList)){//αν δεν υπάρχει ήση
             // Αφαίρεση του επιλεγμένου τραγουδιου από τα διαθέσιμα 
-            selectedSongList.add(song);//το ξαναβαζω μεσα γιατι το ειχα βγαλει με την κληση της checksong
             availableSongList.remove(song);
             // Εισαγωγή στη λίστα/πίνακα ττων επιλεγμένων
             selectedSongList.add(selectedSongList.size(), song);
         }
-        else{//αν υπάρχει ήδη το ττραγουδι μεσα
+        else{//αν υπάρχει ήδη το ττραγουδι μεσα, με την υλοποίηση μας δεν προκειται ποτε να υπάρχει ιδιο τραγουδι μεσα
             JOptionPane.showMessageDialog(null, "Το τραγούδι υπάρχει ήδη στη λίστα!", "ERROR", JOptionPane.ERROR_MESSAGE);    
         }
     }//GEN-LAST:event_insertSongButtonActionPerformed
