@@ -21,7 +21,7 @@ public class ListOfBands extends javax.swing.JFrame {
      */
     public ListOfBands() {
         initComponents();
-        //artistList.clear();
+        selectedRow=-1;
     }
 
     /**
@@ -167,9 +167,13 @@ public class ListOfBands extends javax.swing.JFrame {
         
         //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου συγκροήματος
         selectedRow = BandsTable.getSelectedRow();
-        band = musicGroupList.get(BandsTable.convertRowIndexToModel(selectedRow));
-        new NewOrModifyBand(band).setVisible(true);
-        //dispose();
+        if(selectedRow==-1)
+            JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε κάποιο συγκρότημα!", "",
+                JOptionPane.WARNING_MESSAGE);
+        else{
+            band = musicGroupList.get(BandsTable.convertRowIndexToModel(selectedRow));
+            new NewOrModifyBand(band).setVisible(true);
+        }
     }//GEN-LAST:event_editBandActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed

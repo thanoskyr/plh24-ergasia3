@@ -23,6 +23,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
      int selectedRow;
     public ListOfPlaylist() {
         initComponents();
+        selectedRow=-1;
     }
     
     /**
@@ -236,8 +237,13 @@ public class ListOfPlaylist extends javax.swing.JFrame {
     private void EditPlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditPlaylistSongActionPerformed
         // TODO add your handling code here:
         selectedRow =PlaylistTable.getSelectedRow();
-        playlist = playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
-       new NeworModifyPlaylist(playlist).setVisible(true);
+        if (selectedRow==-1)
+            JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε κάποια playlist!", "",
+                JOptionPane.WARNING_MESSAGE);
+        else{
+            playlist = playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
+            new NeworModifyPlaylist(playlist).setVisible(true);
+        }
     }//GEN-LAST:event_EditPlaylistSongActionPerformed
 
     /**

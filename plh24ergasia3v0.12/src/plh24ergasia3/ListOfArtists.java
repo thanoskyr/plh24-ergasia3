@@ -19,6 +19,7 @@ public class ListOfArtists extends javax.swing.JFrame {
     Artist artist;
     public ListOfArtists() {
         initComponents();
+        selectedRow=-1;
     }
 
     /**
@@ -184,8 +185,13 @@ public class ListOfArtists extends javax.swing.JFrame {
     private void editArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editArtistActionPerformed
         //ανοίγω τη φορμα με τα στοιχεία του επιλεγμενου καλλιτεχνη
         selectedRow = ArtistsTable.getSelectedRow();
-        artist = artistList1.get(ArtistsTable.convertRowIndexToModel(selectedRow));
-        new NewOrModifyArtist(artist).setVisible(true);
+        if(selectedRow==-1)
+            JOptionPane.showMessageDialog(null,"Παρακαλώ επιλέξτε κάποιον καλλιτέχνη!", "",
+                JOptionPane.WARNING_MESSAGE);
+        else{
+            artist = artistList1.get(ArtistsTable.convertRowIndexToModel(selectedRow));
+            new NewOrModifyArtist(artist).setVisible(true);
+        }
         
     }//GEN-LAST:event_editArtistActionPerformed
 
