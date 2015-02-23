@@ -25,6 +25,7 @@ public class NewOrModifyArtist extends javax.swing.JFrame {
     public NewOrModifyArtist() {//νέα εγγραφη
         initComponents();
         modify=false;
+        setTitle("ΠΡΟΣΘΗΚΗ ΝΕΟΥ ΚΑΛΛΙΤΕΧΝΗ");
     }
     public NewOrModifyArtist(Artist ar) {//τροποποίηση
         initComponents();               

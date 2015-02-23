@@ -42,7 +42,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
          modify=false;
          selectedBandRow=-1;
          selectedCompanyRow=-1;
-       
+         setTitle("ΠΡΟΣΘΗΚΗ ΑΛΜΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
     }
     
     
@@ -57,7 +57,7 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
          for(Song song:album.getSongList()){
              songList.add(song);
          }
-         
+         setTitle("ΤΡΟΠΟΠΟΙΗΣΗ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
     }
     
     public boolean checkFields(){
@@ -118,7 +118,6 @@ public class NewOrModifyBandAlbum extends javax.swing.JFrame {
         type2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("ΔΙΑΧΕΙΡΗΣΗ ΑΛΜΠΟΥΜ");
         setPreferredSize(new java.awt.Dimension(1000, 800));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

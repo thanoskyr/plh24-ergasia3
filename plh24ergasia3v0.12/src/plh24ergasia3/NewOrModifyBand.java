@@ -25,6 +25,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
         checkButtons();
         modify=false;
         selectedArtistList.clear();// καθαριζει τις εγραφες
+        setTitle("ΠΡΟΣΘΗΚΗ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
     }
     
     public NewOrModifyBand(MusicGroup group) {
@@ -40,7 +41,7 @@ public class NewOrModifyBand extends javax.swing.JFrame {
             selectedArtistList.add(ar);
             availableArtistList.remove(ar);//βγάζει τους υπάρχοντες
         }
-        //artist.getMusicGroupList().clear();
+        setTitle("ΤΡΟΠΟΠΟΙΗΣΗ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
     }
     
     private void checkButtons() {

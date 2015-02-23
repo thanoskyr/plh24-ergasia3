@@ -33,6 +33,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         modify=false;
         selectedArtistRow=-1;
         selectedCompanyRow=-1;
+        setTitle("ΠΡΟΣΘΗΚΗ ΑΛΜΠΟΥΜ ΚΑΛΛΙΤΕΧΝΗ");
     }
 
     public NewOrModifyArtistAlbum(Album a){
@@ -46,6 +47,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
          for(Song s1:album.getSongList()){
              songList.add(s1);
          }
+         setTitle("ΤΡΟΠΟΠΟΙΗΣΗ ΑΛΜΠΟΥΜ ΚΑΛΛΙΤΕΧΝΗ");
     }
     
     public boolean checkFields(){
@@ -104,7 +106,6 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         type = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("ΔΙΑΧΕΙΡΗΣΗ ΑΛΜΠΟΥΜ ΣΥΓΚΡΟΤΗΜΑΤΟΣ");
         setPreferredSize(new java.awt.Dimension(1200, 800));
 
         albumTitle.addActionListener(new java.awt.event.ActionListener() {
@@ -259,8 +260,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(albumTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                             .addComponent(albumNo)
-                            .addComponent(type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)

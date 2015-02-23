@@ -50,8 +50,8 @@ public class ListOfPlaylist extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ΛΙΣΤΕΣ ΤΡΑΓΟΥΔΙΩΝ");
 
-        PlaylistLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        PlaylistLabel.setText("Λίστες Τραγουδιών");
+        PlaylistLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        PlaylistLabel.setText("Πίνακας Λιστών Τραγουδιών");
 
         Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
         Exit.setToolTipText("Έξοδος");
@@ -116,21 +116,16 @@ public class ListOfPlaylist extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(XMLexport)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(144, 144, 144)
-                                .addComponent(PlaylistLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(XMLexport)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(AddPlaylistSong)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(DeletePlaylistSong)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(EditPlaylistSong)))))
-                        .addGap(147, 160, Short.MAX_VALUE))
+                                .addComponent(AddPlaylistSong)
+                                .addGap(18, 18, 18)
+                                .addComponent(DeletePlaylistSong)
+                                .addGap(18, 18, 18)
+                                .addComponent(EditPlaylistSong)))
+                        .addGap(161, 174, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,13 +134,17 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PlaylistLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(PlaylistLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

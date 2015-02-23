@@ -22,7 +22,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
     Song song;
     int selectedAvailableSongRow, selectedSelectedSongRow;
     Random generator = new Random(); 
-    
+    List<Song> tempSongList;//θα χρειαστει στην αναζήτηση
     /**
      * Creates new form NeworModifyPlaylist
      */
@@ -31,7 +31,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         checkButtons();
         modify=false;
         selectedSongList.clear();
-        
+        setTitle("ΠΡΟΣΘΗΚΗ PLAYLIST");
     }
     public  NeworModifyPlaylist(Playlist pl){//τροποποίηση
         initComponents();
@@ -103,10 +103,9 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("ΔΙΑΧΕΙΡΙΣΗ ΛΙΣΤΑΣ");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("ΦΟΡΜΑ ΔΙΑΧΕΙΡΙΣΗΣ ΛΙΣΤΑΣ");
+        jLabel1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jLabel1.setText("Φόρμα Διαχείρισης Λίστας");
 
         jLabel2.setText("Περιγραφή");
 
@@ -231,10 +230,6 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -270,20 +265,22 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(456, 456, 456)
+                        .addComponent(jLabel1)))
                 .addGap(329, 329, 329))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(58, 58, 58)
-                                .addComponent(jLabel2))
+                            .addComponent(jLabel2)
                             .addComponent(description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,7 +389,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             // Εισαγωγή στη λίστα/πίνακα ττων επιλεγμένων
             selectedSongList.add(selectedSongList.size(), song);
         }
-        else{//αν υπάρχει ήδη το ττραγουδι μεσα, με την υλοποίηση μας δεν προκειται ποτε να υπάρχει ιδιο τραγουδι μεσα
+        else{//αν υπάρχει ήδη το ττραγουδι μεσα
             JOptionPane.showMessageDialog(null, "Το τραγούδι υπάρχει ήδη στη λίστα!", "ERROR", JOptionPane.ERROR_MESSAGE);    
         }
     }//GEN-LAST:event_insertSongButtonActionPerformed
