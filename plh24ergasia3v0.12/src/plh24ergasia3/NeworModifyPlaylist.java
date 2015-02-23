@@ -437,22 +437,20 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             */
             if(song1.getAlbumalbumId().getArtistartistId()!=null){//τραγούδια καλλιτέχνη
                 String artistName=song1.getAlbumalbumId().getArtistartistId().getLastName();
-                if(song1.getTitle().toLowerCase().contains(search.getText().toLowerCase())||
-                    artistName.toLowerCase().contains(search.getText().toLowerCase())){
+                if(search.getText().toLowerCase().contains(song1.getTitle().toLowerCase())||
+                    search.getText().toLowerCase().contains(artistName.toLowerCase())){
                     availableSongList.add(song1);
                 }
             }
             if(song1.getAlbumalbumId().getMusicGroupmusicGroupId()!=null){//τραγούδια συγκροτήματος
                 String bandName=song1.getAlbumalbumId().getMusicGroupmusicGroupId().getName();
-                if(song1.getTitle().toLowerCase().contains(search.getText().toLowerCase())||
-                    bandName.toLowerCase().contains(search.getText().toLowerCase())){
+                if(search.getText().toLowerCase().contains(song1.getTitle().toLowerCase())||
+                    search.getText().toLowerCase().contains(bandName.toLowerCase())){
                     availableSongList.add(song1);
                 }
             }
         }
-            System.out.println(tempSongList.get(0).getTitle());
-        
-        
+              
         
     }//GEN-LAST:event_searchButtonActionPerformed
 
