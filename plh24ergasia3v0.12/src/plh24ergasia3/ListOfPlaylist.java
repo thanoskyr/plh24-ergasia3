@@ -47,6 +47,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
         EditPlaylistSong = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         PlaylistTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ΛΙΣΤΕΣ ΤΡΑΓΟΥΔΙΩΝ");
@@ -62,7 +63,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
             }
         });
 
-        XMLexport.setText("Εξαγωγή σε XML");
+        XMLexport.setText("Εξαγωγή λίστας σε αρχείο XML");
         XMLexport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 XMLexportActionPerformed(evt);
@@ -110,35 +111,32 @@ public class ListOfPlaylist extends javax.swing.JFrame {
         jScrollPane1.setViewportView(PlaylistTable);
         PlaylistTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
+        jButton1.setText("Εισαγωγή λίστας από αρχείο XML");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(XMLexport)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(AddPlaylistSong)
                                 .addGap(18, 18, 18)
                                 .addComponent(DeletePlaylistSong)
                                 .addGap(18, 18, 18)
-                                .addComponent(EditPlaylistSong)))
-                        .addGap(161, 174, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(EditPlaylistSong))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PlaylistLabel)
+                            .addComponent(XMLexport))
+                        .addGap(0, 82, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PlaylistLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,10 +151,14 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                     .addComponent(DeletePlaylistSong)
                     .addComponent(EditPlaylistSong))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(XMLexport))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(21, 21, 21)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(XMLexport)
+                .addContainerGap())
         );
 
         bindingGroup.bind();
@@ -195,8 +197,8 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 File XML = Jfile.getSelectedFile();
                 
                 // Δημιουργία ενός ΧΜLfile
-                XMLfile xml = new XMLfile();
-                xml.XmlFile(XML);
+                XMLfile xml = new XMLfile(XML);
+                
                 // Εμφάνισε μήνυμα επιβεβαίωσης
                 JOptionPane.showMessageDialog(this, "Αποθήκευση", "Επιτυχής Αποθήκευση",
                                           JOptionPane.INFORMATION_MESSAGE);
@@ -289,6 +291,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
     private javax.swing.JLabel PlaylistLabel;
     public static javax.swing.JTable PlaylistTable;
     private javax.swing.JButton XMLexport;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     public static java.util.List<pojos.Playlist> playlistList;
     private javax.persistence.Query playlistQuery;

@@ -1,6 +1,8 @@
 package plh24ergasia3;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,6 +21,13 @@ import org.w3c.dom.Element;
 
 public class XMLfile {
     
+    private File xmlFile;
+    private boolean isNewDocument = true;
+
+    public XMLfile(File xmlFile) {//constructor
+        this.xmlFile = xmlFile;
+    }
+   
    
         
     public static void XmlFile(File xmlFile){
