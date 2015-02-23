@@ -56,20 +56,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         deleteSelectedSongButton.setEnabled(selectedSelectedSongRow >= 0);
     } 
     
-    //public List<Song> searchFilter(String searchField,List<Song> availableSongList){//δε δουλευει
-    //    List<Song> filteredList=new ArrayList();
-        
-    //    for(Song song1:availableSongList){
-            //String artistname=song1.getAlbumalbumId().getArtistartistId().getLastName();//null pointer
-            //String bandname=song1.getAlbumalbumId().getMusicGroupmusicGroupId().getName();
-    //        if(searchField.toLowerCase().contains(song1.getTitle().toLowerCase()))//||
-                    //searchField.toLowerCase().contains(artistname.toLowerCase())||
-                    //searchField.toLowerCase().contains(bandname.toLowerCase())){
-     //           filteredList.add(song1);
-     //       }
-     //   
-    //    return filteredList;
-    //}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +88,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         selectedSongTable = new javax.swing.JTable();
         searchButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        restoreAvailableSongList = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -226,6 +214,13 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
 
         jLabel5.setText("Λίστα Επιλεγμένων τραγουδιών");
 
+        restoreAvailableSongList.setText("Επαναφορά Λίστας");
+        restoreAvailableSongList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restoreAvailableSongListActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -250,6 +245,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(restoreAvailableSongList)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -305,15 +301,17 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(insertSongButton)
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(deleteSelectedSongButton)
-                        .addGap(72, 72, 72))
+                        .addGap(143, 143, 143))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 8, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addGap(18, 18, 18)
+                        .addComponent(restoreAvailableSongList)
+                        .addGap(27, 27, 27))))
         );
 
         bindingGroup.bind();
@@ -396,6 +394,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_searchActionPerformed
 
     private void descriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descriptionActionPerformed
@@ -427,18 +426,52 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        List<Song> backup=new ArrayList<>(availableSongList);//κραταω αντιγραφο
-        //availableSongList=searchFilter(search.getText(),availableSongList);
+        tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
+        availableSongList.clear();
+        for (Song song1 :tempSongList){
+            
+            
+            /*εδω πρεπει να κανουμε διπλο έλεγχο. Για τα τραγουδια συγκροτήματος
+            αρα έχουν null στον καλλιτεχνη και για τα τραγούδια καλλιτεχνη που 
+            έχουν null στο συγκροτημα
+            */
+            if(song1.getAlbumalbumId().getArtistartistId()!=null){//τραγούδια καλλιτέχνη
+                String artistName=song1.getAlbumalbumId().getArtistartistId().getLastName();
+                if(song1.getTitle().toLowerCase().contains(search.getText().toLowerCase())||
+                    artistName.toLowerCase().contains(search.getText().toLowerCase())){
+                    availableSongList.add(song1);
+                }
+            }
+            if(song1.getAlbumalbumId().getMusicGroupmusicGroupId()!=null){//τραγούδια συγκροτήματος
+                String bandName=song1.getAlbumalbumId().getMusicGroupmusicGroupId().getName();
+                if(song1.getTitle().toLowerCase().contains(search.getText().toLowerCase())||
+                    bandName.toLowerCase().contains(search.getText().toLowerCase())){
+                    availableSongList.add(song1);
+                }
+            }
+        }
+            System.out.println(tempSongList.get(0).getTitle());
+        
+        
         
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
         // TODO add your handling code here:
-        //οταν κλικαρει στο πεδιο πρεπει να επανερχεται
-        search.setText(null);
-        //availableSongList=searchFilter(search.getText(),availableSongList);
-        //επαναφερει τη λιστα
+        //οταν κλικαρει στο πεδιο θα επανερχεται η λιστα διαθεσιμων
+        search.setText(null);//καθαρίζει το πεδίο
+        
     }//GEN-LAST:event_searchMouseClicked
+
+    private void restoreAvailableSongListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restoreAvailableSongListActionPerformed
+        availableSongList.clear();
+        for(Song song2:tempSongList){
+            if(!selectedSongList.contains(song2)){
+                availableSongList.add(song2);
+            //επαναφερει τη λιστα εκτος αυτων που εχουν επιλεγει
+            }
+        }
+    }//GEN-LAST:event_restoreAvailableSongListActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,6 +524,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
+    private javax.swing.JButton restoreAvailableSongList;
     private javax.swing.JButton save;
     private javax.swing.JTextField search;
     private javax.swing.JButton searchButton;
