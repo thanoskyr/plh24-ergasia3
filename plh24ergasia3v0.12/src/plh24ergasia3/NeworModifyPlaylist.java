@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import static plh24ergasia3.DBManager.modifyPL;
@@ -20,6 +22,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
     Song song;
     int selectedAvailableSongRow, selectedSelectedSongRow;
     Random generator = new Random(); 
+    
     /**
      * Creates new form NeworModifyPlaylist
      */
@@ -28,6 +31,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         checkButtons();
         modify=false;
         selectedSongList.clear();
+        
     }
     public  NeworModifyPlaylist(Playlist pl){//τροποποίηση
         initComponents();
@@ -42,6 +46,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             selectedSongList.add(song);
             availableSongList.remove(song);//βγάζει τα υπάρχοντα τραγουδια
         }
+       
     }
     private void checkButtons() {
         /* Έλεγχος των κουμπιών για ενεργοποίηση ή απενεργοποίηση */
@@ -50,6 +55,21 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         insertSongButton.setEnabled(selectedAvailableSongRow >= 0);
         deleteSelectedSongButton.setEnabled(selectedSelectedSongRow >= 0);
     } 
+    
+    //public List<Song> searchFilter(String searchField,List<Song> availableSongList){//δε δουλευει
+    //    List<Song> filteredList=new ArrayList();
+        
+    //    for(Song song1:availableSongList){
+            //String artistname=song1.getAlbumalbumId().getArtistartistId().getLastName();//null pointer
+            //String bandname=song1.getAlbumalbumId().getMusicGroupmusicGroupId().getName();
+    //        if(searchField.toLowerCase().contains(song1.getTitle().toLowerCase()))//||
+                    //searchField.toLowerCase().contains(artistname.toLowerCase())||
+                    //searchField.toLowerCase().contains(bandname.toLowerCase())){
+     //           filteredList.add(song1);
+     //       }
+     //   
+    //    return filteredList;
+    //}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,7 +92,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         save = new javax.swing.JButton();
         insertSongButton = new javax.swing.JButton();
         deleteSelectedSongButton = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        search = new javax.swing.JTextField();
         description = new javax.swing.JTextField();
         CreationDate = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -126,10 +146,16 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setText("Αναζήτηση");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        search.setText("Αναζητήστε τραγουδι από την παρακατω λίστα...");
+        search.setToolTipText("");
+        search.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchMouseClicked(evt);
+            }
+        });
+        search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                searchActionPerformed(evt);
             }
         });
 
@@ -179,10 +205,9 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${albumalbumId.musicGroupmusicGroupId.name}"));
         columnBinding.setColumnName("Συγκρότημα ");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ObjectProperty.create());
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${albumalbumId.artistartistId.lastName}"));
         columnBinding.setColumnName("Επώνυμο καλλιτέχνη");
-        columnBinding.setEditable(false);
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         selectedSongTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,6 +219,11 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         selectedSongTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         searchButton.setText("Αναζήτηση");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Λίστα Επιλεγμένων τραγουδιών");
 
@@ -219,9 +249,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(save))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancel)))
                 .addGap(330, 330, 330))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -229,8 +257,11 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(searchButton))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,18 +292,16 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(save)
                         .addGap(21, 21, 21)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(cancel))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(searchButton)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cancel)
                         .addGap(7, 7, 7)
                         .addComponent(jLabel5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,42 +333,50 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(CreationDate.getDate()==null||description.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθεί η περιγραφή και η ημερομηνία δημιουργίας της playlist", "ERROR", JOptionPane.ERROR_MESSAGE);
-        else{    
-            if(!modify){//νεα playlist
-                int id=generator.nextInt();
-                String name="Playlist"+String.valueOf(id);//τυχαιο ονομα-κλειδι
-                playlist=new Playlist(name);
-                //playlist.setName(name);
-                playlist.setDescription(description.getText());
-                playlist.setCreationDate(CreationDate.getDate());
-                playlist.setSongList(selectedSongList);
-                for(Song song:selectedSongList){                 
-                    song.getPlaylistList().add(playlist);
-                }
-                if(DBManager.addPlaylist(playlist)){
-                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
-                    //προσθηκη στον πινακα
-                    ListOfPlaylist.playlistList.add(playlist);
-                    dispose();
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
+        else{
+            int sum=0;//μιση ωρα=30min=1800 sec
+            for(Song song:selectedSongList){
+                sum=sum+song.getDuration();//προσθετω όλες τις δειαρκειες
             }
-            else{//τροποποίηση playlist
-                playlist.setDescription(description.getText());
-                playlist.setCreationDate(CreationDate.getDate());
-                //playlist.setSongList(selectedSongList);
-                if(modifyPL(playlist,selectedSongList)){
-                    if(modifyPlaylist(playlist)){
-                        ListOfPlaylist.playlistList.set(ListOfPlaylist.PlaylistTable.getSelectedRow(), playlist);
+            if (sum>=1800){//ειναι τουλαχιστον μιση ωρα ολα
+                if(!modify){//νεα playlist
+                    int id=generator.nextInt();
+                    String name="Playlist"+String.valueOf(id);//τυχαιο ονομα-κλειδι
+                    playlist=new Playlist(name);
+                    playlist.setDescription(description.getText());
+                    playlist.setCreationDate(CreationDate.getDate());
+                    playlist.setSongList(selectedSongList);
+                    for(Song song:selectedSongList){                 
+                        song.getPlaylistList().add(playlist);
+                    }
+                    if(DBManager.addPlaylist(playlist)){
                         JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                     //προσθηκη στον πινακα
+                        ListOfPlaylist.playlistList.add(playlist);
                         dispose();
                     }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                else{//τροποποίηση playlist
+                    playlist.setDescription(description.getText());
+                    playlist.setCreationDate(CreationDate.getDate());
+                    //playlist.setSongList(selectedSongList);
+                    if(modifyPL(playlist,selectedSongList)){
+                        if(modifyPlaylist(playlist)){
+                            ListOfPlaylist.playlistList.set(ListOfPlaylist.PlaylistTable.getSelectedRow(), playlist);
+                            JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                            dispose();
+                        }
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
 
+                }
+            }
+            else{
+                 JOptionPane.showMessageDialog(null,"Πρέπει η playlist να είναι διαρκειας τουλαχιστον μισης ώρας","",JOptionPane.WARNING_MESSAGE);
             }
         }
         checkButtons();
@@ -361,9 +398,9 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_insertSongButtonActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_searchActionPerformed
 
     private void descriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descriptionActionPerformed
         // TODO add your handling code here:
@@ -391,6 +428,21 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         insertSongButton.setEnabled(false);
         checkButtons();
     }//GEN-LAST:event_selectedSongTableMouseClicked
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+        List<Song> backup=new ArrayList<>(availableSongList);//κραταω αντιγραφο
+        //availableSongList=searchFilter(search.getText(),availableSongList);
+        
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
+        // TODO add your handling code here:
+        //οταν κλικαρει στο πεδιο πρεπει να επανερχεται
+        search.setText(null);
+        //availableSongList=searchFilter(search.getText(),availableSongList);
+        //επαναφερει τη λιστα
+    }//GEN-LAST:event_searchMouseClicked
 
     /**
      * @param args the command line arguments
@@ -442,9 +494,9 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField2;
     private javax.persistence.EntityManager radioDBv2PUEntityManager;
     private javax.swing.JButton save;
+    private javax.swing.JTextField search;
     private javax.swing.JButton searchButton;
     private java.util.List<pojos.Song> selectedSongList;
     private javax.swing.JTable selectedSongTable;
