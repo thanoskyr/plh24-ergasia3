@@ -3,7 +3,6 @@ package plh24ergasia3;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,9 +15,11 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import pojos.Playlist;
 import pojos.Song;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 
 public class XMLfile {
     
@@ -33,8 +34,30 @@ public class XMLfile {
         
     }
    
-     public synchronized void readXML (){}
-   
+     public synchronized void readXML (File xmlFile){
+     
+         try {
+
+	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	Document doc = dBuilder.parse(xmlFile);
+ 
+	
+	doc.getDocumentElement().normalize();
+ 
+	
+	NodeList nList = doc.getElementsByTagName("Όνομα");
+        
+        for (int i = 0; i< nList.getLength(); i++) {
+ 
+		Node nNode = nList.item(i);
+	}
+    } catch (Exception e) {
+	e.printStackTrace();
+    }
+  }
+ 
+
         
     public synchronized void writeXML (Playlist p,File xmlFile){
         
@@ -47,37 +70,34 @@ public class XMLfile {
             
             // root elements
             Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("root");
-            doc.appendChild(rootElement);
+            Element rootElement = doc.createElement("rootElement");
             
             
             //όνομα
-            Element name = doc.createElement("Όνομα");
-            name.appendChild(doc.createTextNode(String.format(p. getName())));
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(String.format(p.getName())));
             rootElement.appendChild(name);
             
-            Element description = doc.createElement("Περιγραφή");
-            description.appendChild(doc.createTextNode(String.format(p. getDescription())));
+            //περιραφή
+            Element description = doc.createElement("description");
+            description.appendChild(doc.createTextNode(String.format(p.getDescription())));
             rootElement.appendChild(description);
            
             // date elements
-            Element date = doc.createElement("Ημερομηνία");
-            date.appendChild(doc.createTextNode(df.format(p. getCreationDate())));
+            Element date = doc.createElement("date");
+            date.appendChild(doc.createTextNode(df.format(p.getCreationDate())));
             doc.appendChild(date);
             
             
-            
-            
-            // Τραγούδια της λίστας
-            Element Songplaylistlist = doc.createElement(("Λιστα"));
+            // Τραγούδια λίστας
+            Element Songplaylistlist = doc.createElement(("list"));
             rootElement.appendChild(Songplaylistlist);
-            //για κάθε τραγούδι της λίστας 
-                Playlist Playlist=new Playlist();
-            for (Song song : Playlist.getSongList()) {
-                Element songTitle = doc.createElement("Τίτλος");
+            
+           for (Song song : p.getSongList()) {
+                Element songTitle = doc.createElement("title");
                 songTitle.appendChild(doc.createTextNode(song.getTitle()));
                 Songplaylistlist.appendChild(songTitle);
-                Element songDuration = doc.createElement("Διάρκεια");
+                Element songDuration = doc.createElement("duration");
                 songDuration.appendChild(doc.createTextNode(Integer.toString(song.getDuration())));
                 Songplaylistlist.appendChild(songDuration);
                 

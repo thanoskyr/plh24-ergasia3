@@ -203,6 +203,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 
                 // Δημιουργία ενός ΧΜLfile
                 XMLfile xml = new XMLfile(XML);
+                
                 //καλούμε την writeXML
                 xml.writeXML(playlist,XML);
                 
@@ -267,8 +268,9 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 //Αρχείο
                 File XML = Jfile.getSelectedFile();
                
-                
-           
+                // Δημιουργία ενός ΧΜLfile
+                XMLfile xml = new XMLfile(XML);
+                xml.readXML(XML);
                 
             }
         } catch(Exception ex) { 
