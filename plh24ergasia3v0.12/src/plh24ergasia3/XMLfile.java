@@ -111,6 +111,7 @@ public class XMLfile {
             StreamResult result = new StreamResult(xmlFile);
             transformer.transform(source, result);
        
+        //exceptions
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(XMLfile.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerConfigurationException ex) {
