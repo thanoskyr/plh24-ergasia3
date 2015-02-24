@@ -51,7 +51,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
     }
     
     public boolean checkFields(){
-        if((!albumTitle.getText().isEmpty())&&(!albumNo.getText().isEmpty())&&(songList.size()>0)&&releaseDate!=null)
+        if((!albumTitle.getText().isEmpty())&&(!albumNo.getText().isEmpty())&&releaseDate!=null)
             if(selectedArtistRow>=0&&selectedCompanyRow>=0)
                 return true;
             else{
@@ -59,7 +59,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                 return false;
             }
         else{
-            JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθoύν όλα τα πεδία και να προστεθει τουλαχιστον ενα τραγούδι ", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθoύν όλα τα πεδία!", "ERROR", JOptionPane.ERROR_MESSAGE);
             return false; 
         }           
     }
@@ -357,6 +357,7 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
         // TODO add your handling code here:
         selectedArtistRow=artistTable.getSelectedRow();
         selectedCompanyRow=companyTable.getSelectedRow();
+        if(songList.size()>0){
         if(checkFields()==true){
             artist=artistList.get(artistTable.convertRowIndexToModel(selectedArtistRow));
             company=musicProductionCompanyList.get(companyTable.convertRowIndexToModel(selectedCompanyRow));
@@ -421,7 +422,11 @@ public class NewOrModifyArtistAlbum extends javax.swing.JFrame {
                         
             }
 
-        }       
+        }  
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Πρέπει να προστεθεί τουλάχιστον ένα τραγούδι!", "ERROR", JOptionPane.ERROR_MESSAGE);
+
     }//GEN-LAST:event_saveActionPerformed
 
     private void albumNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_albumNoActionPerformed

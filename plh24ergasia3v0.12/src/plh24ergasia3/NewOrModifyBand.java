@@ -275,8 +275,8 @@ public class NewOrModifyBand extends javax.swing.JFrame {
     }//GEN-LAST:event_insertButtonActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-        
-        if(!(groupName.getText().isEmpty())&&selectedArtistList.size()>1){
+    if(selectedArtistList.size()>1){
+        if(!(groupName.getText().isEmpty())){
             if(modify){//επεξεργασία συγκροτηματος 
                 band.setName(groupName.getText());
                 band.setFormationDate(formationDate.getDate());
@@ -317,7 +317,11 @@ public class NewOrModifyBand extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Πρέπει να επιλεγούν τουλάχιστον 2 καλλιτέχνες και να συμπληρωθεί το όνομα συγκροτήματος", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθεί το όνομα συγκροτήματος", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    else{
+            JOptionPane.showMessageDialog(null, "Πρέπει να επιλεγούν τουλάχιστον 2 καλλιτέχνες", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         checkButtons();
     }//GEN-LAST:event_SaveActionPerformed
