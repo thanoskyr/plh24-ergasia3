@@ -112,6 +112,11 @@ public class ListOfPlaylist extends javax.swing.JFrame {
         PlaylistTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton1.setText("Εισαγωγή λίστας από αρχείο XML");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,17 +177,17 @@ public class ListOfPlaylist extends javax.swing.JFrame {
 
     private void XMLexportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XMLexportActionPerformed
         // TODO add your handling code here:
-      // Ανάκτηση της επιλεγμένης λίστας
+       // Ανάκτηση λίστας
         selectedRow = PlaylistTable.getSelectedRow();
 
-        // Έλεγχος για το αν έχει επιλεχθεί λίστα
+        // Έλεγχος ν έχει επιλεχθεί λίστα
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Δεν έχει επιλεχθεί λίστα", "Σφάλμα",
                 JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Πάρε την επιλεγμένη λίστα
+        //λίστα
         playlist = playlistList.get(selectedRow);
         
         
@@ -198,6 +203,8 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 
                 // Δημιουργία ενός ΧΜLfile
                 XMLfile xml = new XMLfile(XML);
+                //καλούμε την writeXML
+                xml.writeXML(playlist,XML);
                 
                 // Εμφάνισε μήνυμα επιβεβαίωσης
                 JOptionPane.showMessageDialog(this, "Αποθήκευση", "Επιτυχής Αποθήκευση",
@@ -247,6 +254,29 @@ public class ListOfPlaylist extends javax.swing.JFrame {
             new NeworModifyPlaylist(playlist).setVisible(true);
         }
     }//GEN-LAST:event_EditPlaylistSongActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         try { 
+            // Eπιλογέας αρχείων για XML
+            JFileChooser Jfile = new JFileChooser();
+            
+            // Επιλογή xml
+            int chooser = Jfile.showOpenDialog(this);
+            if (chooser == JFileChooser.APPROVE_OPTION) { 
+                //Αρχείο
+                File XML = Jfile.getSelectedFile();
+               
+                
+           
+                
+            }
+        } catch(Exception ex) { 
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Σφάλμα",
+                                          JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
