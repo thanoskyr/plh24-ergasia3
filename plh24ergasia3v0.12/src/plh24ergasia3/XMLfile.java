@@ -10,9 +10,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
 import pojos.Playlist;
 import pojos.Song;
 import org.w3c.dom.Document;
@@ -45,7 +47,6 @@ public class XMLfile {
 	
 	doc.getDocumentElement().normalize();
  
-	
 	NodeList nList = doc.getElementsByTagName("Όνομα");
         
         for (int i = 0; i< nList.getLength(); i++) {
@@ -73,12 +74,12 @@ public class XMLfile {
             Element rootElement = doc.createElement("rootElement");
             
             
-            //όνομα
+            //name elements
             Element name = doc.createElement("name");
             name.appendChild(doc.createTextNode(String.format(p.getName())));
             rootElement.appendChild(name);
             
-            //περιραφή
+            //description elements
             Element description = doc.createElement("description");
             description.appendChild(doc.createTextNode(String.format(p.getDescription())));
             rootElement.appendChild(description);
@@ -108,12 +109,15 @@ public class XMLfile {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(xmlFile);
+            transformer.transform(source, result);
        
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(XMLfile.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerConfigurationException ex) {
          Logger.getLogger(XMLfile.class.getName()).log(Level.SEVERE, null, ex);
-     }
+     }  catch (TransformerException ex) {
+            Logger.getLogger(XMLfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
     }
 
