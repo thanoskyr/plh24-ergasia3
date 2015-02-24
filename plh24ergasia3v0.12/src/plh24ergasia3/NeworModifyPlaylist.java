@@ -23,6 +23,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
     int selectedAvailableSongRow, selectedSelectedSongRow;
     Random generator = new Random(); 
     List<Song> tempSongList;//θα χρειαστει στην αναζήτηση
+    
     /**
      * Creates new form NeworModifyPlaylist
      */
@@ -32,6 +33,8 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         modify=false;
         selectedSongList.clear();
         setTitle("ΠΡΟΣΘΗΚΗ PLAYLIST");
+        tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
+               
     }
     public  NeworModifyPlaylist(Playlist pl){//τροποποίηση
         initComponents();
@@ -46,7 +49,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             selectedSongList.add(song);
             availableSongList.remove(song);//βγάζει τα υπάρχοντα τραγουδια
         }
-       
+        tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
     }
     private void checkButtons() {
         /* Έλεγχος των κουμπιών για ενεργοποίηση ή απενεργοποίηση */
@@ -426,7 +429,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
+        //tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
         availableSongList.clear();
         for (Song song1 :tempSongList){
             
@@ -469,6 +472,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             //επαναφερει τη λιστα εκτος αυτων που εχουν επιλεγει
             }
         }
+    
     }//GEN-LAST:event_restoreAvailableSongListActionPerformed
 
     /**
