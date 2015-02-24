@@ -3,6 +3,7 @@ package plh24ergasia3;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -14,7 +15,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Attr;
 import pojos.Playlist;
 import pojos.Song;
 import org.w3c.dom.Document;
@@ -22,36 +22,36 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public class XMLfile {
     
     private final DateFormat df;
     private File xmlFile;
     
-
     public XMLfile(File xmlFile) {//constructor
         this.xmlFile = xmlFile;
         df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-       
+        
         
     }
    
      public synchronized void readXML (File xmlFile){
-     
+         //Ελλιπής κώδικας
          try {
 
-	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();;
 	Document doc = dBuilder.parse(xmlFile);
- 
-	
-	doc.getDocumentElement().normalize();
- 
-	NodeList nList = doc.getElementsByTagName("Όνομα");
         
-        for (int i = 0; i< nList.getLength(); i++) {
+        doc.getDocumentElement().normalize();
+
  
-		Node nNode = nList.item(i);
+	NodeList nList = doc.getElementsByTagName("name");
+        NodeList dList = doc.getElementsByTagName("description");
+        NodeList daList = doc.getElementsByTagName("date");
+        for (int i = 0; i< nList.getLength(); i++) {
+                Node nNode = nList.item(i);
+             if(nNode.getNodeType()== Node.ELEMENT_NODE){
+                 Element name=(Element) nNode;
+             }   
 	}
     } catch (Exception e) {
 	e.printStackTrace();
@@ -61,7 +61,7 @@ public class XMLfile {
 
         
     public synchronized void writeXML (Playlist p,File xmlFile){
-        
+        //παρόλο που φτιάχνεται ΧΜL αρχείο είναι κενό
         try {
             
             //Δημιουργία .ΧΜL
@@ -91,16 +91,16 @@ public class XMLfile {
             
             
             // Τραγούδια λίστας
-            Element Songplaylistlist = doc.createElement(("list"));
+            Element Songplaylistlist = doc.createElement(("songplaylistlist"));
             rootElement.appendChild(Songplaylistlist);
             
            for (Song song : p.getSongList()) {
-                Element songTitle = doc.createElement("title");
-                songTitle.appendChild(doc.createTextNode(song.getTitle()));
-                Songplaylistlist.appendChild(songTitle);
-                Element songDuration = doc.createElement("duration");
-                songDuration.appendChild(doc.createTextNode(Integer.toString(song.getDuration())));
-                Songplaylistlist.appendChild(songDuration);
+                Element title = doc.createElement("title");
+                title.appendChild(doc.createTextNode(song.getTitle()));
+                Songplaylistlist.appendChild(title);
+                Element duration = doc.createElement("duration");
+                duration.appendChild(doc.createTextNode(Integer.toString(song.getDuration())));
+                Songplaylistlist.appendChild(duration);
                 
             }
             

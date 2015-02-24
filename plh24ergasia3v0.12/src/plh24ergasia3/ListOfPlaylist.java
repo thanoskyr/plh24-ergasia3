@@ -208,7 +208,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 xml.writeXML(playlist,XML);
                 
                 // Εμφάνισε μήνυμα επιβεβαίωσης
-                JOptionPane.showMessageDialog(this, "Αποθήκευση", "Επιτυχής Αποθήκευση",
+                JOptionPane.showMessageDialog(this, "Επιτυχής Αποθήκευση", " Αποθήκευση",
                                           JOptionPane.INFORMATION_MESSAGE);
             }
         } catch(Exception ex) { 
