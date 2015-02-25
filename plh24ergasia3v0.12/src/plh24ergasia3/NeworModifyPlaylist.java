@@ -33,6 +33,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         modify=false;
         selectedSongList.clear();
         setTitle("ΠΡΟΣΘΗΚΗ PLAYLIST");
+        clearRubbishSongs();
         tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
                
     }
@@ -49,7 +50,19 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
             selectedSongList.add(song);
             availableSongList.remove(song);//βγάζει τα υπάρχοντα τραγουδια
         }
+        clearRubbishSongs();
         tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
+    }
+    
+    private void clearRubbishSongs(){
+        //καθαρίζει από "ορφανα" τραγούδια που δεν ανηκουν σε καποιο αλμπουμ
+        for(Song song:availableSongList)
+            if (song.getAlbumalbumId()==null)
+                if(DBManager.deleteSong(song))
+                    availableSongList.remove(song);
+                else
+                    JOptionPane.showMessageDialog(null,"Στη λίστα δισθέσιμων τραγουδιών περιέχονται τραγούδια που δεν ανηκου σε καποιο άλμπουμ","",JOptionPane.WARNING_MESSAGE);
+                    
     }
     private void checkButtons() {
         /* Έλεγχος των κουμπιών για ενεργοποίηση ή απενεργοποίηση */
