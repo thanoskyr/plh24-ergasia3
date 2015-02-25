@@ -8,9 +8,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import pojos.Playlist;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-import plh24ergasia3.XMLfile;
 
 
 /**
@@ -214,8 +211,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                                           JOptionPane.INFORMATION_MESSAGE);
             }
         } catch(Exception ex) { 
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Σφάλμα",
-                                          JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Αποτυχία εξαγωγής σε xml!", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
           
         
