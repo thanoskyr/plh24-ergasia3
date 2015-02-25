@@ -385,7 +385,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                 }
             }
             else{
-                 JOptionPane.showMessageDialog(null,"Πρέπει η playlist να είναι διαρκειας τουλαχιστον μισης ώρας","",JOptionPane.WARNING_MESSAGE);
+                 JOptionPane.showMessageDialog(null,"Πρέπει η playlist να είναι διαρκειας τουλαχιστον μισης ώρας","",JOptionPane.ERROR_MESSAGE);
             }
         }
         checkButtons();
