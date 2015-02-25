@@ -8,6 +8,9 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import pojos.Playlist;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
+import plh24ergasia3.XMLfile;
 
 
 /**
@@ -20,7 +23,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
      * Creates new form ListOfPlaylist
      */
     Playlist playlist;
-     int selectedRow;
+    int selectedRow;
     public ListOfPlaylist() {
         initComponents();
         selectedRow=-1;
@@ -187,9 +190,8 @@ public class ListOfPlaylist extends javax.swing.JFrame {
             return;
         }
 
-        //λίστα
-        playlist = playlistList.get(selectedRow);
-        
+        //επιλεγόμενη λίστα
+        playlist=playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
         
         try { 
             // Eπιλογέας αρχείων για XML

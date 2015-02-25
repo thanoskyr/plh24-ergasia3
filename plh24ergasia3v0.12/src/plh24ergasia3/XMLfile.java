@@ -15,6 +15,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
 import pojos.Playlist;
 import pojos.Song;
 import org.w3c.dom.Document;
@@ -72,27 +73,41 @@ public class XMLfile {
             // root elements
             Document doc = docBuilder.newDocument();
             Element rootElement = doc.createElement("rootElement");
+            doc.appendChild(rootElement);
             
+            Element root = doc.getDocumentElement();
             
+            Element playlist=doc.createElement("Playlist");
+            root.appendChild(playlist);
+            
+            // set attribute to purchase element
+                Attr attr = doc.createAttribute("name");
+                if (p.getName()==null){
+                    attr.setValue("");
+                    } else {
+                    attr.setValue(p.getName());
+                }
+                playlist.setAttributeNode(attr);
+                
             //name elements
-            Element name = doc.createElement("name");
-            name.appendChild(doc.createTextNode(String.format(p.getName())));
-            rootElement.appendChild(name);
+            //Element name = doc.createElement("name");
+            //name.appendChild(doc.createTextNode(p.getName().toString()));
+            //rootElement.appendChild(name);
             
             //description elements
             Element description = doc.createElement("description");
-            description.appendChild(doc.createTextNode(String.format(p.getDescription())));
-            rootElement.appendChild(description);
+            description.appendChild(doc.createTextNode(p.getDescription()));
+            playlist.appendChild(description);
            
             // date elements
             Element date = doc.createElement("date");
             date.appendChild(doc.createTextNode(df.format(p.getCreationDate())));
-            doc.appendChild(date);
+            playlist.appendChild(date);
             
             
             // Τραγούδια λίστας
             Element Songplaylistlist = doc.createElement(("songplaylistlist"));
-            rootElement.appendChild(Songplaylistlist);
+            playlist.appendChild(Songplaylistlist);
             
            for (Song song : p.getSongList()) {
                 Element title = doc.createElement("title");
@@ -102,6 +117,16 @@ public class XMLfile {
                 duration.appendChild(doc.createTextNode(Integer.toString(song.getDuration())));
                 Songplaylistlist.appendChild(duration);
                 
+                if(song.getAlbumalbumId().getMusicGroupmusicGroupId()!=null){ //τραγουδι συγκροτήματος       
+                    Element musicGroup=doc.createElement("musicGroup");
+                    musicGroup.appendChild(doc.createTextNode(song.getAlbumalbumId().getMusicGroupmusicGroupId().getName()));
+                    Songplaylistlist.appendChild(musicGroup);
+                }
+                else{//τραγουδι καλλιτέχνη
+                    Element artist=doc.createElement("artist");
+                    artist.appendChild(doc.createTextNode(song.getAlbumalbumId().getArtistartistId().getLastName()));
+                    Songplaylistlist.appendChild(artist);
+                }
             }
             
             // Copy  xml file
