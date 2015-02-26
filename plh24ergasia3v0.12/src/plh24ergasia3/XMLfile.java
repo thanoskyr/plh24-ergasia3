@@ -34,7 +34,22 @@ public class XMLfile {
         
         
     }
-   
+    
+    public synchronized Document readXmlDocument() {
+        Document document;
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            document = builder.parse(xmlFile);
+            //isNewDocument = false;
+            return document;
+        }catch (Exception e){
+            // File does not exist
+            //isNewDocument = true;
+            return null;
+        }
+    }
+     
      public synchronized void readXML (File xmlFile){
          //Ελλιπής κώδικας
          try {
@@ -89,10 +104,6 @@ public class XMLfile {
                 }
                 playlist.setAttributeNode(attr);
                 
-            //name elements
-            //Element name = doc.createElement("name");
-            //name.appendChild(doc.createTextNode(p.getName().toString()));
-            //rootElement.appendChild(name);
             
             //description elements
             Element description = doc.createElement("description");

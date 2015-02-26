@@ -6,7 +6,6 @@
 package plh24ergasia3;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.swing.JOptionPane;
 import static plh24ergasia3.DBManager.modifyPL;
 import pojos.*;
@@ -20,10 +19,9 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
     Playlist playlist;
     boolean modify;
     Song song;
-    int selectedAvailableSongRow, selectedSelectedSongRow;
-    Random generator = new Random(); 
+    int selectedAvailableSongRow, selectedSelectedSongRow; 
     List<Song> tempSongList;//θα χρειαστει στην αναζήτηση
-    
+    String name;//το ονομα της νέας playlist
     /**
      * Creates new form NeworModifyPlaylist
      */
@@ -35,7 +33,8 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         setTitle("ΠΡΟΣΘΗΚΗ PLAYLIST");
         clearRubbishSongs();
         tempSongList=new ArrayList<>(availableSongList);//αντιγραφο
-               
+        name=JOptionPane.showInputDialog( "Δώστε το όνομα της νέας playlist");
+            
     }
     public  NeworModifyPlaylist(Playlist pl){//τροποποίηση
         initComponents();
@@ -71,7 +70,16 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         insertSongButton.setEnabled(selectedAvailableSongRow >= 0);
         deleteSelectedSongButton.setEnabled(selectedSelectedSongRow >= 0);
     } 
-    
+    private boolean checkName(String name){
+        for(Playlist playlist1:ListOfPlaylist.playlistList){
+            if(playlist1.getName() == null ? name == null : playlist1.getName().equals(name)){//αν υπάρχει playlist με το ιδιο όνομα
+                JOptionPane.showMessageDialog(null, "Υπάρχει ήδη λίστα με το ίδιο όνομα!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                dispose();
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -337,9 +345,9 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_cancelActionPerformed
-
+    
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        // TODO add your handling code here:
+    if(checkName(name)){
         if(CreationDate.getDate()==null||description.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Πρέπει να συμπληρωθεί η περιγραφή και η ημερομηνία δημιουργίας της playlist", "ERROR", JOptionPane.ERROR_MESSAGE);
         else{
@@ -348,9 +356,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                 sum=sum+song.getDuration();//προσθετω όλες τις δειαρκειες
             }
             if (sum>=1800){//ειναι τουλαχιστον μιση ωρα ολα
-                if(!modify){//νεα playlist
-                    int id=generator.nextInt();
-                    String name="Playlist"+String.valueOf(id);//τυχαιο ονομα-κλειδι
+                if(!modify){//νεα playlist              
                     playlist=new Playlist(name);
                     playlist.setDescription(description.getText());
                     playlist.setCreationDate(CreationDate.getDate());
@@ -359,7 +365,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                         song.getPlaylistList().add(playlist);
                     }
                     if(DBManager.addPlaylist(playlist)){
-                        JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                        JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
                      //προσθηκη στον πινακα
                         ListOfPlaylist.playlistList.add(playlist);
                         dispose();
@@ -375,7 +381,7 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                     if(modifyPL(playlist,selectedSongList)){
                         if(modifyPlaylist(playlist)){
                             ListOfPlaylist.playlistList.set(ListOfPlaylist.PlaylistTable.getSelectedRow(), playlist);
-                            JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                            JOptionPane.showMessageDialog(null, "Επιτυχής ενημέρωση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
                             dispose();
                         }
                     }
@@ -388,7 +394,9 @@ public class NeworModifyPlaylist extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(null,"Πρέπει η playlist να είναι διαρκειας τουλαχιστον μισης ώρας","",JOptionPane.ERROR_MESSAGE);
             }
         }
+    
         checkButtons();
+        }
     }//GEN-LAST:event_saveActionPerformed
 
     private void insertSongButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertSongButtonActionPerformed
