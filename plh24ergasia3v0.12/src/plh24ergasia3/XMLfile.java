@@ -77,7 +77,7 @@ public class XMLfile {
 
         
     public synchronized void writeXML (Playlist p,File xmlFile){
-        //παρόλο που φτιάχνεται ΧΜL αρχείο είναι κενό
+        //δουλευει
         try {
             
             //Δημιουργία .ΧΜL
@@ -85,15 +85,12 @@ public class XMLfile {
             DocumentBuilder docBuilder;
             docBuilder = docFactory.newDocumentBuilder();
             
-            // root elements
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("rootElement");
-            doc.appendChild(rootElement);
             
-            Element root = doc.getDocumentElement();
+            Document doc = docBuilder.newDocument();
+         
             
             Element playlist=doc.createElement("Playlist");
-            root.appendChild(playlist);
+            doc.appendChild(playlist);
             
             // set attribute to purchase element
                 Attr attr = doc.createAttribute("name");
