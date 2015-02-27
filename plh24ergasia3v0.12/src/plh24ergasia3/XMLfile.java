@@ -62,54 +62,6 @@ public class XMLfile {
 	e.printStackTrace();
     }
   }
-    public synchronized void XMLtoPlaylist(File file){
-            Playlist p=new Playlist("random666");//τυχαιο όνομα
-        try{
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(file);
-            doc.getDocumentElement().normalize();
-            System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
-            NodeList listOfPlaylist = doc.getElementsByTagName("Playlist");
-                //for(int s=0; s<listOfPlaylist.getLength() ; s++){//στην περιπτωση μας η λιστα εχει μέγεθος 1
-                Node PlaylistNode = doc.getDocumentElement().getFirstChild();//ο κομβος της playlist μας
-                if(PlaylistNode.getNodeType() == Node.ELEMENT_NODE){
-                        
-                    Node description = PlaylistNode.getFirstChild();
-                    Element descriptionElement = (Element)description;
-
-                    Node textDescription = descriptionElement.getFirstChild();
-                    System.out.println("Despription : " + 
-                           ((Node)textDescription).getNodeValue().trim());
-                    p.setDescription(((Node)textDescription).getNodeValue().trim());
-                    //-------
-                    Node date = description.getNextSibling();
-                    Element dateElement = (Element)date;
-
-                    Node textDate = dateElement.getFirstChild();
-                    System.out.println("Creation Date : " + 
-                           ((Node)textDate).getNodeValue().trim());
-                    p.setCreationDate(df.parse(textDate.getNodeValue().trim()));
-                    
-                  
-                       
-                    Node songList = PlaylistNode.getLastChild();
-                    Element songListElement = (Element)songList;
-                        
-                    Node textsongsList = songListElement.getFirstChild();
-                        //System.out.println("songs " +  ((Node)textsongsList).getNodeValue().trim());
-                    
-                    //NodeList songs=songListElement.getElementsByTagName("title");
-                    //for(int s=0; s<listOfPlaylist.getLength() ; s++){
-                    
-
-                        //}
-                }//end of if clause
-        }
-        catch(ParserConfigurationException | SAXException | IOException | DOMException | ParseException e){
-            
-        }
-    }
 
         
     public synchronized void writeXML (Playlist p,File xmlFile){

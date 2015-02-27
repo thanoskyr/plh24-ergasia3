@@ -386,13 +386,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
      catch(HeadlessException | DOMException ex) { 
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Σφάλμα",
                                           JOptionPane.ERROR_MESSAGE);
-     }  catch (ParserConfigurationException ex) { 
-            Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+     }  catch (ParserConfigurationException | SAXException | IOException | ParseException ex) {
             Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
         } 
 
