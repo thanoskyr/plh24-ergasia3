@@ -291,10 +291,8 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 
             // Δημιουργία ενός ΧΜLfile
             XMLfile xml = new XMLfile(XML);
-            //xml.XMLtoPlaylist(XML);
-            //xml.readXML(XML);
-                
-            
+         
+           //Δεν δουλεύει
         
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -366,19 +364,19 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 }      
                    
                         
-            }
-            //if(DBManager.addPlaylist(playlist)){
-            //    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+            }//Λάθος στην εισαγωγή
+         /*   if(DBManager.addPlaylist(playlist)){
+               JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
                 //προσθηκη στον πινακα
-            //    playlistList.add(playlist);
-                        //dispose();
-            //}
-            //else {
-            //    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            //} 
-       }
+                playlistList.add(playlist);
+                        dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+       }*/
         
-       
+        }
                 
                 
             

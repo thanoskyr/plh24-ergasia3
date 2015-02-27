@@ -1,9 +1,7 @@
 package plh24ergasia3;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,14 +15,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
-import org.w3c.dom.DOMException;
 import pojos.Playlist;
 import pojos.Song;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class XMLfile {
     
@@ -38,34 +32,9 @@ public class XMLfile {
         
     }
     
-     
-     public synchronized void readXML (File xmlFile){
-         //Ελλιπής κώδικας
-         try {
-
-	DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();;
-	Document doc = dBuilder.parse(xmlFile);
-        
-        doc.getDocumentElement().normalize();
-
- 
-	NodeList nList = doc.getElementsByTagName("name");
-        NodeList dList = doc.getElementsByTagName("description");
-        NodeList daList = doc.getElementsByTagName("date");
-        for (int i = 0; i< nList.getLength(); i++) {
-                Node nNode = nList.item(i);
-             if(nNode.getNodeType()== Node.ELEMENT_NODE){
-                 Element name=(Element) nNode;
-             }   
-	}
-    } catch (Exception e) {
-	e.printStackTrace();
-    }
-  }
-
-        
+      
     public synchronized void writeXML (Playlist p,File xmlFile){
-        //δουλεύει
+       
         try {
             
             //Δημιουργία .ΧΜL
@@ -73,13 +42,8 @@ public class XMLfile {
             DocumentBuilder docBuilder;
             docBuilder = docFactory.newDocumentBuilder();
             
-            // root elements
+           
             Document doc = docBuilder.newDocument();
-        //    Element rootElement = doc.createElement("Playlists");
-        //    doc.appendChild(rootElement);
-            
-            //Element root = doc.getDocumentElement();
-            
             Element playlist=doc.createElement("Playlist");
             doc.appendChild(playlist);
             
