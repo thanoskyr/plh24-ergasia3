@@ -1,9 +1,10 @@
 package plh24ergasia3;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,12 +17,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
+import org.w3c.dom.DOMException;
 import pojos.Playlist;
 import pojos.Song;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class XMLfile {
     
@@ -35,20 +38,6 @@ public class XMLfile {
         
     }
     
-    public synchronized Document readXmlDocument() {
-        Document document;
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            document = builder.parse(xmlFile);
-            //isNewDocument = false;
-            return document;
-        }catch (Exception e){
-            // File does not exist
-            //isNewDocument = true;
-            return null;
-        }
-    }
      
      public synchronized void readXML (File xmlFile){
          //Ελλιπής κώδικας
@@ -73,11 +62,58 @@ public class XMLfile {
 	e.printStackTrace();
     }
   }
- 
+    public synchronized void XMLtoPlaylist(File file){
+            Playlist p=new Playlist("random666");//τυχαιο όνομα
+        try{
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(file);
+            doc.getDocumentElement().normalize();
+            System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+            NodeList listOfPlaylist = doc.getElementsByTagName("Playlist");
+                //for(int s=0; s<listOfPlaylist.getLength() ; s++){//στην περιπτωση μας η λιστα εχει μέγεθος 1
+                Node PlaylistNode = doc.getDocumentElement().getFirstChild();//ο κομβος της playlist μας
+                if(PlaylistNode.getNodeType() == Node.ELEMENT_NODE){
+                        
+                    Node description = PlaylistNode.getFirstChild();
+                    Element descriptionElement = (Element)description;
+
+                    Node textDescription = descriptionElement.getFirstChild();
+                    System.out.println("Despription : " + 
+                           ((Node)textDescription).getNodeValue().trim());
+                    p.setDescription(((Node)textDescription).getNodeValue().trim());
+                    //-------
+                    Node date = description.getNextSibling();
+                    Element dateElement = (Element)date;
+
+                    Node textDate = dateElement.getFirstChild();
+                    System.out.println("Creation Date : " + 
+                           ((Node)textDate).getNodeValue().trim());
+                    p.setCreationDate(df.parse(textDate.getNodeValue().trim()));
+                    
+                  
+                       
+                    Node songList = PlaylistNode.getLastChild();
+                    Element songListElement = (Element)songList;
+                        
+                    Node textsongsList = songListElement.getFirstChild();
+                        //System.out.println("songs " +  ((Node)textsongsList).getNodeValue().trim());
+                    
+                    //NodeList songs=songListElement.getElementsByTagName("title");
+                    //for(int s=0; s<listOfPlaylist.getLength() ; s++){
+                    
+
+                        //}
+                }//end of if clause
+        }
+        catch(ParserConfigurationException | SAXException | IOException | DOMException | ParseException e){
+            
+        }
+    }
 
         
     public synchronized void writeXML (Playlist p,File xmlFile){
-        //δουλευει
+        //δουλεύει
         try {
             
             //Δημιουργία .ΧΜL
@@ -85,14 +121,17 @@ public class XMLfile {
             DocumentBuilder docBuilder;
             docBuilder = docFactory.newDocumentBuilder();
             
-            
+            // root elements
             Document doc = docBuilder.newDocument();
-         
+        //    Element rootElement = doc.createElement("Playlists");
+        //    doc.appendChild(rootElement);
+            
+            //Element root = doc.getDocumentElement();
             
             Element playlist=doc.createElement("Playlist");
             doc.appendChild(playlist);
             
-            // set attribute to purchase element
+            // set attribute to playlist element
                 Attr attr = doc.createAttribute("name");
                 if (p.getName()==null){
                     attr.setValue("");
@@ -114,27 +153,37 @@ public class XMLfile {
             
             
             // Τραγούδια λίστας
-            Element Songplaylistlist = doc.createElement(("songplaylistlist"));
-            playlist.appendChild(Songplaylistlist);
+            Element songplaylist = doc.createElement(("songsOfPlaylist"));
+            playlist.appendChild(songplaylist);
             
            for (Song song : p.getSongList()) {
+                Element songElement=doc.createElement("song");
+                //songId.appendChild(doc.createTextNode(Integer.toString(song.getSongId())));
+                songplaylist.appendChild(songElement);
+                
                 Element title = doc.createElement("title");
                 title.appendChild(doc.createTextNode(song.getTitle()));
-                Songplaylistlist.appendChild(title);
+                songElement.appendChild(title);
+                
                 Element duration = doc.createElement("duration");
                 duration.appendChild(doc.createTextNode(Integer.toString(song.getDuration())));
-                Songplaylistlist.appendChild(duration);
-                
-                if(song.getAlbumalbumId().getMusicGroupmusicGroupId()!=null){ //τραγουδι συγκροτήματος       
-                    Element musicGroup=doc.createElement("musicGroup");
+                songElement.appendChild(duration);
+                      
+                Element musicGroup=doc.createElement("musicGroup");
+                Element artist=doc.createElement("artist");
+                if(song.getAlbumalbumId().getMusicGroupmusicGroupId()!=null){ //τραγουδι συγκροτήματος
                     musicGroup.appendChild(doc.createTextNode(song.getAlbumalbumId().getMusicGroupmusicGroupId().getName()));
-                    Songplaylistlist.appendChild(musicGroup);
+                    artist.appendChild(doc.createTextNode("-"));
                 }
-                else{//τραγουδι καλλιτέχνη
-                    Element artist=doc.createElement("artist");
+                else{ //τραγουδι καλλιτέχνη {
+                    musicGroup.appendChild(doc.createTextNode("-"));
                     artist.appendChild(doc.createTextNode(song.getAlbumalbumId().getArtistartistId().getLastName()));
-                    Songplaylistlist.appendChild(artist);
-                }
+                        
+                        }   
+                songElement.appendChild(musicGroup);
+                songElement.appendChild(artist);
+   
+                
             }
             
             // Copy  xml file
@@ -160,7 +209,4 @@ public class XMLfile {
         
 
        
-
-    
-    
     

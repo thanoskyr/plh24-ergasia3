@@ -82,11 +82,11 @@ public class Playlist implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
     public Date getCreationDate() {
         return creationDate;
     }
-
+    
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }

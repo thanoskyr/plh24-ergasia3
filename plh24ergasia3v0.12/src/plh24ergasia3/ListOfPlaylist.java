@@ -4,10 +4,29 @@
  * and open the template in the editor.
  */
 package plh24ergasia3;
+import java.awt.HeadlessException;
 import java.io.File;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import pojos.Playlist;
+import pojos.Song;
 
 
 /**
@@ -21,9 +40,11 @@ public class ListOfPlaylist extends javax.swing.JFrame {
      */
     Playlist playlist;
     int selectedRow;
+    private final DateFormat df;
     public ListOfPlaylist() {
         initComponents();
         selectedRow=-1;
+        df=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     }
     
     /**
@@ -226,7 +247,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
 
     private void DeletePlaylistSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePlaylistSongActionPerformed
         // TODO add your handling code here:
-             selectedRow = PlaylistTable.getSelectedRow();
+        selectedRow = PlaylistTable.getSelectedRow();
         playlist=playlistList.get(PlaylistTable.convertRowIndexToModel(selectedRow));
         
          int choice = JOptionPane.showConfirmDialog(null, "Θα διαγραφει η playlist " + playlist.getName() +  "!", "",JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -255,29 +276,129 @@ public class ListOfPlaylist extends javax.swing.JFrame {
     }//GEN-LAST:event_EditPlaylistSongActionPerformed
 
     private void importFromXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importFromXMLActionPerformed
-        // TODO add your handling code here:
-         try { 
-            // Eπιλογέας αρχείων για XML
-            JFileChooser Jfile = new JFileChooser();
+           
+    try { 
+        // Eπιλογέας αρχείων για XML
+        JFileChooser Jfile = new JFileChooser();
             
-            // Επιλογή xml
-            int chooser = Jfile.showOpenDialog(this);
-            if (chooser == JFileChooser.APPROVE_OPTION) { 
+        // Επιλογή xml
+        int chooser = Jfile.showOpenDialog(this);
+        if (chooser == JFileChooser.APPROVE_OPTION) { 
                 //Αρχείο
-                File XML = Jfile.getSelectedFile();
-               
-                // Δημιουργία ενός ΧΜLfile
-                XMLfile xml = new XMLfile(XML);
-                xml.readXML(XML);
+            File XML = Jfile.getSelectedFile();//το αρχειo
                 
+                
+                
+            // Δημιουργία ενός ΧΜLfile
+            XMLfile xml = new XMLfile(XML);
+            //xml.XMLtoPlaylist(XML);
+            //xml.readXML(XML);
+                
+            
+        
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(XML);
+            doc.getDocumentElement().normalize();
+            System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+            String playlistName=doc.getDocumentElement().getAttribute("name");
+            Playlist p=new Playlist(playlistName); //δημιουργια playlist
+            Node playlistNode = doc.getDocumentElement();//ο κομβος της playlist μας
+            if(playlistNode.getNodeType() == Node.ELEMENT_NODE){
+                        
+                Node description = playlistNode.getFirstChild();
+                Element descriptionElement = (Element)description;
+
+                Node textDescription = descriptionElement.getFirstChild();
+                System.out.println("Despription : " + 
+                           ((Node)textDescription).getNodeValue().trim());
+                p.setDescription(((Node)textDescription).getNodeValue().trim());
+                    //-------
+                Node date = description.getNextSibling();
+                Element dateElement = (Element)date;
+
+                Node textDate = dateElement.getFirstChild();
+                System.out.println("Creation Date : " + 
+                          ((Node)textDate).getNodeValue().trim());
+                p.setCreationDate(df.parse(((Node)textDate).getNodeValue().trim()));
+                
+                NodeList songsList=doc.getElementsByTagName("song");
+                int totalSongs = songsList.getLength();
+                System.out.println("Total no of songs : " + totalSongs);
+                List<Song> tempSongList=new ArrayList<>();
+                for(int s=0; s<songsList.getLength() ; s++){ 
+                    Song tempSong=new Song();
+                    
+                    Node firstSongNode = songsList.item(s);
+                    Element firstSongElement = (Element)firstSongNode;
+                    
+                    NodeList songList=firstSongElement.getElementsByTagName("song");
+                    
+                    NodeList titleList = firstSongElement.getElementsByTagName("title");
+                    Element titleElement = (Element)titleList.item(0);
+                    
+                    NodeList textTitleList = titleElement.getChildNodes();
+                    System.out.println("Title : " + 
+                           ((Node)textTitleList.item(0)).getNodeValue().trim());
+                    tempSong.setTitle(((Node)textTitleList.item(0)).getNodeValue().trim());
+                    
+                    NodeList durationList = firstSongElement.getElementsByTagName("duration");
+                    Element durationElement = (Element)durationList.item(0);
+                    //int tempDuration=Integer.parseInt(durationElement.getTextContent());
+                    NodeList textDfList = durationElement.getChildNodes();
+                    System.out.println("Duration : " + 
+                           ((Node)textDfList.item(0)).getNodeValue().trim());
+                    
+                    NodeList bandList = firstSongElement.getElementsByTagName("musicGroup");
+                    Element bandElement = (Element)bandList.item(0);
+                    
+                    NodeList textbandList = bandElement.getChildNodes();
+                    System.out.println("Band : " + 
+                           ((Node)textbandList.item(0)).getNodeValue().trim());
+                    
+                    NodeList artistList = firstSongElement.getElementsByTagName("artist");
+                    Element artistElement = (Element)artistList.item(0);
+                    
+                    NodeList textartistList = artistElement.getChildNodes();
+                    System.out.println("artist : " + 
+                           ((Node)textartistList.item(0)).getNodeValue().trim());
+                    
+                }      
+                   
+                        
             }
-        } catch(Exception ex) { 
+            //if(DBManager.addPlaylist(playlist)){
+            //    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                //προσθηκη στον πινακα
+            //    playlistList.add(playlist);
+                        //dispose();
+            //}
+            //else {
+            //    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            //} 
+       }
+        
+       
+                
+                
+            
+    }        
+     catch(HeadlessException | DOMException ex) { 
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Σφάλμα",
-                                          JOptionPane.WARNING_MESSAGE);
-        }
+                                          JOptionPane.ERROR_MESSAGE);
+     }  catch (ParserConfigurationException ex) { 
+            Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ListOfPlaylist.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
         
     }//GEN-LAST:event_importFromXMLActionPerformed
-
+         
     /**
      * @param args the command line arguments
      */
