@@ -285,19 +285,14 @@ public class ListOfPlaylist extends javax.swing.JFrame {
         int chooser = Jfile.showOpenDialog(this);
         if (chooser == JFileChooser.APPROVE_OPTION) { 
                 //Αρχείο
-            File XML = Jfile.getSelectedFile();//το αρχειo
-                
-                
-            // Δημιουργία ενός ΧΜLfile
-            XMLfile xml = new XMLfile(XML);
-         
-           //Δεν δουλεύει
+            File XML = Jfile.getSelectedFile();
+                      
         
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(XML);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
+            
             String playlistName=doc.getDocumentElement().getAttribute("name");
             
             Playlist p=new Playlist(playlistName); //δημιουργια playlist
@@ -307,22 +302,17 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 Node description = playlistNode.getFirstChild();
                 Element descriptionElement = (Element)description;
 
-                Node textDescription = descriptionElement.getFirstChild();
-                System.out.println("Despription : " + 
-                           ((Node)textDescription).getNodeValue().trim());
-                p.setDescription(((Node)textDescription).getNodeValue().trim());
+                p.setDescription(descriptionElement.getTextContent());
+                
                     
                 Node date = description.getNextSibling();
                 Element dateElement = (Element)date;
 
-                Node textDate = dateElement.getFirstChild();
-                System.out.println("Creation Date : " + 
-                          ((Node)textDate).getNodeValue().trim());
-                p.setCreationDate(df.parse(((Node)textDate).getNodeValue().trim()));
+                p.setCreationDate(df.parse(dateElement.getTextContent()));
+                
                 
                 NodeList songsList=doc.getElementsByTagName("song");
-                int totalSongs = songsList.getLength();
-                System.out.println("Total no of songs : " + totalSongs);
+                                
                 List<Song> tempSongList=new ArrayList<>();
                 Song tempSong;
                 String tempTitle;
@@ -331,54 +321,33 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                     Node firstSongNode = songsList.item(s);
                     Element firstSongElement = (Element)firstSongNode;
                     
-                    //NodeList songList=firstSongElement.getElementsByTagName("song");
                     
                     NodeList titleList = firstSongElement.getElementsByTagName("title");
                     Element titleElement = (Element)titleList.item(0);
 
-                /*    NodeList textTitleList = titleElement.getChildNodes();
-                    System.out.println("Title : " + 
-                           ((Node)textTitleList.item(0)).getNodeValue().trim());*/
                     tempTitle=titleElement.getTextContent();
                     tempSong=DBManager.songQuery(tempTitle);
                     tempSongList.add(tempSong);//σε καθε επαναληψη προσθετουμε στη λίστα τα τραγούδια
                     
                     
-                /*    NodeList durationList = firstSongElement.getElementsByTagName("duration");
-                    Element durationElement = (Element)durationList.item(0);
-
-                    NodeList textDfList = durationElement.getChildNodes();
-                    System.out.println("Duration : " + 
-                           ((Node)textDfList.item(0)).getNodeValue().trim());
-                    
-                    NodeList bandList = firstSongElement.getElementsByTagName("musicGroup");
-                    Element bandElement = (Element)bandList.item(0);
-                    
-                    NodeList textbandList = bandElement.getChildNodes();
-                    System.out.println("Music Group : " + 
-                           ((Node)textbandList.item(0)).getNodeValue().trim());
-                    
-                    NodeList artistList = firstSongElement.getElementsByTagName("artist");
-                    Element artistElement = (Element)artistList.item(0);
-                    
-                    NodeList textartistList = artistElement.getChildNodes();
-                    System.out.println("artist : " + 
-                           ((Node)textartistList.item(0)).getNodeValue().trim());*/
                     
                 }      
                 p.setSongList(tempSongList);//συνδυάζουμε την παραπανω temsongList με τη νεα playlist
                 for(Song song:tempSongList){                 
                         song.getPlaylistList().add(p);
                     }
-                if(DBManager.addPlaylist(p)){
-                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
-                     //προσθηκη στον πινακα
-                    playlistList.add(p);
+                if(!playlistList.contains(p)){                    
+                    if(DBManager.addPlaylist(p)){
+                        //προσθηκη στον πινακα
+                        playlistList.add(p);
+                        JOptionPane.showMessageDialog(null, "Επιτυχής εισαγωγή λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                                              
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                else {
-                    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
-                        
+                else
+                    JOptionPane.showMessageDialog(null, "Η λίστα τραγουδιών υπάρχει ήδη στη ΒΔ!", "ERROR", JOptionPane.WARNING_MESSAGE);
             }
          
         
