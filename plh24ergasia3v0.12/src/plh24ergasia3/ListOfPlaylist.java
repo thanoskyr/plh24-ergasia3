@@ -288,7 +288,6 @@ public class ListOfPlaylist extends javax.swing.JFrame {
             File XML = Jfile.getSelectedFile();//το αρχειo
                 
                 
-                
             // Δημιουργία ενός ΧΜLfile
             XMLfile xml = new XMLfile(XML);
          
@@ -300,6 +299,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
             doc.getDocumentElement().normalize();
             System.out.println("Root element of the doc is " + doc.getDocumentElement().getNodeName());
             String playlistName=doc.getDocumentElement().getAttribute("name");
+            
             Playlist p=new Playlist(playlistName); //δημιουργια playlist
             Node playlistNode = doc.getDocumentElement();//ο κομβος της playlist μας
             if(playlistNode.getNodeType() == Node.ELEMENT_NODE){
@@ -311,7 +311,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 System.out.println("Despription : " + 
                            ((Node)textDescription).getNodeValue().trim());
                 p.setDescription(((Node)textDescription).getNodeValue().trim());
-                    //-------
+                    
                 Node date = description.getNextSibling();
                 Element dateElement = (Element)date;
 
@@ -324,25 +324,29 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                 int totalSongs = songsList.getLength();
                 System.out.println("Total no of songs : " + totalSongs);
                 List<Song> tempSongList=new ArrayList<>();
+                Song tempSong;
+                String tempTitle;
                 for(int s=0; s<songsList.getLength() ; s++){ 
-                    Song tempSong=new Song();
                     
                     Node firstSongNode = songsList.item(s);
                     Element firstSongElement = (Element)firstSongNode;
                     
-                    NodeList songList=firstSongElement.getElementsByTagName("song");
+                    //NodeList songList=firstSongElement.getElementsByTagName("song");
                     
                     NodeList titleList = firstSongElement.getElementsByTagName("title");
                     Element titleElement = (Element)titleList.item(0);
-                    
-                    NodeList textTitleList = titleElement.getChildNodes();
+
+                /*    NodeList textTitleList = titleElement.getChildNodes();
                     System.out.println("Title : " + 
-                           ((Node)textTitleList.item(0)).getNodeValue().trim());
-                    tempSong.setTitle(((Node)textTitleList.item(0)).getNodeValue().trim());
+                           ((Node)textTitleList.item(0)).getNodeValue().trim());*/
+                    tempTitle=titleElement.getTextContent();
+                    tempSong=DBManager.songQuery(tempTitle);
+                    tempSongList.add(tempSong);//σε καθε επαναληψη προσθετουμε στη λίστα τα τραγούδια
                     
-                    NodeList durationList = firstSongElement.getElementsByTagName("duration");
+                    
+                /*    NodeList durationList = firstSongElement.getElementsByTagName("duration");
                     Element durationElement = (Element)durationList.item(0);
-                    //int tempDuration=Integer.parseInt(durationElement.getTextContent());
+
                     NodeList textDfList = durationElement.getChildNodes();
                     System.out.println("Duration : " + 
                            ((Node)textDfList.item(0)).getNodeValue().trim());
@@ -351,7 +355,7 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                     Element bandElement = (Element)bandList.item(0);
                     
                     NodeList textbandList = bandElement.getChildNodes();
-                    System.out.println("Band : " + 
+                    System.out.println("Music Group : " + 
                            ((Node)textbandList.item(0)).getNodeValue().trim());
                     
                     NodeList artistList = firstSongElement.getElementsByTagName("artist");
@@ -359,22 +363,24 @@ public class ListOfPlaylist extends javax.swing.JFrame {
                     
                     NodeList textartistList = artistElement.getChildNodes();
                     System.out.println("artist : " + 
-                           ((Node)textartistList.item(0)).getNodeValue().trim());
+                           ((Node)textartistList.item(0)).getNodeValue().trim());*/
                     
                 }      
-                   
+                p.setSongList(tempSongList);//συνδυάζουμε την παραπανω temsongList με τη νεα playlist
+                for(Song song:tempSongList){                 
+                        song.getPlaylistList().add(p);
+                    }
+                if(DBManager.addPlaylist(p)){
+                    JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
+                     //προσθηκη στον πινακα
+                    playlistList.add(p);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
                         
-            }//Λάθος στην εισαγωγή
-         /*   if(DBManager.addPlaylist(playlist)){
-               JOptionPane.showMessageDialog(null, "Επιτυχής αποθήκευση λίστας τραγουδιών " , "SUCCESSFUL", JOptionPane.INFORMATION_MESSAGE);                                           
-                //προσθηκη στον πινακα
-                playlistList.add(playlist);
-                        dispose();
             }
-            else {
-                JOptionPane.showMessageDialog(null, "Σφάλμα επικοινωνίας με τη ΒΔ!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } 
-       }*/
+         
         
         }
                 

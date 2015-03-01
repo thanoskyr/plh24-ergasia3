@@ -456,6 +456,13 @@ public class DBManager {
         return false;
     }
 }
+ 
+ public static Song songQuery(String name){//παιρνει εισοδο τον τιτλο και επιστρέφει το αντικειμενο τραγούδι
+     TypedQuery<Song> query;
+     query=em.createNamedQuery("Song.findByTitle",Song.class);
+     query.setParameter("title", name);
+     return query.getSingleResult();
+ }
     
      
 }
