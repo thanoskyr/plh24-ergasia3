@@ -11,7 +11,6 @@ package plh24ergasia3;
  */
 import javax.swing.JOptionPane;
 import pojos.MusicGroup;
-import plh24ergasia3.DBManager;
 public class ListOfBands extends javax.swing.JFrame {
     
     int selectedRow;

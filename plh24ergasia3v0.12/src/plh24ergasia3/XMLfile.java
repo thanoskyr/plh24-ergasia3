@@ -23,7 +23,7 @@ import org.w3c.dom.Element;
 public class XMLfile {
     
     private final DateFormat df;
-    private File xmlFile;
+    private final File xmlFile;
     
     public XMLfile(File xmlFile) {//constructor
         this.xmlFile = xmlFile;
@@ -44,7 +44,7 @@ public class XMLfile {
             
            
             Document doc = docBuilder.newDocument();
-            Element playlist=doc.createElement("Playlist");
+            Element playlist=doc.createElement("playlist");
             doc.appendChild(playlist);
             
             // set attribute to playlist element

@@ -11,10 +11,7 @@ package plh24ergasia3;
 import javax.persistence.*;
 import pojos.*;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JOptionPane;
-import plh24ergasia3.NewOrModifyBand.*;
 
 public class DBManager {
     
